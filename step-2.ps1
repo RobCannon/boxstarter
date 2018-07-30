@@ -29,6 +29,7 @@ choco install -y docker-for-windows
 Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Docker for Windows.lnk' } | Remove-Item
 choco install -y python
 Update-SessionEnvironment
+python -m pip install --upgrade pip
 
 
 # Setup synced .kube settings folder from One Drive
@@ -38,12 +39,10 @@ New-Item -Path "$env:USERPROFILE\.kube" -ItemType SymbolicLink -Value "$env:USER
 
 choco install -y mongodb.install
 Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'MongoDB Compass Community.lnk' } | Remove-Item
+
+#--- Cloud CLI Tools ---
 choco install -y kubernetes-cli
 choco install -y terraform
-
-
-
-
 choco install -y awscli
 choco install -y azure-cli
 
