@@ -13,15 +13,18 @@ sudo apt-get install -y --allow-unauthenticated powershell
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
+mkdir ~/.kube & rm ~/.kube/config & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/config ~/.kube/config
+rm -rf ~/.kube/configs & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/configs ~/.kube/configs
 
 # Install Angular-cli
 sudo npm install -g @angular/cli
 
 # Install aws client
 pip install awscli --user
+rm -rf ~/.aws & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.aws ~/.aws
 
 # Install samld
-pip install samlkeygen --user
+#pip install samlkeygen --user
 
 # Install terraform
 wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip
@@ -34,20 +37,12 @@ curl -L https://aka.ms/InstallAzureCli | bash
 
 # Set up symlinks to share files across computers
 sudo chown $USER ~/.config
-rm ~/.profile
-rm ~/.bashrc
-rm -rf ~/.ssh
-mkdir ~/.kube
-rm ~/.kube/config
-rm -rf ~/.kube/configs
-ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.profile ~/.profile
-ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.bashrc ~/.bashrc
-ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.ssh ~/.ssh
-ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/config ~/.kube/config
-ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/configs ~/.kube/configs
+rm ~/.profile & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.profile ~/.profile
+rm ~/.bashrc & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.bashrc ~/.bashrc
+rm -rf ~/.ssh & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.ssh ~/.ssh
 
 # Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-rm ~/.zshrc
 ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.zshrc ~/.zshrc
+git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+chsh -s /bin/zsh

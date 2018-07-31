@@ -47,6 +47,8 @@ choco install -y awscli
 choco install -y azure-cli
 
 # Support for Turner logins to AWS using samld
+if (Test-Path "$env:USERPROFILE\.aws") { Remove-Item "$env:USERPROFILE\.aws" -Force -Recurse }
+New-Item -Path "$env:USERPROFILE\.aws" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.aws" | Out-Null
 [Environment]::SetEnvironmentVariable('ADFS_DOMAIN', 'TURNER', 'User')
 [Environment]::SetEnvironmentVariable('ADFS_URL', 'https://sts.turner.com/adfs/ls/IdpInitiatedSignOn.aspx?loginToRp=urn:amazon:webservices', 'User')
 pip install samlkeygen
