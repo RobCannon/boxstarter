@@ -3,9 +3,9 @@
 Disable-UAC
 
 #--- Ubuntu ---
-Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
-Add-AppxPackage -Path ~/Ubuntu.appx
-Remove-Item ~/Ubuntu.appx
+#Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
+#Add-AppxPackage -Path ~/Ubuntu.appx
+#Remove-Item ~/Ubuntu.appx
 
 #--- Browsers ---
 Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Microsoft Edge.lnk' } | Remove-Item
