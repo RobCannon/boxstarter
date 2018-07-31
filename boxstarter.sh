@@ -1,3 +1,12 @@
+# Set up symlinks to share files across computers
+sudo chown $USER ~/.config
+rm ~/.profile & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.profile ~/.profile
+rm ~/.bashrc & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.bashrc ~/.bashrc
+rm -rf ~/.ssh & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.ssh ~/.ssh
+
+AZ_REPO=$(lsb_release -cs)
+echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
+    sudo tee /etc/apt/sources.list.d/azure-cli.list
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
 sudo curl -o /etc/apt/sources.list.d/microsoft.list https://packages.microsoft.com/config/ubuntu/16.04/prod.list
@@ -33,16 +42,11 @@ rm terraform_0.11.7_linux_amd64.zip
 sudo mv terraform /usr/local/bin/
 
 # Install azure-cli
-curl -L https://aka.ms/InstallAzureCli | bash
+sudo apt-get install azure-cli
 
-# Set up symlinks to share files across computers
-sudo chown $USER ~/.config
-rm ~/.profile & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.profile ~/.profile
-rm ~/.bashrc & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.bashrc ~/.bashrc
-rm -rf ~/.ssh & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.ssh ~/.ssh
 
 # Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sudo git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+rm -rf ~/.zshrc
 ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.zshrc ~/.zshrc
-git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-chsh -s /bin/zsh

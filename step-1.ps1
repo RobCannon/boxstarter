@@ -143,7 +143,7 @@ Get-AppxPackage *Plex* | Remove-AppxPackage
 Get-AppxPackage *Solitaire* | Remove-AppxPackage
 
 #--- Windows Subsystems/Features ---
-choco install -y IIS-WebServerRole -source windowsFeatures
+Enable-WindowsOptionalFeature -Online choco install -y IIS-WebServerRole -source windowsFeatures
 choco install -y Microsoft-Hyper-V-All -source windowsFeatures
 choco install -y Microsoft-Windows-Subsystem-Linux -source windowsfeatures
 
