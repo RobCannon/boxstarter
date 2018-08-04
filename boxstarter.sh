@@ -4,6 +4,7 @@ rm ~/.profile & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.profile 
 rm ~/.bashrc & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.bashrc ~/.bashrc
 rm -rf ~/.ssh & ln -s /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/.ssh ~/.ssh
 
+# Prereqs for Microsoft tool installs
 AZ_REPO=$(lsb_release -cs)
 echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
     sudo tee /etc/apt/sources.list.d/azure-cli.list
@@ -15,6 +16,10 @@ sudo apt-get install -y apt-transport-https
 sudo apt-get update
 
 sudo apt-get install -y unzip docker.io python3 python-pip nodejs zsh powershell
+
+# Install docker-compose
+sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 
 
 #sudo pip install --upgrade pip
