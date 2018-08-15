@@ -1,8 +1,16 @@
 # Set up symlinks to share files across computers
-sudo chown $USER ~/.config
-rm ~/.profile & ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.profile ~/.profile
-rm ~/.bashrc & ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.bashrc ~/.bashrc
-rm ~/.ssh
+#sudo chown $USER ~/.config
+if [ -f ~/.profile ]; then
+  rm ~/.profile
+fi
+ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.profile ~/.profile
+
+if [ -f ~/.bashrc ]; then
+  rm ~/.bashrc
+fi
+ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.bashrc ~/.bashrc
+
+rm -rf ~/.ssh
 mkdir ~/.ssh
 cp /c/Users/$USER/OneDrive/Documents/Keep/Linux/.ssh/* ~/.ssh
 sudo chmod 700 ~/.ssh
@@ -20,7 +28,7 @@ sudo curl -o /etc/apt/sources.list.d/microsoft.list https://packages.microsoft.c
 sudo apt-get install -y apt-transport-https
 sudo apt-get update
 
-sudo apt-get install -y unzip docker.io python3 python-pip nodejs zsh powershell
+sudo apt-get install -y unzip docker.io python3 python-pip nodejs zsh
 
 # Install docker-compose
 sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
@@ -57,7 +65,12 @@ sudo apt-get install azure-cli
 
 
 # Install oh-my-zsh
+if [ -d ~/.oh-my-zsh ]; then
+  sudo rm -rf ~/.oh-my-zsh
+fi
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 sudo git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-rm -rf ~/.zshrc
+if [ -d ~/.zshrc ]; then
+  sudo rm -rf ~/.zshrc
+fi
 ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.zshrc ~/.zshrc

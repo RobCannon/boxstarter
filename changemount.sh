@@ -1,1 +1,2 @@
-cp /mnt/c/Users/rcannon/OneDrive/Documents/Keep/Linux/etc/wsl.conf /etc/wsl.conf
+ORIG_USER=$USER
+sudo cp /mnt/c/Users/$ORIG_USER/OneDrive/Documents/Keep/Linux/etc/wsl.conf /etc/wsl.conf
