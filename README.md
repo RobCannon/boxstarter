@@ -23,7 +23,7 @@ First, change the mount point in WSL to /c instead of /mnt/c for shared drives (
 https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly
 
 ```shell
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/RobCannon/boxstarter/master/changemount.sh)"
+sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/RobCannon/boxstarter/master/changemount.sh)"
 ```
 
 ```shell

@@ -1,1 +1,1 @@
-cp /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/etc/wsl.conf /etc/wsl.conf
+cp /mnt/c/Users/rcannon/OneDrive/Documents/Keep/Linux/etc/wsl.conf /etc/wsl.conf
