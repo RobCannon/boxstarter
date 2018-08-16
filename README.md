@@ -19,12 +19,13 @@ To run a setup script, click a link in the table below from your target machine.
 
 #### Setup up WSL via curl
 
-First, change the mount point in WSL to /c instead of /mnt/c for shared drives (fixes docker in WSL)
-https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly
+First, change the mount point in WSL to /c instead of /mnt/c for shared drives [fixes docker in WSL](https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly)
 
 ```shell
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/RobCannon/boxstarter/master/changemount.sh)"
 ```
+
+Second, exit and restart WSL and run this script
 
 ```shell
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/RobCannon/boxstarter/master/boxstarter.sh)"
