@@ -145,3 +145,4 @@ env git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-z
 export ZSH=~/.oh-my-zsh
 sudo git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 chsh -s /usr/bin/zsh
+zsh
