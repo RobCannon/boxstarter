@@ -36,7 +36,7 @@ sudo apt-get install -y apt-transport-https
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get autoremove -y
-sudo apt-get install -y curl unzip
+sudo apt-get install -y curl unzip zip
 echo ''
 
 echo ''
@@ -49,7 +49,6 @@ echo '------'
 echo 'Installing nodejs'
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
-sudo apt-get install -y build-essential
 sudo npm install -g npm
 echo ''
 
@@ -67,8 +66,17 @@ echo 'Installing kubectl'
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
-mkdir ~/.kube & rm ~/.kube/config & ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/config ~/.kube/config
-rm -rf ~/.kube/configs & ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/configs ~/.kube/configs
+if [ ! -d ~/.kube ]; then
+    mkdir ~/.kube
+fi
+if [ -f ~/.kube/config ]; then
+  sudo rm ~/.kube/config
+fi
+if [ -d ~/.kube/configs ]; then
+    sudo rm -rf ~/.kube/configs
+fi
+ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/config ~/.kube/config
+ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/configs ~/.kube/configs
 echo ''
 
 echo ''
