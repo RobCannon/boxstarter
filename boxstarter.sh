@@ -33,13 +33,16 @@ echo ''
 echo '------'
 echo 'Setting package source and updating apt-get'
 sudo apt-get install -y apt-transport-https
-sudo apt-get install -y unzip
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get autoremove -y
+sudo apt-get install -y curl unzip
 echo ''
 
 echo ''
 echo '------'
 echo 'Installing python'
-sudo apt-get install -y curl python-software-properties python3 python-pip
+sudo apt-get install -y python3 python-pip
 
 echo ''
 echo '------'
@@ -78,15 +81,18 @@ echo ''
 echo '------'
 echo 'Installing aws client'
 pip install awscli --user
+if [ -d ~/.aws ]; then
+  sudo rm -rf ~/.aws
+fi
 rm -rf ~/.aws & ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.aws ~/.aws
 echo ''
 
 echo ''
 echo '------'
 echo 'Installing terraform'
-wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip
-unzip terraform_0.11.7_linux_amd64.zip
-rm terraform_0.11.7_linux_amd64.zip
+wget https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip
+unzip terraform_0.11.8_linux_amd64.zip
+rm terraform_0.11.8_linux_amd64.zip
 sudo mv terraform /usr/local/bin/
 echo ''
 
@@ -105,9 +111,6 @@ echo ''
 echo ''
 echo '------'
 echo 'Installing zsh'
-if [ -d ~/.oh-my-zsh ]; then
-  sudo rm -rf ~/.oh-my-zsh
-fi
 sudo apt-get install -y zsh
 if [ -f ~/.zshrc ]; then
   sudo rm ~/.zshrc
@@ -126,5 +129,11 @@ echo ''
 echo ''
 echo '------'
 echo 'Installing oh-my-zsh'
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+if [ -d ~/.oh-my-zsh ]; then
+  sudo rm -rf ~/.oh-my-zsh
+fi
+umask g-w,o-w
+env git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 sudo git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+chsh -s /usr/bin/zsh
