@@ -1,5 +1,4 @@
 # Set up symlinks to share files across computers
-#sudo chown $USER ~/.config
 echo ''
 echo '------'
 echo 'Smymlink for .profile'
@@ -132,6 +131,7 @@ echo 'Upgrading packages'
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get autoremove -y
+sudo chown $USER ~/.config
 echo ''
 
 echo ''
