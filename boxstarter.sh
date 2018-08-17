@@ -48,7 +48,7 @@ echo '------'
 echo 'Installing nodejs'
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
-sudo npm install -g npm
+sudo npm install -g npm npm-check-updates
 echo ''
 
 echo ''
@@ -76,6 +76,13 @@ if [ -d ~/.kube/configs ]; then
 fi
 ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/config ~/.kube/config
 ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/configs ~/.kube/configs
+echo ''
+
+echo ''
+echo '------'
+echo 'Installing helm'
+curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | sudo -E bash -
+helm init --client-only
 echo ''
 
 echo ''
@@ -131,7 +138,7 @@ echo 'Upgrading packages'
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get autoremove -y
-sudo chown $USER ~/.config
+sudo chown -R $USER:$(id -gn $USER) ~/.config
 echo ''
 
 echo ''
