@@ -122,6 +122,16 @@ sudo apt-get update
 sudo apt-get install azure-cli
 echo ''
 
+
+echo ''
+echo '------'
+echo 'Installing pretty-ping'
+curl -O https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
+chmod +x prettyping
+sudo mv prettyping /usr/local/bin/
+echo ''
+
+
 echo ''
 echo '------'
 echo 'Installing zsh'
