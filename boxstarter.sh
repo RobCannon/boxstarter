@@ -48,7 +48,7 @@ echo '------'
 echo 'Installing nodejs'
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
-sudo npm install -g npm npm-check-updates
+sudo npm install -g npm npm-check-updates tldr
 echo ''
 
 echo ''
