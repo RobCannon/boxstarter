@@ -148,7 +148,7 @@ echo 'Upgrading packages'
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get autoremove -y
-sudo chown -R $USER:$(id -gn $USER) ~/.config
+sudo chown -R $USER ~/.config
 echo ''
 
 echo ''
