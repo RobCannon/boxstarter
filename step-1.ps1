@@ -148,16 +148,24 @@ choco install -y Microsoft-Hyper-V-All -source windowsFeatures
 choco install -y Microsoft-Windows-Subsystem-Linux -source windowsfeatures
 
 #--- Console ---
-if (-not (Get-ChildItem ([Environment]::GetFolderPath('Fonts')) | ? Name -eq 'Sauce Code Pro Nerd Font Complete Mono.ttf')) {
-    if (Test-Path "$env:TEMP\SourceCodePro.zip") { Remove-Item "$env:TEMP\SourceCodePro.zip" }
-    Invoke-WebRequest https://github.com/ryanoasis/nerd-fonts/releases/download/v1.2.0/SourceCodePro.zip -OutFile "$env:TEMP\SourceCodePro.zip"
-    Expand-Archive "$env:TEMP\SourceCodePro.zip" -DestinationPath "$env:TEMP\SourceCodePro"
+#$fontFileName = 'Sauce Code Pro Nerd Font Complete Mono Windows Compatible.ttf'
+#$fontFaceName = 'SauceCodePro Nerd Font Mono'
+#$fontUrl = 'https://github.com/haasosaurus/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
+
+$fontFileName = 'Sauce Code Pro Nerd Font Complete Mono.ttf'
+$fontFaceName = 'SauceCodePro Nerd Font Mono'
+$fontUrl = 'https://github.com/ryanoasis/nerd-fonts/blob/1.2.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono.ttf'
+
+if (-not (Get-ChildItem ([Environment]::GetFolderPath('Fonts')) | ? Name -eq $fontFileName)) {
+    $fontFilePath = "$env:TEMP\$fontFileName"
+    if (Test-Path $fontFilePath) { Remove-Item $fontFilePath }
+    Invoke-WebRequest $fontUrl -OutFile $fontFilePath
     $fonts = (New-Object -ComObject Shell.Application).Namespace(0x14)
-    Get-Item "$env:TEMP\SourceCodePro\Sauce Code Pro Nerd Font Complete Mono.ttf" | % { $fonts.CopyHere($_.fullname) }
-    Remove-Item "$env:TEMP\SourceCodePro.zip" -Force
-    Remove-Item "$env:TEMP\SourceCodePro" -Recurse -Force
+    $fonts.CopyHere($fontFilePath)
+    Remove-Item $fontFilePath -Force
 }
-Set-ItemProperty -Path 'HKCU:\Console' -Name 'FaceName' -Value 'SauceCodePro Nerd Font Mono' -Type String
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'FaceName' -Value $fontFaceName -Type String
+
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'FontSize' -Value 0x140000 -Type DWord
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'ScreenBufferSize' -Value 0x270f0078 -Type DWord
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'WindowSize' -Value 0x320078 -Type DWord
