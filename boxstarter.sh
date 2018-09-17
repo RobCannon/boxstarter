@@ -133,6 +133,18 @@ sudo apt-get update
 sudo apt-get install azure-cli
 echo ''
 
+echo ''
+echo '------'
+echo 'Installing dotnet'
+# The first 4 lines are already done above, but repeated here for completeness
+# wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
+# sudo dpkg -i packages-microsoft-prod.deb
+# sudo apt-get install apt-transport-https
+# sudo apt-get update
+sudo apt-get install dotnet-sdk-2.1
+dotnet tool install --global dotnet-outdated
+echo ''
+
 
 echo ''
 echo '------'
