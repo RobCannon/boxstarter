@@ -52,6 +52,7 @@ if (Test-Path "$env:USERPROFILE\.aws") { Remove-Item "$env:USERPROFILE\.aws" -Fo
 New-Item -Path "$env:USERPROFILE\.aws" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.aws" | Out-Null
 [Environment]::SetEnvironmentVariable('ADFS_DOMAIN', 'TURNER', 'User')
 [Environment]::SetEnvironmentVariable('ADFS_URL', 'https://sts.turner.com/adfs/ls/IdpInitiatedSignOn.aspx?loginToRp=urn:amazon:webservices', 'User')
+[Environment]::SetEnvironmentVariable('AWS_PROFILE', 'aws-platform-services-prod:aws-platform-services-prod-admin', 'User')
 pip install samlkeygen
 
 #--- VS Code ---

@@ -109,7 +109,7 @@ pip install awscli --user
 if [ -d ~/.aws ]; then
   sudo rm -rf ~/.aws
 fi
-rm -rf ~/.aws & ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.aws ~/.aws
+ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.aws ~/.aws
 echo ''
 
 echo ''
