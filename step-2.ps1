@@ -14,14 +14,14 @@ Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Nam
 choco install -y lastpass --ignore-checksums
 
 #--- Tools ---
-choco install -y powerhsell-code --install-arguments='"REGISTERMANIFEST=1 ENABLEPSREMOTING=1"' --packageparameters '"/CleanUpPath"'
+choco install -y powershell-core --install-arguments='"REGISTERMANIFEST=1 ENABLEPSREMOTING=1"' --packageparameters '"/CleanUpPath"'
 choco install -y sql-server-management-studio
 choco install -y git -params '"/NoShellIntegration /NoAutoCrlf /WindowsTerminal /SChannel"'
 choco install -y 7zip.install
-choco install -y rsat
+# choco install -y rsat
 choco install -y sysinternals
-choco install -y cmder
-Copy-Item "$($env:USERPROFILE)\OneDrive\Documents\Keep\Tools\Cmder\ConEmu.xml" "C:\tools\cmder\vendor\conemu-maximus5\ConEmu.xml" -Force | Out-Null
+# choco install -y cmder
+# Copy-Item "$($env:USERPROFILE)\OneDrive\Documents\Keep\Tools\Cmder\ConEmu.xml" "C:\tools\cmder\vendor\conemu-maximus5\ConEmu.xml" -Force | Out-Null
 choco install -y DiffMerge --allow-empty-checksums
 Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'DiffMerge.lnk' } | Remove-Item
 choco install -y dotnetcore-sdk
