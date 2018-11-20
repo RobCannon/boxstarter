@@ -14,6 +14,7 @@ Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Nam
 choco install -y lastpass --ignore-checksums
 
 #--- Tools ---
+choco install -y kb2999226
 choco install -y powershell-core --install-arguments='"REGISTERMANIFEST=1 ENABLEPSREMOTING=1"' --packageparameters '"/CleanUpPath"'
 choco install -y sql-server-management-studio
 choco install -y git -params '"/NoShellIntegration /NoAutoCrlf /WindowsTerminal /SChannel"'
@@ -62,6 +63,7 @@ Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { 
 
 # Setup synced settings folder from One Drive
 if (Test-Path "$env:APPDATA\Code\User") { Remove-Item "$env:APPDATA\Code\User" -Force -Recurse }
+if (-Not (Test-Path "$env:APPDATA\Code")) { New-Item -Path "$env:APPDATA\Code" -ItemType Directory | Out-Null }
 New-Item -Path "$env:APPDATA\Code\User" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Tools\Code\User" | Out-Null
 
 code --install-extension abusaidm.html-snippets
@@ -102,11 +104,11 @@ code --install-extension quicktype.quicktype
 code --install-extension technosophos.vscode-helm
 
 #--- Visual Studio ---
-choco install -y visualstudio2017enterprise
-choco install -y visualstudio2017buildtools
-choco install -y visualstudio2017-workload-netweb
-choco install -y visualstudio2017-workload-webbuildtools
-choco install -y visualstudio2017-workload-netcoretools
+# choco install -y visualstudio2017enterprise
+# choco install -y visualstudio2017buildtools
+# choco install -y visualstudio2017-workload-netweb
+# choco install -y visualstudio2017-workload-webbuildtools
+# choco install -y visualstudio2017-workload-netcoretools
 
 
 #--- Applications ---
@@ -116,7 +118,7 @@ Remove-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Run -Name 'S
 choco install adobereader -y --allow-empty-checksums
 Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Acrobat Reader DC.lnk' } | Remove-Item
 
-npm install -g npm npm-check-updates rimraf typescript@2.7.2 gulp @angular/cli 2>$null
+npm install -g npm npm-check-updates rimraf typescript gulp @angular/cli 2>$null
 
 
 function EnsurePath {
