@@ -141,6 +141,11 @@ Get-AppxPackage *Minecraft* | Remove-AppxPackage
 Get-AppxPackage *MarchofEmpires* | Remove-AppxPackage
 Get-AppxPackage *Plex* | Remove-AppxPackage
 Get-AppxPackage *Solitaire* | Remove-AppxPackage
+Get-AppxPackage *MixedReality* | Remove-AppxPackage
+Get-AppxPackage *Microsoft3D* | Remove-AppxPackage
+Get-AppxPackage *Print3D* | Remove-AppxPackage
+Get-AppxPackage *CBSPreview | Remove-AppxPackage
+
 
 #--- Windows Subsystems/Features ---
 Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole,Microsoft-Hyper-V-All,Microsoft-Windows-Subsystem-Linux
