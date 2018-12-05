@@ -71,12 +71,17 @@ if (-not (Get-PSRepository -Name TechOpsPSGallery -ErrorAction:SilentlyContinue)
 }
 
 Write-Host "Installing PowerShell modules" -ForegroundColor Yellow
+Install-Module -Name ImportExcel -Scope CurrentUser
+Install-Module -Name SqlServer -Scope CurrentUser
+Install-Module -Name AWSPowerShell -Scope CurrentUser
+Install-Module -Name Azure -Scope CurrentUser
+Install-Module -Name Pester -Scope CurrentUser -Force -SkipPublisherCheck
+Install-Module -Name psake -Scope CurrentUser
 Install-LatestFoundationModule FoundationUtil
 Install-LatestFoundationModule Foundation
-Install-Module -Name ImportExcel -Scope CurrentUser
-Install-Module -Name VSTeam -Scope CurrentUser
-Install-Module AWSPowerShell -Scope CurrentUser
-Install-Module Azure -Scope CurrentUser
+Install-LatestFoundationModule tbsFoundationInstall
+Install-LatestFoundationModule tbsServerBuild
+Install-LatestFoundationModule ModuleManager
 
 Write-Host "Enabling Windows Authentication on FQDN intranet sites" -ForegroundColor Yellow
 if (-not (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\turner.com")) {
@@ -148,7 +153,7 @@ Get-AppxPackage *CBSPreview | Remove-AppxPackage
 
 
 #--- Windows Subsystems/Features ---
-Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole,Microsoft-Hyper-V-All,Microsoft-Windows-Subsystem-Linux
+Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole, Microsoft-Hyper-V-All, Microsoft-Windows-Subsystem-Linux
 
 #--- Console ---
 #$fontFileName = 'Sauce Code Pro Nerd Font Complete Mono Windows Compatible.ttf'
