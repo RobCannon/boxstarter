@@ -161,7 +161,7 @@ Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole, Microsoft-
 #$fontUrl = 'https://github.com/haasosaurus/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
 
 $fontFileName = 'Sauce Code Pro Nerd Font Complete Mono.ttf'
-$fontFaceName = 'SauceCodePro Nerd Font Mono'
+$fontFaceName = 'SauceCodePro NF'
 $fontUrl = 'https://github.com/ryanoasis/nerd-fonts/blob/1.2.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono.ttf'
 
 if (-not (Get-ChildItem ([Environment]::GetFolderPath('Fonts')) | ? Name -eq $fontFileName)) {
@@ -172,12 +172,12 @@ if (-not (Get-ChildItem ([Environment]::GetFolderPath('Fonts')) | ? Name -eq $fo
     $fonts.CopyHere($fontFilePath)
     Remove-Item $fontFilePath -Force
 }
-Set-ItemProperty -Path 'HKCU:\Console' -Name 'FaceName' -Value $fontFaceName -Type String
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'FaceName' -Value $fontFaceName -Type String -Force
 
-Set-ItemProperty -Path 'HKCU:\Console' -Name 'FontSize' -Value 0x140000 -Type DWord
-Set-ItemProperty -Path 'HKCU:\Console' -Name 'ScreenBufferSize' -Value 0x270f0078 -Type DWord
-Set-ItemProperty -Path 'HKCU:\Console' -Name 'WindowSize' -Value 0x320078 -Type DWord
-Set-ItemProperty -Path 'HKCU:\Console' -Name 'QuickEdit' -Value 1
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'FontSize' -Value 0x140000 -Type DWord -Force
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'ScreenBufferSize' -Value 0x270f0078 -Type DWord -Force
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'WindowSize' -Value 0x320078 -Type DWord -Force
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'QuickEdit' -Value 1 -Force
 
 Enable-UAC
 Enable-MicrosoftUpdate
