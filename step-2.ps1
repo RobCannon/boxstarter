@@ -16,42 +16,14 @@ choco install -y lastpass --ignore-checksums
 #--- Tools ---
 choco install -y kb2999226
 choco install -y powershell-core --install-arguments='"REGISTERMANIFEST=1 ENABLEPSREMOTING=1"' --packageparameters '"/CleanUpPath"'
-choco install -y sql-server-management-studio
 choco install -y git -params '"/NoShellIntegration /NoAutoCrlf /WindowsTerminal /SChannel"'
 choco install -y 7zip.install
 choco install -y sysinternals
 choco install -y DiffMerge --allow-empty-checksums
 Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'DiffMerge.lnk' } | Remove-Item
-choco install -y dotnetcore-sdk
-choco install -y nodejs # Node.js Current, Latest features
-choco install -y docker-for-windows
-Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Docker for Windows.lnk' } | Remove-Item
-choco install -y python
-Update-SessionEnvironment
-python -m pip install --upgrade pip
-
-
-# Setup synced .kube settings folder from One Drive
-if (Test-Path "$env:USERPROFILE\.kube") { Remove-Item "$env:USERPROFILE\.kube" -Force -Recurse }
-New-Item -Path "$env:USERPROFILE\.kube" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.kube" | Out-Null
-[Environment]::SetEnvironmentVariable('KUBECONFIG', "$env:USERPROFILE\.kube\config;$env:USERPROFILE\.kube\configs\kube-config-sox-dev;", 'User')
-
 choco install -y mongodb.install
 Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'MongoDB Compass Community.lnk' } | Remove-Item
 
-#--- Cloud CLI Tools ---
-choco install -y kubernetes-cli
-choco install -y terraform
-choco install -y awscli
-choco install -y azure-cli
-
-# Support for Turner logins to AWS using samld
-if (Test-Path "$env:USERPROFILE\.aws") { Remove-Item "$env:USERPROFILE\.aws" -Force -Recurse }
-New-Item -Path "$env:USERPROFILE\.aws" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.aws" | Out-Null
-[Environment]::SetEnvironmentVariable('ADFS_DOMAIN', 'TURNER', 'User')
-[Environment]::SetEnvironmentVariable('ADFS_URL', 'https://sts.turner.com/adfs/ls/IdpInitiatedSignOn.aspx?loginToRp=urn:amazon:webservices', 'User')
-[Environment]::SetEnvironmentVariable('AWS_PROFILE', 'aws-platform-services-prod:aws-platform-services-prod-admin', 'User')
-pip install samlkeygen
 
 #--- VS Code ---
 choco install -y vscode
@@ -64,8 +36,10 @@ if (-Not (Test-Path "$env:APPDATA\Code")) { New-Item -Path "$env:APPDATA\Code" -
 New-Item -Path "$env:APPDATA\Code\User" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Tools\Code\User" | Out-Null
 
 code --install-extension abusaidm.html-snippets
+code --install-extension angular.ng-template
 code --install-extension austincummings.razor-plus
 code --install-extension christian-kohler.npm-intellisense
+code --install-extension christian-kohler.path-intellisense
 code --install-extension CoenraadS.bracket-pair-colorizer
 code --install-extension cssho.vscode-svgviewer
 code --install-extension davidbabel.vscode-simpler-icons
@@ -78,6 +52,7 @@ code --install-extension eg2.vscode-npm-script
 code --install-extension esbenp.prettier-vscode
 code --install-extension formulahendry.auto-close-tag
 code --install-extension formulahendry.auto-rename-tag
+code --install-extension hookyqr.beautify
 code --install-extension humao.rest-client
 code --install-extension IBM.output-colorizer
 code --install-extension jock.svg
@@ -85,6 +60,8 @@ code --install-extension mauve.terraform
 code --install-extension Microsoft.vsce
 code --install-extension mindginative.terraform-snippets
 code --install-extension moppitz.vscode-extension-auto-import
+code --install-extension ms-azure-devops.azure-pipeline
+code --install-extension ms-azure-devops.azure-pipeline
 code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools
 code --install-extension ms-mssql.mssql
 code --install-extension ms-python.python
@@ -95,10 +72,45 @@ code --install-extension ms-vscode.typescript-javascript-grammar
 code --install-extension ms-vsts.team
 code --install-extension msjsdiag.debugger-for-chrome
 code --install-extension msjsdiag.debugger-for-edge
+code --install-extension natewallace.angular2-inline
 code --install-extension NoHomey.angular-io-code
 code --install-extension PeterJausovec.vscode-docker
 code --install-extension quicktype.quicktype
+code --install-extension redhat.vscode-yaml
 code --install-extension technosophos.vscode-helm
+code --install-extension tyriar.shell-launcher
+code --install-extension visualstudioexptteam.vscodeintellicode
+
+
+choco install -y terraform
+choco install -y dotnetcore-sdk
+choco install -y nodejs # Node.js Current, Latest features
+Update-SessionEnvironment
+npm install -g npm npm-check-updates rimraf typescript gulp @angular/cli 2>$null
+
+choco install -y docker-for-windows
+Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Docker for Windows.lnk' } | Remove-Item
+
+
+# Setup synced .kube settings folder from One Drive
+if (Test-Path "$env:USERPROFILE\.kube") { Remove-Item "$env:USERPROFILE\.kube" -Force -Recurse }
+New-Item -Path "$env:USERPROFILE\.kube" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.kube" | Out-Null
+[Environment]::SetEnvironmentVariable('KUBECONFIG', "$env:USERPROFILE\.kube\config;$env:USERPROFILE\.kube\configs\kube-config-sox-dev;", 'User')
+choco install -y kubernetes-cli
+
+
+#--- Cloud CLI Tools ---
+python -m pip install --upgrade pip
+choco install -y awscli
+choco install -y azure-cli
+
+# Support for Turner logins to AWS using samld
+if (Test-Path "$env:USERPROFILE\.aws") { Remove-Item "$env:USERPROFILE\.aws" -Force -Recurse }
+New-Item -Path "$env:USERPROFILE\.aws" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.aws" | Out-Null
+[Environment]::SetEnvironmentVariable('ADFS_DOMAIN', 'TURNER', 'User')
+[Environment]::SetEnvironmentVariable('ADFS_URL', 'https://sts.turner.com/adfs/ls/IdpInitiatedSignOn.aspx?loginToRp=urn:amazon:webservices', 'User')
+[Environment]::SetEnvironmentVariable('AWS_PROFILE', 'aws-platform-services-prod:aws-platform-services-prod-admin', 'User')
+pip install samlkeygen
 
 #--- Visual Studio ---
 # choco install -y visualstudio2017enterprise
@@ -108,6 +120,8 @@ code --install-extension technosophos.vscode-helm
 # choco install -y visualstudio2017-workload-netcoretools
 
 
+choco install -y sql-server-management-studio
+
 #--- Applications ---
 choco install -y steam --allowEmptyCheckSum
 Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Steam.lnk' } | Remove-Item
@@ -115,7 +129,6 @@ Remove-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Run -Name 'S
 choco install adobereader -y --allow-empty-checksums
 Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Acrobat Reader DC.lnk' } | Remove-Item
 
-npm install -g npm npm-check-updates rimraf typescript gulp @angular/cli 2>$null
 
 
 function EnsurePath {
