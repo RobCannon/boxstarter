@@ -152,9 +152,6 @@ Get-AppxPackage *Print3D* | Remove-AppxPackage
 Get-AppxPackage *CBSPreview | Remove-AppxPackage
 
 
-#--- Windows Subsystems/Features ---
-Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole, Microsoft-Hyper-V-All, Microsoft-Windows-Subsystem-Linux
-
 #--- Console ---
 #$fontFileName = 'Sauce Code Pro Nerd Font Complete Mono Windows Compatible.ttf'
 #$fontFaceName = 'SauceCodePro Nerd Font Mono'
@@ -178,6 +175,9 @@ Set-ItemProperty -Path 'HKCU:\Console' -Name 'FontSize' -Value 0x140000 -Type DW
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'ScreenBufferSize' -Value 0x270f0078 -Type DWord -Force
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'WindowSize' -Value 0x320078 -Type DWord -Force
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'QuickEdit' -Value 1 -Force
+
+#--- Windows Subsystems/Features ---
+Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole, Microsoft-Hyper-V-All, Microsoft-Windows-Subsystem-Linux -NoRestart
 
 Enable-UAC
 Enable-MicrosoftUpdate
