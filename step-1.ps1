@@ -99,22 +99,20 @@ Enable-WSManCredSSP -Role Client -DelegateComputer * -Force | Out-Null
 
 Update-Help -Force
 
-#--- Windows Features ---
-Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowFileExtensions
-
-#--- Enable Developer Mode ---
+Write-Host 'Enable Developer Mode'
 Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" "AllowDevelopmentWithoutDevLicense" 1
 
-#--- File Explorer Settings ---
+Write-Host 'File Explorer Settings'
+Set-WindowsExplorerOptions -EnableShowHiddenFilesFoldersDrives -EnableShowFileExtensions
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name NavPaneExpandToCurrentFolder -Value 1
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name NavPaneShowAllFolders -Value 1
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name LaunchTo -Value 1
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name MMTaskbarMode -Value 2
 
-#--- Enable PIN and Windows Hello
+Write-Host 'Enable PIN and Windows Hello'
 Set-ItemProperty HKLM:\SOFTWARE\Policies\Microsoft\Windows\System -name AllowDomainPINLogon -value 1
 
-#--- Remove Windows Store Apps ---
+Write-Host 'Remove Windows Store Apps'
 Get-AppxPackage Microsoft.3DBuilder | Remove-AppxPackage
 Get-AppxPackage Microsoft.BingFinance | Remove-AppxPackage
 Get-AppxPackage Microsoft.BingNews | Remove-AppxPackage
@@ -152,7 +150,7 @@ Get-AppxPackage *Print3D* | Remove-AppxPackage
 Get-AppxPackage *CBSPreview | Remove-AppxPackage
 
 
-#--- Console ---
+Write-Host 'Install SauceCodePro font'
 #$fontFileName = 'Sauce Code Pro Nerd Font Complete Mono Windows Compatible.ttf'
 #$fontFaceName = 'SauceCodePro Nerd Font Mono'
 #$fontUrl = 'https://github.com/haasosaurus/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
@@ -169,18 +167,20 @@ if (-not (Get-ChildItem ([Environment]::GetFolderPath('Fonts')) | ? Name -eq $fo
     $fonts.CopyHere($fontFilePath)
     Remove-Item $fontFilePath -Force
 }
-Set-ItemProperty -Path 'HKCU:\Console' -Name 'FaceName' -Value $fontFaceName -Type String -Force
 
+Write-Host 'Set console defaults'
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'FaceName' -Value $fontFaceName -Type String -Force
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'FontSize' -Value 0x140000 -Type DWord -Force
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'ScreenBufferSize' -Value 0x270f0078 -Type DWord -Force
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'WindowSize' -Value 0x320078 -Type DWord -Force
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'QuickEdit' -Value 1 -Force
 
-#--- Windows Subsystems/Features ---
+Write-Host 'Enable Windows Subsystems/Features'
 Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole, Microsoft-Hyper-V-All, Microsoft-Windows-Subsystem-Linux -NoRestart
 
-Enable-UAC
+Write-Host 'Install python'
+choco install -y python
+
+Write-Host 'Install updates'
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
-
-choco install -y python
