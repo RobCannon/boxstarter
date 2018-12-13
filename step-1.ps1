@@ -180,7 +180,12 @@ Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole, Microsoft-
 
 Write-Host 'Install python'
 choco install -y python
+choco install -y kb2999226
 
 Write-Host 'Install updates'
 Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
+
+Enable-UAC
+
+Write-Host "You should reboot to continue"

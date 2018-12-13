@@ -14,15 +14,17 @@ Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Nam
 choco install -y lastpass --ignore-checksums
 
 #--- Tools ---
-choco install -y kb2999226
+
 choco install -y powershell-core --install-arguments='"REGISTERMANIFEST=1 ENABLEPSREMOTING=1"' --packageparameters '"/CleanUpPath"'
 choco install -y git -params '"/NoShellIntegration /NoAutoCrlf /WindowsTerminal /SChannel"'
 choco install -y 7zip.install
 choco install -y sysinternals
 choco install -y DiffMerge --allow-empty-checksums
 Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'DiffMerge.lnk' } | Remove-Item
-choco install -y mongodb.install
+choco install -y mongodb
 Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'MongoDB Compass Community.lnk' } | Remove-Item
+choco install -y terminus
+Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Terminus.lnk' } | Remove-Item
 
 
 #--- VS Code ---
@@ -57,11 +59,9 @@ code --install-extension humao.rest-client
 code --install-extension IBM.output-colorizer
 code --install-extension jock.svg
 code --install-extension mauve.terraform
-code --install-extension Microsoft.vsce
 code --install-extension mindginative.terraform-snippets
 code --install-extension moppitz.vscode-extension-auto-import
-code --install-extension ms-azure-devops.azure-pipeline
-code --install-extension ms-azure-devops.azure-pipeline
+code --install-extension ms-azure-devops.azure-pipelines
 code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools
 code --install-extension ms-mssql.mssql
 code --install-extension ms-python.python
@@ -112,6 +112,14 @@ New-Item -Path "$env:USERPROFILE\.aws" -ItemType SymbolicLink -Value "$env:USERP
 [Environment]::SetEnvironmentVariable('AWS_PROFILE', 'aws-platform-services-prod:aws-platform-services-prod-admin', 'User')
 pip install samlkeygen
 
+
+#--- Applications ---
+choco install -y steam --allowEmptyCheckSum
+Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Steam.lnk' } | Remove-Item
+Remove-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Run -Name 'Steam' -ErrorAction SilentlyContinue
+choco install adobereader -y --allow-empty-checksums
+Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Acrobat Reader DC.lnk' } | Remove-Item
+
 #--- Visual Studio ---
 # choco install -y visualstudio2017enterprise
 # choco install -y visualstudio2017buildtools
@@ -122,37 +130,9 @@ pip install samlkeygen
 
 choco install -y sql-server-management-studio
 
-#--- Applications ---
-choco install -y steam --allowEmptyCheckSum
-Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Steam.lnk' } | Remove-Item
-Remove-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Run -Name 'Steam' -ErrorAction SilentlyContinue
-choco install adobereader -y --allow-empty-checksums
-Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Acrobat Reader DC.lnk' } | Remove-Item
-
-
-
-function EnsurePath {
-    param
-    (
-        [Parameter(Mandatory = $true)]
-        [string] $Path
-    )
-
-    if (-not (Test-Path $Path)) { New-Item -ItemType Directory -Path $Path | Out-Null }
-}
-
-
-EnsurePath c:\Projects
-EnsurePath c:\Projects\RobCannon
-EnsurePath c:\Projects\GitHub
-EnsurePath c:\Projects\BuildServers
-EnsurePath c:\Projects\Foundation
-EnsurePath c:\Projects\PowerShellModules
-EnsurePath c:\Projects\Servers
-EnsurePath c:\Projects\TechOps
-
+Write-Host "Getting repositories from Azure DevOps"
 & "$($env:USERPROFILE)\OneDrive\Documents\Keep\Tools\VSTeam\InitProjects.ps1"
 
-Enable-UAC
-Enable-MicrosoftUpdate
 Install-WindowsUpdate -acceptEula
+
+Enable-UAC
