@@ -16,7 +16,6 @@ choco install -y lastpass --ignore-checksums
 #--- Tools ---
 
 choco install -y powershell-core --install-arguments='"REGISTERMANIFEST=1 ENABLEPSREMOTING=1"' --packageparameters '"/CleanUpPath"'
-choco install -y git -params '"/NoShellIntegration /NoAutoCrlf /WindowsTerminal /SChannel"'
 choco install -y 7zip.install
 choco install -y sysinternals
 choco install -y DiffMerge --allow-empty-checksums
@@ -25,6 +24,9 @@ choco install -y mongodb
 Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'MongoDB Compass Community.lnk' } | Remove-Item
 choco install -y terminus
 Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Terminus.lnk' } | Remove-Item
+choco install -y git -params '"/NoShellIntegration /NoAutoCrlf /WindowsTerminal /SChannel"'
+Update-SessionEnvironment
+git config credential.helper store
 
 
 #--- VS Code ---
