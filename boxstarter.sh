@@ -145,6 +145,14 @@ sudo apt-get install dotnet-sdk-2.2
 dotnet tool install --global dotnet-outdated
 echo ''
 
+echo ''
+echo '------'
+echo 'Installing go'
+sudo add-apt-repository ppa:longsleep/golang-backports
+sudo apt-get update
+sudo apt-get install golang-go
+echo ''
+
 
 echo ''
 echo '------'
