@@ -157,7 +157,7 @@ Write-Host 'Install SauceCodePro font'
 
 $fontFileName = 'Sauce Code Pro Nerd Font Complete Mono.ttf'
 $fontFaceName = 'SauceCodePro NF'
-$fontUrl = 'https://github.com/ryanoasis/nerd-fonts/raw/1.2.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
+$fontUrl = 'https://github.com/haasosaurus/nerd-fonts/raw/2.0.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
 
 if (-not (Get-ChildItem ([Environment]::GetFolderPath('Fonts')) | ? Name -eq $fontFileName)) {
     $fontFilePath = "$env:TEMP\$fontFileName"
