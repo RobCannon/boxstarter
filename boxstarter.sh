@@ -123,6 +123,15 @@ echo ''
 
 echo ''
 echo '------'
+echo 'Installing ansible'
+sudo apt update
+sudo apt install software-properties-common
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible
+echo ''
+
+echo ''
+echo '------'
 echo 'Installing azure-cli'
 AZ_REPO=$(lsb_release -cs)
 echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
