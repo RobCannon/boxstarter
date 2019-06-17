@@ -125,9 +125,8 @@ echo ''
 echo '------'
 echo 'Installing ansible'
 sudo apt update
-sudo apt install software-properties-common
-sudo apt-add-repository --yes --update ppa:ansible/ansible
-sudo apt install ansible
+sudo apt-get install python-dev libkrb5-dev krb5-user python-pip
+sudo pip install ansible pywinrm kerberos requests-kerberos requests-credssp --upgrade
 echo ''
 
 echo ''
