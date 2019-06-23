@@ -74,7 +74,11 @@ Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-L
 
 Write-Host 'Install scoop'
 Set-ExecutionPolicy RemoteSigned -Scope Process -Force
-iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+try {
+    iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+}
+catch {
+}
 
 Write-Host 'Remove Windows Store Apps'
 Get-AppxPackage Microsoft.3DBuilder | Remove-AppxPackage
