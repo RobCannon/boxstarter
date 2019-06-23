@@ -2,51 +2,7 @@
 
 Disable-UAC
 
-function Install-LatestFoundationModule {
-    param
-    (
-        [Parameter(Mandatory = $true)]
-        [string] $ModuleName,
-        [string] $ModuleVersion,
-
-        [switch]$PassThru
-    )
-
-    if (-not $ModuleVersion) {
-        $ModuleVersion = Find-Module -Name $ModuleName -Repository TechOpsPSGallery | % Version
-    }
-
-    $installedModules = Get-Module -Name $ModuleName -ListAvailable -ErrorAction SilentlyContinue
-    if ($installedModules) {
-        if (-not ($installedModules | ? { $_.Version -ge $ModuleVersion })) {
-            Write-Host "Updating module $ModuleName to version $ModuleVersion"
-            Update-Module -Name $ModuleName -RequiredVersion $ModuleVersion
-        }
-
-        # Uninstall other versions
-        Get-Module -Name $ModuleName -ListAvailable -ErrorAction SilentlyContinue | ? Version -ne $ModuleVersion | % {
-            Write-Host "Uninstalling older version $($_.Version) of module $ModuleName"
-            Uninstall-Module -Name $ModuleName -RequiredVersion $_.Version -Force
-        }
-    }
-    else {
-        Write-Host "Installing module $ModuleName version $ModuleVersion"
-        if ($PSVersionTable.PSVersion -ge "5.1.14393.103") {
-            Install-Module -Name $ModuleName -RequiredVersion $ModuleVersion -Repository TechOpsPSGallery -Scope CurrentUser -AllowClobber
-        }
-        else {
-            Install-Module -Name $ModuleName -RequiredVersion $ModuleVersion -Repository TechOpsPSGallery -Scope CurrentUser
-        }
-    }
-
-    if ($PassThru) {
-        $module = Import-Module -Name $ModuleName -Force -PassThru | ? Name -eq $ModuleName
-        Write-Host "Imported version $($module.Version) of module $($module.Name) "
-        $module
-    }
-}
-
-Set-ExecutionPolicy RemoteSigned -Force -Scope CurrentUser
+Set-ExecutionPolicy Bypass -Force -Scope CurrentUser
 
 if (-not (Get-PackageProvider -Name NuGet -ListAvailable -ErrorAction:SilentlyContinue | ? Version -ge '2.8.5.208')) {
     Install-PackageProvider -Name NuGet -MinimumVersion '2.8.5.208' -Force -Scope CurrentUser
@@ -62,14 +18,6 @@ Get-PackageProvider -Name NuGet -ForceBootstrap | Out-Null
 Write-Host "Trusting PSGallery" -ForegroundColor Yellow
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
-# if (-not (Get-PSRepository -Name TechOpsPSGallery -ErrorAction:SilentlyContinue)) {
-#     Register-PSRepository -Name TechOpsPSGallery `
-#         -PackageManagementProvider NuGet `
-#         -SourceLocation https://www.myget.org/F/techops-psgallery/api/v2 `
-#         -PublishLocation https://www.myget.org/F/techops-psgallery/api/v2/package `
-#         -InstallationPolicy Trusted
-# }
-
 Write-Host "Installing PowerShell modules" -ForegroundColor Yellow
 Install-Module -Name ImportExcel -Scope CurrentUser
 Install-Module -Name SqlServer -Scope CurrentUser
@@ -77,20 +25,6 @@ Install-Module -Name SqlServer -Scope CurrentUser
 # Install-Module -Name Azure -Scope CurrentUser
 Install-Module -Name Pester -Scope CurrentUser -Force -SkipPublisherCheck
 Install-Module -Name psake -Scope CurrentUser
-# Install-LatestFoundationModule FoundationUtil
-# Install-LatestFoundationModule Foundation
-# Install-LatestFoundationModule tbsFoundationInstall
-# Install-LatestFoundationModule tbsServerBuild
-# Install-LatestFoundationModule ModuleManager
-
-# Write-Host "Enabling Windows Authentication on FQDN intranet sites" -ForegroundColor Yellow
-# if (-not (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\turner.com")) {
-#     New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\turner.com" | Out-Null
-# }
-
-# Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\turner.com" -Name "*" -Type DWord -Value 1 -Force | Out-Null
-# Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\WebClient\Parameters" -Name "AuthForwardServerList" -Type MultiString -Value "*.turner.com" -Force | Out-Null
-# Restart-Service WebClient
 
 cmd.exe /c winrm quickconfig -force
 
@@ -113,15 +47,12 @@ Write-Host 'Enable PIN and Windows Hello'
 Set-ItemProperty HKLM:\SOFTWARE\Policies\Microsoft\Windows\System -name AllowDomainPINLogon -value 1
 
 Write-Host 'Install SauceCodePro font'
-#$fontFileName = 'Sauce Code Pro Nerd Font Complete Mono Windows Compatible.ttf'
-#$fontFaceName = 'SauceCodePro Nerd Font Mono'
-#$fontUrl = 'https://github.com/haasosaurus/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
-
 $fontFileName = 'Sauce Code Pro Nerd Font Complete Mono.ttf'
-$fontFaceName = 'SauceCodePro NF'
+$fontFaceName = 'SauceCodePro NF Regular'
 $fontUrl = 'https://github.com/haasosaurus/nerd-fonts/raw/2.0.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
 
-if (-not (Get-ChildItem ([Environment]::GetFolderPath('Fonts')) | ? Name -eq $fontFileName)) {
+$fonts = (New-Object -ComObject Shell.Application).Namespace(0x14)
+if (-not ($fonts.Items() | ? Name -eq $fontFaceName)) {
     $fontFilePath = "$env:TEMP\$fontFileName"
     if (Test-Path $fontFilePath) { Remove-Item $fontFilePath }
     Invoke-WebRequest $fontUrl -OutFile $fontFilePath
@@ -142,7 +73,7 @@ Write-Host 'Enable Windows Subsystems/Features'
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
 
 Write-Host 'Install scoop'
-#Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+Set-ExecutionPolicy RemoteSigned -Scope Process -Force
 iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
 
 Write-Host 'Remove Windows Store Apps'
@@ -182,6 +113,8 @@ Get-AppxPackage *Microsoft3D* | Remove-AppxPackage
 Get-AppxPackage *Print3D* | Remove-AppxPackage
 Get-AppxPackage *CBSPreview | Remove-AppxPackage
 
+Write-Host 'Installing docker'
+choco install docker-desktop -y
 
 Write-Host 'Install updates'
 Enable-MicrosoftUpdate
