@@ -1,17 +1,14 @@
-# Inspired by https://github.com/Microsoft/windows-dev-box-setup-scripts
-
-# Disable-UAC
-
 #--- Ubuntu ---
-#Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
-#Add-AppxPackage -Path ~/Ubuntu.appx
-#Remove-Item ~/Ubuntu.appx
+Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
+Add-AppxPackage -Path ~/Ubuntu.appx
+Remove-Item ~/Ubuntu.appx
 
 # utils
 scoop install git aria2
 scoop bucket add extras
 scoop bucket add versions
 scoop install 7zip sudo sysinternals vscode posh-git pwsh
+git config credential.helper store
 
 # programming languages
 scoop install python nodejs dotnet-sdk-lts diffmerge
@@ -26,22 +23,15 @@ scoop install chrome
 #Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Google Chrome.lnk' } | Remove-Item
 
 scoop install steam
+Remove-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Run -Name 'Steam' -ErrorAction SilentlyContinue
 
 #--- Tools ---
 
 #Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'DiffMerge.lnk' } | Remove-Item
-#Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'MongoDB Compass Community.lnk' } | Remove-Item
-#Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Terminus.lnk' } | Remove-Item
-git config credential.helper store
-
-
-#--- VS Code ---
 #Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Visual Studio Code.lnk' } | Remove-Item
+#Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Steam.lnk' } | Remove-Item
+#Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Acrobat Reader DC.lnk' } | Remove-Item
 
-# Setup synced settings folder from One Drive
-if (Test-Path "$env:APPDATA\Code\User") { Remove-Item "$env:APPDATA\Code\User" -Force -Recurse }
-if (-Not (Test-Path "$env:APPDATA\Code")) { New-Item -Path "$env:APPDATA\Code" -ItemType Directory | Out-Null }
-New-Item -Path "$env:APPDATA\Code\User" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Tools\Code\User" | Out-Null
 
 code --install-extension abusaidm.html-snippets
 code --install-extension angular.ng-template
@@ -89,24 +79,3 @@ code --install-extension visualstudioexptteam.vscodeintellicode
 
 
 npm install -g npm npm-check-updates rimraf typescript gulp @angular/cli 2>$null
-
-#Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Docker for Windows.lnk' } | Remove-Item
-
-
-# Setup synced .kube settings folder from One Drive
-if (Test-Path "$env:USERPROFILE\.kube") { Remove-Item "$env:USERPROFILE\.kube" -Force -Recurse }
-New-Item -Path "$env:USERPROFILE\.kube" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.kube" | Out-Null
-[Environment]::SetEnvironmentVariable('KUBECONFIG', "$env:USERPROFILE\.kube\config;$env:USERPROFILE\.kube\configs\kube-config-sox-dev;", 'User')
-#choco install -y kubernetes-cli
-
-
-
-# Synch aws config
-if (Test-Path "$env:USERPROFILE\.aws") { Remove-Item "$env:USERPROFILE\.aws" -Force -Recurse }
-New-Item -Path "$env:USERPROFILE\.aws" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.aws" | Out-Null
-
-
-#--- Applications ---
-#Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Steam.lnk' } | Remove-Item
-#Remove-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Run -Name 'Steam' -ErrorAction SilentlyContinue
-#Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Acrobat Reader DC.lnk' } | Remove-Item

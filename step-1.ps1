@@ -111,6 +111,26 @@ Get-AppxPackage *CBSPreview | Remove-AppxPackage
 
 Write-Host 'Installing docker'
 choco install docker-desktop -y
+Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Docker Desktop.lnk' } | Remove-Item
+
+# Setup synced settings folder from One Drive
+if (Test-Path "$env:APPDATA\Code\User") { Remove-Item "$env:APPDATA\Code\User" -Force -Recurse }
+if (-Not (Test-Path "$env:APPDATA\Code")) { New-Item -Path "$env:APPDATA\Code" -ItemType Directory | Out-Null }
+New-Item -Path "$env:APPDATA\Code\User" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Tools\Code\User" | Out-Null
+
+
+# Setup synced .kube settings folder from One Drive
+if (Test-Path "$env:USERPROFILE\.kube") { Remove-Item "$env:USERPROFILE\.kube" -Force -Recurse }
+New-Item -Path "$env:USERPROFILE\.kube" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.kube" | Out-Null
+[Environment]::SetEnvironmentVariable('KUBECONFIG', "$env:USERPROFILE\.kube\config;$env:USERPROFILE\.kube\configs\kube-config-sox-dev;", 'User')
+
+
+
+
+# Synch aws config
+if (Test-Path "$env:USERPROFILE\.aws") { Remove-Item "$env:USERPROFILE\.aws" -Force -Recurse }
+New-Item -Path "$env:USERPROFILE\.aws" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.aws" | Out-Null
+
 
 Write-Host 'Install updates'
 Enable-MicrosoftUpdate
