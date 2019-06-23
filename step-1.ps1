@@ -138,7 +138,8 @@ Set-ItemProperty -Path 'HKCU:\Console' -Name 'WindowSize' -Value 0x320078 -Type 
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'QuickEdit' -Value 1 -Force
 
 Write-Host 'Enable Windows Subsystems/Features'
-Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole, Microsoft-Hyper-V-All, Microsoft-Windows-Subsystem-Linux -NoRestart
+#Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole, Microsoft-Hyper-V-All, Microsoft-Windows-Subsystem-Linux -NoRestart
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
 
 Write-Host 'Install scoop'
 Set-ExecutionPolicy RemoteSigned -scope CurrentUser
