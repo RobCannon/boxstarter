@@ -112,6 +112,38 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 Write-Host 'Enable PIN and Windows Hello'
 Set-ItemProperty HKLM:\SOFTWARE\Policies\Microsoft\Windows\System -name AllowDomainPINLogon -value 1
 
+Write-Host 'Install SauceCodePro font'
+#$fontFileName = 'Sauce Code Pro Nerd Font Complete Mono Windows Compatible.ttf'
+#$fontFaceName = 'SauceCodePro Nerd Font Mono'
+#$fontUrl = 'https://github.com/haasosaurus/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
+
+$fontFileName = 'Sauce Code Pro Nerd Font Complete Mono.ttf'
+$fontFaceName = 'SauceCodePro NF'
+$fontUrl = 'https://github.com/haasosaurus/nerd-fonts/raw/2.0.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
+
+if (-not (Get-ChildItem ([Environment]::GetFolderPath('Fonts')) | ? Name -eq $fontFileName)) {
+    $fontFilePath = "$env:TEMP\$fontFileName"
+    if (Test-Path $fontFilePath) { Remove-Item $fontFilePath }
+    Invoke-WebRequest $fontUrl -OutFile $fontFilePath
+    $fonts = (New-Object -ComObject Shell.Application).Namespace(0x14)
+    $fonts.CopyHere($fontFilePath)
+    Remove-Item $fontFilePath -Force
+}
+
+Write-Host 'Set console defaults'
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'FaceName' -Value $fontFaceName -Type String -Force
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'FontSize' -Value 0x140000 -Type DWord -Force
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'ScreenBufferSize' -Value 0x270f0078 -Type DWord -Force
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'WindowSize' -Value 0x320078 -Type DWord -Force
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'QuickEdit' -Value 1 -Force
+
+Write-Host 'Enable Windows Subsystems/Features'
+Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole, Microsoft-Hyper-V-All, Microsoft-Windows-Subsystem-Linux -NoRestart
+
+Write-Host 'Install scoop'
+Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+
 Write-Host 'Remove Windows Store Apps'
 Get-AppxPackage Microsoft.3DBuilder | Remove-AppxPackage
 Get-AppxPackage Microsoft.BingFinance | Remove-AppxPackage
@@ -149,42 +181,6 @@ Get-AppxPackage *Microsoft3D* | Remove-AppxPackage
 Get-AppxPackage *Print3D* | Remove-AppxPackage
 Get-AppxPackage *CBSPreview | Remove-AppxPackage
 
-
-Write-Host 'Install SauceCodePro font'
-#$fontFileName = 'Sauce Code Pro Nerd Font Complete Mono Windows Compatible.ttf'
-#$fontFaceName = 'SauceCodePro Nerd Font Mono'
-#$fontUrl = 'https://github.com/haasosaurus/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
-
-$fontFileName = 'Sauce Code Pro Nerd Font Complete Mono.ttf'
-$fontFaceName = 'SauceCodePro NF'
-$fontUrl = 'https://github.com/haasosaurus/nerd-fonts/raw/2.0.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
-
-if (-not (Get-ChildItem ([Environment]::GetFolderPath('Fonts')) | ? Name -eq $fontFileName)) {
-    $fontFilePath = "$env:TEMP\$fontFileName"
-    if (Test-Path $fontFilePath) { Remove-Item $fontFilePath }
-    Invoke-WebRequest $fontUrl -OutFile $fontFilePath
-    $fonts = (New-Object -ComObject Shell.Application).Namespace(0x14)
-    $fonts.CopyHere($fontFilePath)
-    Remove-Item $fontFilePath -Force
-}
-
-Write-Host 'Set console defaults'
-Set-ItemProperty -Path 'HKCU:\Console' -Name 'FaceName' -Value $fontFaceName -Type String -Force
-Set-ItemProperty -Path 'HKCU:\Console' -Name 'FontSize' -Value 0x140000 -Type DWord -Force
-Set-ItemProperty -Path 'HKCU:\Console' -Name 'ScreenBufferSize' -Value 0x270f0078 -Type DWord -Force
-Set-ItemProperty -Path 'HKCU:\Console' -Name 'WindowSize' -Value 0x320078 -Type DWord -Force
-Set-ItemProperty -Path 'HKCU:\Console' -Name 'QuickEdit' -Value 1 -Force
-
-Write-Host 'Enable Windows Subsystems/Features'
-Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole, Microsoft-Hyper-V-All, Microsoft-Windows-Subsystem-Linux -NoRestart
-
-Write-Host 'Install scoop'
-Set-ExecutionPolicy RemoteSigned -scope CurrentUser
-iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
-
-# Write-Host 'Install python'
-# choco install -y python
-# choco install -y kb2999226
 
 Write-Host 'Install updates'
 Enable-MicrosoftUpdate
