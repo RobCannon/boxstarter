@@ -142,7 +142,7 @@ Write-Host 'Enable Windows Subsystems/Features'
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
 
 Write-Host 'Install scoop'
-Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+#Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
 
 Write-Host 'Remove Windows Store Apps'
