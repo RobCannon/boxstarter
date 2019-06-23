@@ -1,6 +1,6 @@
 # Inspired by https://github.com/Microsoft/windows-dev-box-setup-scripts
 
-Disable-UAC
+# Disable-UAC
 
 #--- Ubuntu ---
 #Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
@@ -8,16 +8,16 @@ Disable-UAC
 #Remove-Item ~/Ubuntu.appx
 
 # utils
-scoop install aria2
+scoop install git aria2
 scoop bucket add extras
 scoop bucket add versions
-scoop install 7zip sudo git sysinternals vscode posh-git pwsh
+scoop install 7zip sudo sysinternals vscode posh-git pwsh
 
 # programming languages
 scoop install python nodejs dotnet-sdk-lts diffmerge
 
 # cloud and infrastructure
-scoop install azure-cli aws docker-compose kubectl helm k9s terraform posh-docker
+scoop install azure-cli aws kubectl helm k9s terraform posh-docker
 
 
 #--- Browsers ---
@@ -35,7 +35,7 @@ scoop install steam
 #choco install -y terminus
 #Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Terminus.lnk' } | Remove-Item
 #choco install -y git -params '"/NoShellIntegration /NoAutoCrlf /WindowsTerminal /SChannel"'
-Update-SessionEnvironment
+#Update-SessionEnvironment
 git config credential.helper store
 
 
@@ -97,7 +97,7 @@ code --install-extension visualstudioexptteam.vscodeintellicode
 #choco install -y terraform
 #choco install -y dotnetcore-sdk
 #choco install -y nodejs # Node.js Current, Latest features
-Update-SessionEnvironment
+#Update-SessionEnvironment
 npm install -g npm npm-check-updates rimraf typescript gulp @angular/cli 2>$null
 
 #choco install -y docker-for-windows
@@ -142,9 +142,7 @@ New-Item -Path "$env:USERPROFILE\.aws" -ItemType SymbolicLink -Value "$env:USERP
 
 #choco install -y sql-server-management-studio
 
-Write-Host "Getting repositories from Azure DevOps"
+#Write-Host "Getting repositories from Azure DevOps"
 #& "$($env:USERPROFILE)\OneDrive\Documents\Keep\Tools\VSTeam\InitProjects.ps1"
 
-Install-WindowsUpdate -acceptEula
-
-Enable-UAC
+#Install-WindowsUpdate -acceptEula
