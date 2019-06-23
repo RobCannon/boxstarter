@@ -62,35 +62,35 @@ Get-PackageProvider -Name NuGet -ForceBootstrap | Out-Null
 Write-Host "Trusting PSGallery" -ForegroundColor Yellow
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
-if (-not (Get-PSRepository -Name TechOpsPSGallery -ErrorAction:SilentlyContinue)) {
-    Register-PSRepository -Name TechOpsPSGallery `
-        -PackageManagementProvider NuGet `
-        -SourceLocation https://www.myget.org/F/techops-psgallery/api/v2 `
-        -PublishLocation https://www.myget.org/F/techops-psgallery/api/v2/package `
-        -InstallationPolicy Trusted
-}
+# if (-not (Get-PSRepository -Name TechOpsPSGallery -ErrorAction:SilentlyContinue)) {
+#     Register-PSRepository -Name TechOpsPSGallery `
+#         -PackageManagementProvider NuGet `
+#         -SourceLocation https://www.myget.org/F/techops-psgallery/api/v2 `
+#         -PublishLocation https://www.myget.org/F/techops-psgallery/api/v2/package `
+#         -InstallationPolicy Trusted
+# }
 
 Write-Host "Installing PowerShell modules" -ForegroundColor Yellow
 Install-Module -Name ImportExcel -Scope CurrentUser
 Install-Module -Name SqlServer -Scope CurrentUser
-Install-Module -Name AWSPowerShell -Scope CurrentUser
-Install-Module -Name Azure -Scope CurrentUser
+# Install-Module -Name AWSPowerShell -Scope CurrentUser
+# Install-Module -Name Azure -Scope CurrentUser
 Install-Module -Name Pester -Scope CurrentUser -Force -SkipPublisherCheck
 Install-Module -Name psake -Scope CurrentUser
-Install-LatestFoundationModule FoundationUtil
-Install-LatestFoundationModule Foundation
-Install-LatestFoundationModule tbsFoundationInstall
-Install-LatestFoundationModule tbsServerBuild
-Install-LatestFoundationModule ModuleManager
+# Install-LatestFoundationModule FoundationUtil
+# Install-LatestFoundationModule Foundation
+# Install-LatestFoundationModule tbsFoundationInstall
+# Install-LatestFoundationModule tbsServerBuild
+# Install-LatestFoundationModule ModuleManager
 
-Write-Host "Enabling Windows Authentication on FQDN intranet sites" -ForegroundColor Yellow
-if (-not (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\turner.com")) {
-    New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\turner.com" | Out-Null
-}
+# Write-Host "Enabling Windows Authentication on FQDN intranet sites" -ForegroundColor Yellow
+# if (-not (Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\turner.com")) {
+#     New-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\turner.com" | Out-Null
+# }
 
-Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\turner.com" -Name "*" -Type DWord -Value 1 -Force | Out-Null
-Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\WebClient\Parameters" -Name "AuthForwardServerList" -Type MultiString -Value "*.turner.com" -Force | Out-Null
-Restart-Service WebClient
+# Set-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\turner.com" -Name "*" -Type DWord -Value 1 -Force | Out-Null
+# Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\WebClient\Parameters" -Name "AuthForwardServerList" -Type MultiString -Value "*.turner.com" -Force | Out-Null
+# Restart-Service WebClient
 
 cmd.exe /c winrm quickconfig -force
 
@@ -178,9 +178,13 @@ Set-ItemProperty -Path 'HKCU:\Console' -Name 'QuickEdit' -Value 1 -Force
 Write-Host 'Enable Windows Subsystems/Features'
 Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole, Microsoft-Hyper-V-All, Microsoft-Windows-Subsystem-Linux -NoRestart
 
-Write-Host 'Install python'
-choco install -y python
-choco install -y kb2999226
+Write-Host 'Install scoop'
+Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+
+# Write-Host 'Install python'
+# choco install -y python
+# choco install -y kb2999226
 
 Write-Host 'Install updates'
 Enable-MicrosoftUpdate

@@ -7,32 +7,44 @@ Disable-UAC
 #Add-AppxPackage -Path ~/Ubuntu.appx
 #Remove-Item ~/Ubuntu.appx
 
+# utils
+scoop install aria2
+scoop bucket add extras
+scoop install 7zip sudo git sysinternals vscode posh-git pwsh
+
+# programming languages
+scoop install python nodejs
+
+# programming languages
+scoop install diffmerge
+
+# cloud and infrastructure
+scoop install azure-cli aws docker docker-compose kubectl helm k9s terraform posh-docker
+
+
 #--- Browsers ---
 Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Microsoft Edge.lnk' } | Remove-Item
-choco install -y Googlechrome
-Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Google Chrome.lnk' } | Remove-Item
-choco install -y lastpass --ignore-checksums
+scoop install chrome
+#Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Google Chrome.lnk' } | Remove-Item
+
+scoop install steam
 
 #--- Tools ---
 
-choco install -y powershell-core --install-arguments='"REGISTERMANIFEST=1 ENABLEPSREMOTING=1"' --packageparameters '"/CleanUpPath"'
-choco install -y 7zip.install
-choco install -y sysinternals
-choco install -y DiffMerge --allow-empty-checksums
-Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'DiffMerge.lnk' } | Remove-Item
-choco install -y mongodb
-Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'MongoDB Compass Community.lnk' } | Remove-Item
-choco install -y terminus
-Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Terminus.lnk' } | Remove-Item
-choco install -y git -params '"/NoShellIntegration /NoAutoCrlf /WindowsTerminal /SChannel"'
+#Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'DiffMerge.lnk' } | Remove-Item
+#choco install -y mongodb
+#Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'MongoDB Compass Community.lnk' } | Remove-Item
+#choco install -y terminus
+#Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Terminus.lnk' } | Remove-Item
+#choco install -y git -params '"/NoShellIntegration /NoAutoCrlf /WindowsTerminal /SChannel"'
 Update-SessionEnvironment
 git config credential.helper store
 
 
 #--- VS Code ---
-choco install -y vscode
-Update-SessionEnvironment
-Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Visual Studio Code.lnk' } | Remove-Item
+#choco install -y vscode
+#Update-SessionEnvironment
+#Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Visual Studio Code.lnk' } | Remove-Item
 
 # Setup synced settings folder from One Drive
 if (Test-Path "$env:APPDATA\Code\User") { Remove-Item "$env:APPDATA\Code\User" -Force -Recurse }
@@ -84,43 +96,43 @@ code --install-extension tyriar.shell-launcher
 code --install-extension visualstudioexptteam.vscodeintellicode
 
 
-choco install -y terraform
-choco install -y dotnetcore-sdk
-choco install -y nodejs # Node.js Current, Latest features
+#choco install -y terraform
+#choco install -y dotnetcore-sdk
+#choco install -y nodejs # Node.js Current, Latest features
 Update-SessionEnvironment
 npm install -g npm npm-check-updates rimraf typescript gulp @angular/cli 2>$null
 
-choco install -y docker-for-windows
-Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Docker for Windows.lnk' } | Remove-Item
+#choco install -y docker-for-windows
+#Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Docker for Windows.lnk' } | Remove-Item
 
 
 # Setup synced .kube settings folder from One Drive
 if (Test-Path "$env:USERPROFILE\.kube") { Remove-Item "$env:USERPROFILE\.kube" -Force -Recurse }
 New-Item -Path "$env:USERPROFILE\.kube" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.kube" | Out-Null
 [Environment]::SetEnvironmentVariable('KUBECONFIG', "$env:USERPROFILE\.kube\config;$env:USERPROFILE\.kube\configs\kube-config-sox-dev;", 'User')
-choco install -y kubernetes-cli
+#choco install -y kubernetes-cli
 
 
 #--- Cloud CLI Tools ---
-python -m pip install --upgrade pip
-choco install -y awscli
-choco install -y azure-cli
+#python -m pip install --upgrade pip
+#choco install -y awscli
+#choco install -y azure-cli
 
 # Support for Turner logins to AWS using samld
 if (Test-Path "$env:USERPROFILE\.aws") { Remove-Item "$env:USERPROFILE\.aws" -Force -Recurse }
 New-Item -Path "$env:USERPROFILE\.aws" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.aws" | Out-Null
-[Environment]::SetEnvironmentVariable('ADFS_DOMAIN', 'TURNER', 'User')
-[Environment]::SetEnvironmentVariable('ADFS_URL', 'https://sts.turner.com/adfs/ls/IdpInitiatedSignOn.aspx?loginToRp=urn:amazon:webservices', 'User')
-[Environment]::SetEnvironmentVariable('AWS_PROFILE', 'aws-platform-services-prod:aws-platform-services-prod-admin', 'User')
-pip install samlkeygen
+#[Environment]::SetEnvironmentVariable('ADFS_DOMAIN', 'TURNER', 'User')
+#[Environment]::SetEnvironmentVariable('ADFS_URL', 'https://sts.turner.com/adfs/ls/IdpInitiatedSignOn.aspx?loginToRp=urn:amazon:webservices', 'User')
+#[Environment]::SetEnvironmentVariable('AWS_PROFILE', 'aws-platform-services-prod:aws-platform-services-prod-admin', 'User')
+#pip install samlkeygen
 
 
 #--- Applications ---
-choco install -y steam --allowEmptyCheckSum
-Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Steam.lnk' } | Remove-Item
-Remove-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Run -Name 'Steam' -ErrorAction SilentlyContinue
-choco install adobereader -y --allow-empty-checksums
-Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Acrobat Reader DC.lnk' } | Remove-Item
+#choco install -y steam --allowEmptyCheckSum
+#Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Steam.lnk' } | Remove-Item
+#Remove-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Run -Name 'Steam' -ErrorAction SilentlyContinue
+#choco install adobereader -y --allow-empty-checksums
+#Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Acrobat Reader DC.lnk' } | Remove-Item
 
 #--- Visual Studio ---
 # choco install -y visualstudio2017enterprise
@@ -130,10 +142,10 @@ Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { 
 # choco install -y visualstudio2017-workload-netcoretools
 
 
-choco install -y sql-server-management-studio
+#choco install -y sql-server-management-studio
 
 Write-Host "Getting repositories from Azure DevOps"
-& "$($env:USERPROFILE)\OneDrive\Documents\Keep\Tools\VSTeam\InitProjects.ps1"
+#& "$($env:USERPROFILE)\OneDrive\Documents\Keep\Tools\VSTeam\InitProjects.ps1"
 
 Install-WindowsUpdate -acceptEula
 
