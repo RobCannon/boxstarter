@@ -46,7 +46,7 @@ function Install-LatestFoundationModule {
     }
 }
 
-Set-ExecutionPolicy Bypass -Force -Scope CurrentUser
+Set-ExecutionPolicy RemoteSigned -Force -Scope CurrentUser
 
 if (-not (Get-PackageProvider -Name NuGet -ListAvailable -ErrorAction:SilentlyContinue | ? Version -ge '2.8.5.208')) {
     Install-PackageProvider -Name NuGet -MinimumVersion '2.8.5.208' -Force -Scope CurrentUser
