@@ -10,16 +10,14 @@ Disable-UAC
 # utils
 scoop install aria2
 scoop bucket add extras
+scoop bucket add versions
 scoop install 7zip sudo git sysinternals vscode posh-git pwsh
 
 # programming languages
-scoop install python nodejs
-
-# programming languages
-scoop install diffmerge
+scoop install python nodejs dotnet-sdk-lts diffmerge
 
 # cloud and infrastructure
-scoop install azure-cli aws docker docker-compose kubectl helm k9s terraform posh-docker
+scoop install azure-cli aws docker-compose kubectl helm k9s terraform posh-docker
 
 
 #--- Browsers ---
