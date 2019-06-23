@@ -72,14 +72,6 @@ Write-Host 'Enable Windows Subsystems/Features'
 #Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole, Microsoft-Hyper-V-All, Microsoft-Windows-Subsystem-Linux -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
 
-Write-Host 'Install scoop'
-Set-ExecutionPolicy RemoteSigned -Scope Process -Force
-try {
-    iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
-}
-catch {
-}
-
 Write-Host 'Remove Windows Store Apps'
 Get-AppxPackage Microsoft.3DBuilder | Remove-AppxPackage
 Get-AppxPackage Microsoft.BingFinance | Remove-AppxPackage
