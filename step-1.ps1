@@ -107,7 +107,13 @@ Get-AppxPackage *Solitaire* | Remove-AppxPackage
 Get-AppxPackage *MixedReality* | Remove-AppxPackage
 Get-AppxPackage *Microsoft3D* | Remove-AppxPackage
 Get-AppxPackage *Print3D* | Remove-AppxPackage
-Get-AppxPackage *CBSPreview | Remove-AppxPackage
+Get-AppxPackage Windows.CBSPreview | Remove-AppxPackage
+Get-AppxPackage *LinkedIn | Remove-AppxPackage
+Get-AppxPackage *McAfeeSecurity | Remove-AppxPackage
+Get-AppxPackage Microsoft.Office.Desktop | Remove-AppxPackage
+Get-AppxPackage Microsoft.GetHelp | Remove-AppxPackage
+Get-AppxPackage Microsoft.BingWeather | Remove-AppxPackage
+Get-AppxPackage RivetNetworks.SmartByte | Remove-AppxPackage
 
 Write-Host 'Installing docker'
 choco install docker-desktop -y
