@@ -7,10 +7,21 @@ Remove-Item ~/Ubuntu.appx
 scoop install 7zip
 scoop install git
 [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
+
+git config --global http.proxy http://userid:password@proxy-user.wip.us.equifax.com:18717
+git config --global http.proxy https://userid:password@proxy-user.wip.us.equifax.com:18717
+git config --global credential.helper store
+
+
+
 scoop bucket add extras
 scoop bucket add versions
-scoop install sysinternals vscode posh-git pwsh
-git config credential.helper store
+scoop pwsh
+scoop posh-git
+
+scoop vscode
+// Look at  C:\Users\rxc423\scoop\apps\vscode\current\vscode-install-context.reg
+
 scoop install sudo
 
 # programming languages
