@@ -20,24 +20,21 @@ scoop pwsh
 scoop posh-git
 
 scoop vscode
-// Look at  C:\Users\rxc423\scoop\apps\vscode\current\vscode-install-context.reg
-
+# Add Explorer context menus for VS Code
+New-Item -Path 'HKCU:\Software\Classes\*\shell\Open with &Code\command' -Force | Out-Null
 Set-ItemProperty -Path 'HKCU:\Software\Classes\*\shell\Open with &Code' -Name '(Default)' -Value 'Open with &Code' -Force
 Set-ItemProperty -Path 'HKCU:\Software\Classes\*\shell\Open with &Code' -Name 'Icon' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe" -Force
 Set-ItemProperty -Path 'HKCU:\Software\Classes\*\shell\Open with &Code\command' -Name '(Default)' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe ""%1""" -Force
 
+New-Item -Path 'HKCU:\Software\Classes\Directory\shell\Open with &Code\command' -Force | Out-Null
+Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\shell\Open with &Code' -Name '(Default)' -Value 'Open with &Code' -Force
+Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\shell\Open with &Code' -Name 'Icon' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe" -Force
+Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\shell\Open with &Code\command' -Name '(Default)' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe ""%1""" -Force
 
-//[HKEY_CLASSES_ROOT\Directory\shell\Open with &Code]
-//@="Open with &Code"
-//"Icon"="C:\\Users\\rxc423\\scoop\\apps\\vscode\\current\\Code.exe"
-//[HKEY_CLASSES_ROOT\Directory\shell\Open with &Code\command]
-//@="\"C:\\Users\\rxc423\\scoop\\apps\\vscode\\current\\Code.exe\" \"%1\""
-
-//[HKEY_CLASSES_ROOT\Directory\Background\shell\Open with &Code]
-//@="Open with &Code"
-//"Icon"="C:\\Users\\rxc423\\scoop\\apps\\vscode\\current\\Code.exe"
-//[HKEY_CLASSES_ROOT\Directory\Background\shell\Open with &Code\command]
-//@="\"C:\\Users\\rxc423\\scoop\\apps\\vscode\\current\\Code.exe\" \"%V\""
+New-Item -Path 'HKCU:\Software\Classes\Directory\Background\shell\Open with &Code\command' -Force | Out-Null
+Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\Background\shell\Open with &Code' -Name '(Default)' -Value 'Open with &Code' -Force
+Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\Background\shell\Open with &Code' -Name 'Icon' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe" -Force
+Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\Background\shell\Open with &Code\command' -Name '(Default)' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe ""%1""" -Force
 
 scoop install sudo
 
