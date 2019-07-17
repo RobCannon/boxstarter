@@ -4,11 +4,14 @@ Add-AppxPackage -Path ~/Ubuntu.appx
 Remove-Item ~/Ubuntu.appx
 
 # utils
-scoop install git aria2
+scoop install 7zip
+scoop install git
+[environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
 scoop bucket add extras
 scoop bucket add versions
-scoop install 7zip sudo sysinternals vscode posh-git pwsh
+scoop install sysinternals vscode posh-git pwsh
 git config credential.helper store
+scoop install sudo
 
 # programming languages
 scoop install python nodejs dotnet-sdk-lts diffmerge
