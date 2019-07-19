@@ -8,8 +8,8 @@ scoop install 7zip
 scoop install git
 [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
 
-git config --global http.proxy http://userid:password@proxy-user.wip.us.equifax.com:18717
-git config --global http.proxy https://userid:password@proxy-user.wip.us.equifax.com:18717
+git config --global http.proxy "http://$($env:USERNAME):password@proxy-user.wip.us.equifax.com:18717"
+git config --global https.proxy "http://$($env:USERNAME):password@proxy-user.wip.us.equifax.com:18717"
 git config --global credential.helper store
 
 
@@ -39,19 +39,28 @@ Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\Background\shell\Open w
 scoop install sudo
 
 # programming languages
-scoop install python nodejs dotnet-sdk-lts diffmerge
+scoop install python
+scoop install nodejs
+scoop install dotnet-sdk-lts
+scoop install diffmerge
 
 # cloud and infrastructure
-scoop install azure-cli aws kubectl helm k9s terraform posh-docker
+scoop install azure-cli
+scoop install aws
+scoop install kubectl
+scoop install helm
+scoop install k9s
+scoop install terraform
+scoop install posh-docker
 
 
 #--- Browsers ---
 Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Microsoft Edge.lnk' } | Remove-Item
-scoop install chrome
+#scoop install chrome
 #Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Google Chrome.lnk' } | Remove-Item
 
-scoop install steam
-Remove-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Run -Name 'Steam' -ErrorAction SilentlyContinue
+#scoop install steam
+#Remove-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Run -Name 'Steam' -ErrorAction SilentlyContinue
 
 #--- Tools ---
 

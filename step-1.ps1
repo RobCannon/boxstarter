@@ -55,7 +55,7 @@ $fonts = (New-Object -ComObject Shell.Application).Namespace(0x14)
 if (-not ($fonts.Items() | ? Name -eq $fontFaceName)) {
     $fontFilePath = "$env:TEMP\$fontFileName"
     if (Test-Path $fontFilePath) { Remove-Item $fontFilePath }
-    Invoke-WebRequest $fontUrl -OutFile $fontFilePath
+    Invoke-WebRequest $fontUrl -OutFile $fontFilePath -UseBasicParsing
     $fonts = (New-Object -ComObject Shell.Application).Namespace(0x14)
     $fonts.CopyHere($fontFilePath)
     Remove-Item $fontFilePath -Force

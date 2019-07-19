@@ -115,9 +115,9 @@ echo ''
 echo ''
 echo '------'
 echo 'Installing terraform'
-wget https://releases.hashicorp.com/terraform/0.12.1/terraform_0.12.1_linux_amd64.zip
-unzip terraform_0.12.1_linux_amd64.zip
-rm terraform_0.12.1_linux_amd64.zip
+wget https://releases.hashicorp.com/terraform/0.12.5/terraform_0.12.5_linux_amd64.zip
+unzip terraform_0.12.5_linux_amd64.zip
+rm terraform_0.12.5_linux_amd64.zip
 sudo mv terraform /usr/local/bin/
 echo ''
 
@@ -199,6 +199,6 @@ fi
 umask g-w,o-w
 env git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 export ZSH=~/.oh-my-zsh
-sudo git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-chsh -s /usr/bin/zsh
+env git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+sudo chsh -s /usr/bin/zsh
 zsh
