@@ -5,7 +5,7 @@ echo 'Smymlink for .profile'
 if [ -f ~/.profile ]; then
   rm ~/.profile
 fi
-ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.profile ~/.profile
+curl -L https://github.com/RobCannon/boxstarter/raw/master/ubuntu/.profile -o ~/.profile
 echo ''
 
 echo ''
@@ -14,19 +14,19 @@ echo 'Symlink for .bashrc '
 if [ -f ~/.bashrc ]; then
   rm ~/.bashrc
 fi
-ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.bashrc ~/.bashrc
+curl -L https://github.com/RobCannon/boxstarter/raw/master/ubuntu/.bashrc -o ~/.bashrc
 echo ''
 
-echo ''
-echo '------'
-echo 'Copying .shh keys'
-rm -rf ~/.ssh
-mkdir ~/.ssh
-cp /c/Users/$USER/OneDrive/Documents/Keep/Linux/.ssh/* ~/.ssh
-sudo chmod 700 ~/.ssh
-sudo chmod 600 ~/.ssh/id_rsa
-sudo chmod 600 ~/.ssh/id_rsa.pub
-echo ''
+# echo ''
+# echo '------'
+# echo 'Copying .shh keys'
+# rm -rf ~/.ssh
+# mkdir ~/.ssh
+# cp /c/Users/$USER/OneDrive/Documents/Keep/Linux/.ssh/* ~/.ssh
+# sudo chmod 700 ~/.ssh
+# sudo chmod 600 ~/.ssh/id_rsa
+# sudo chmod 600 ~/.ssh/id_rsa.pub
+# echo ''
 
 echo ''
 echo '------'
@@ -79,14 +79,14 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 if [ ! -d ~/.kube ]; then
     mkdir ~/.kube
 fi
-if [ -f ~/.kube/config ]; then
-  sudo rm ~/.kube/config
-fi
-if [ -d ~/.kube/configs ]; then
-    sudo rm -rf ~/.kube/configs
-fi
-ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/config ~/.kube/config
-ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/configs ~/.kube/configs
+# if [ -f ~/.kube/config ]; then
+#   sudo rm ~/.kube/config
+# fi
+# if [ -d ~/.kube/configs ]; then
+#     sudo rm -rf ~/.kube/configs
+# fi
+# ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/config ~/.kube/config
+# ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/configs ~/.kube/configs
 echo ''
 
 echo ''
@@ -106,10 +106,10 @@ echo ''
 echo '------'
 echo 'Installing aws client'
 pip install awscli --user
-if [ -d ~/.aws ]; then
-  sudo rm -rf ~/.aws
-fi
-ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.aws ~/.aws
+# if [ -d ~/.aws ]; then
+#   sudo rm -rf ~/.aws
+# fi
+# ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.aws ~/.aws
 echo ''
 
 echo ''
@@ -178,7 +178,7 @@ sudo apt-get install -y zsh
 if [ -f ~/.zshrc ]; then
   sudo rm ~/.zshrc
 fi
-ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.zshrc ~/.zshrc
+curl -L https://github.com/RobCannon/boxstarter/raw/master/ubuntu/.zshrc -o ~/.zshrc
 echo ''
 
 echo ''
@@ -199,6 +199,6 @@ fi
 umask g-w,o-w
 env git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 export ZSH=~/.oh-my-zsh
-env git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+env git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 sudo chsh -s /usr/bin/zsh
 zsh
