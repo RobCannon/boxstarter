@@ -1,7 +1,9 @@
+DEBIAN_FRONTEND=noninteractive
+
 # Set up symlinks to share files across computers
 echo ''
 echo '------'
-echo 'Smymlink for .profile'
+echo 'Copy .profile'
 if [ -f ~/.profile ]; then
   rm ~/.profile
 fi
@@ -10,7 +12,7 @@ echo ''
 
 echo ''
 echo '------'
-echo 'Symlink for .bashrc '
+echo 'Copy .bashrc '
 if [ -f ~/.bashrc ]; then
   rm ~/.bashrc
 fi
@@ -185,8 +187,9 @@ echo ''
 echo '------'
 echo 'Upgrading packages'
 sudo apt-get update
-sudo apt-get upgrade -y
-sudo apt-get autoremove -y
+sudo apt-get -y upgrade
+sudo apt-get -y autoremove
+sudo apt-get -y autoclean
 sudo chown -R $USER ~/.config
 echo ''
 
@@ -199,6 +202,6 @@ fi
 umask g-w,o-w
 env git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 export ZSH=~/.oh-my-zsh
-env git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+env git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 sudo chsh -s /usr/bin/zsh
 zsh

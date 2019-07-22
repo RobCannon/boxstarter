@@ -47,12 +47,18 @@ Write-Host 'Enable PIN and Windows Hello'
 Set-ItemProperty HKLM:\SOFTWARE\Policies\Microsoft\Windows\System -name AllowDomainPINLogon -value 1
 
 Write-Host 'Install SauceCodePro font'
-$fontFileName = 'Sauce Code Pro Nerd Font Complete Mono.ttf'
+$fontFileName = 'Sauce Code Pro Nerd Font Complete Mono Windows Compatible.ttf'
 $fontFaceName = 'SauceCodePro NF Regular'
 $fontUrl = 'https://github.com/haasosaurus/nerd-fonts/raw/2.0.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
 
+$fontUrl = 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
+
+
+$fontUrl = 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
+
 $fonts = (New-Object -ComObject Shell.Application).Namespace(0x14)
-if (-not ($fonts.Items() | ? Name -eq $fontFaceName)) {
+$font = $fonts.Items() | ? Name -eq $fontFaceName
+if (-not $font) {
     $fontFilePath = "$env:TEMP\$fontFileName"
     if (Test-Path $fontFilePath) { Remove-Item $fontFilePath }
     Invoke-WebRequest $fontUrl -OutFile $fontFilePath -UseBasicParsing

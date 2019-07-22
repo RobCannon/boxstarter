@@ -1,1 +1,1 @@
-sudo cp /mnt/c/Users/$USER/OneDrive/Documents/Keep/Linux/etc/wsl.conf /etc/wsl.conf
+sudo curl -L https://github.com/RobCannon/boxstarter/raw/master/ubuntu/etc/wsl.conf /etc/wsl.conf
