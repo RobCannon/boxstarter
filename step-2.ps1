@@ -8,10 +8,11 @@ scoop install 7zip
 scoop install git
 [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
 
-git config --global http.proxy "http://$($env:USERNAME):password@proxy-user.wip.us.equifax.com:18717"
-git config --global https.proxy "http://$($env:USERNAME):password@proxy-user.wip.us.equifax.com:18717"
+if ($env:HTTP_PROXY) {
+    git config --global http.proxy $env:HTTP_PROXY
+    git config --global https.proxy $env:HTTP_PROXY
+}
 git config --global credential.helper store
-
 
 
 scoop bucket add extras
@@ -19,30 +20,35 @@ scoop bucket add versions
 scoop pwsh
 scoop posh-git
 
-scoop vscode
-# Add Explorer context menus for VS Code
-New-Item -Path 'HKCU:\Software\Classes\*\shell\Open with &Code\command' -Force | Out-Null
-Set-ItemProperty -Path 'HKCU:\Software\Classes\*\shell\Open with &Code' -Name '(Default)' -Value 'Open with &Code' -Force
-Set-ItemProperty -Path 'HKCU:\Software\Classes\*\shell\Open with &Code' -Name 'Icon' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe" -Force
-Set-ItemProperty -Path 'HKCU:\Software\Classes\*\shell\Open with &Code\command' -Name '(Default)' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe ""%1""" -Force
+# scoop vscode
+# # Add Explorer context menus for VS Code
+# New-Item -Path 'HKCU:\Software\Classes\*\shell\Open with &Code\command' -Force | Out-Null
+# Set-ItemProperty -Path 'HKCU:\Software\Classes\*\shell\Open with &Code' -Name '(Default)' -Value 'Open with &Code' -Force
+# Set-ItemProperty -Path 'HKCU:\Software\Classes\*\shell\Open with &Code' -Name 'Icon' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe" -Force
+# Set-ItemProperty -Path 'HKCU:\Software\Classes\*\shell\Open with &Code\command' -Name '(Default)' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe ""%1""" -Force
 
-New-Item -Path 'HKCU:\Software\Classes\Directory\shell\Open with &Code\command' -Force | Out-Null
-Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\shell\Open with &Code' -Name '(Default)' -Value 'Open with &Code' -Force
-Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\shell\Open with &Code' -Name 'Icon' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe" -Force
-Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\shell\Open with &Code\command' -Name '(Default)' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe ""%1""" -Force
+# New-Item -Path 'HKCU:\Software\Classes\Directory\shell\Open with &Code\command' -Force | Out-Null
+# Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\shell\Open with &Code' -Name '(Default)' -Value 'Open with &Code' -Force
+# Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\shell\Open with &Code' -Name 'Icon' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe" -Force
+# Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\shell\Open with &Code\command' -Name '(Default)' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe ""%1""" -Force
 
-New-Item -Path 'HKCU:\Software\Classes\Directory\Background\shell\Open with &Code\command' -Force | Out-Null
-Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\Background\shell\Open with &Code' -Name '(Default)' -Value 'Open with &Code' -Force
-Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\Background\shell\Open with &Code' -Name 'Icon' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe" -Force
-Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\Background\shell\Open with &Code\command' -Name '(Default)' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe ""%1""" -Force
+# New-Item -Path 'HKCU:\Software\Classes\Directory\Background\shell\Open with &Code\command' -Force | Out-Null
+# Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\Background\shell\Open with &Code' -Name '(Default)' -Value 'Open with &Code' -Force
+# Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\Background\shell\Open with &Code' -Name 'Icon' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe" -Force
+# Set-ItemProperty -Path 'HKCU:\Software\Classes\Directory\Background\shell\Open with &Code\command' -Name '(Default)' -Value "$env:USERPROFILE\scoop\apps\vscode\current\Code.exe ""%1""" -Force
 
 scoop install sudo
 
 # programming languages
 scoop install python
-scoop install nodejs
 scoop install dotnet-sdk-lts
 scoop install diffmerge
+scoop install nodejs
+
+if ($env:HTTP_PROXY) {
+    npm config set proxy $env:HTTP_PROXY
+    npm config set https-proxy $env:HTTP_PROXY
+}
 
 # cloud and infrastructure
 scoop install azure-cli
@@ -66,7 +72,6 @@ Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Nam
 
 #Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'DiffMerge.lnk' } | Remove-Item
 #Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Visual Studio Code.lnk' } | Remove-Item
-#Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Steam.lnk' } | Remove-Item
 #Get-ChildItem "$([Environment]::GetFolderPath('CommonDesktopDirectory'))" | ? { $_.Name -eq 'Acrobat Reader DC.lnk' } | Remove-Item
 
 

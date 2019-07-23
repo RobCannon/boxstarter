@@ -23,18 +23,9 @@
         "when": "editorTextFocus && !editorReadonly"
     },
     {
-        "key": "shift+alt+x",
-        "command": "my.extractfunction",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
         "key": "f8",
         "command": "workbench.action.terminal.runSelectedText",
         "when": "editorTextFocus"
-    },
-    {
-        "key": "ctrl+shift+`",
-        "command": "-workbench.action.terminal.new"
     },
     {
         "key": "ctrl+shift+`",
