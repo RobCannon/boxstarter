@@ -6,18 +6,12 @@ if [ -f ~/.proxy ]; then export $(cat ~/.proxy | xargs); fi
 echo ''
 echo '------'
 echo 'Copy .profile'
-if [ -f ~/.profile ]; then
-  rm ~/.profile
-fi
 curl -L https://github.com/RobCannon/boxstarter/raw/master/ubuntu/.profile -o ~/.profile
 echo ''
 
 echo ''
 echo '------'
 echo 'Copy .bashrc '
-if [ -f ~/.bashrc ]; then
-  rm ~/.bashrc
-fi
 curl -L https://github.com/RobCannon/boxstarter/raw/master/ubuntu/.bashrc -o ~/.bashrc
 echo ''
 
@@ -100,7 +94,7 @@ echo ''
 echo ''
 echo '------'
 echo 'Installing helm'
-curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | sudo -E bash -
+curl -L https://git.io/get_helm.sh | bash
 helm init --client-only
 echo ''
 
@@ -158,7 +152,7 @@ echo 'Installing dotnet'
 # sudo apt-get install apt-transport-https
 # sudo apt-get update
 sudo apt-get install dotnet-sdk-2.2
-dotnet tool install --global dotnet-outdated
+sudo dotnet tool install --global dotnet-outdated
 echo ''
 
 echo ''
