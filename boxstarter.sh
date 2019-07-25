@@ -117,9 +117,11 @@ echo ''
 echo ''
 echo '------'
 echo 'Installing terraform'
-wget https://releases.hashicorp.com/terraform/0.12.5/terraform_0.12.5_linux_amd64.zip
-unzip terraform_0.12.5_linux_amd64.zip
-rm terraform_0.12.5_linux_amd64.zip
+TERRAFORM_VERSION=0.12.5
+TERRAFORM_FILE="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
+curl -LO https://releases.hashicorp.com/terraform/$TERRAFORM_VERSION/$TERRAFORM_FILE
+unzip $TERRAFORM_FILE
+rm $TERRAFORM_FILE
 sudo mv terraform /usr/local/bin/
 echo ''
 
