@@ -147,6 +147,14 @@ echo ''
 
 echo ''
 echo '------'
+echo 'Installing google-cloud-sdk'
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+sudo apt-get update && sudo apt-get install google-cloud-sdk
+echo ''
+
+echo ''
+echo '------'
 echo 'Installing dotnet'
 # The first 4 lines are already done above, but repeated here for completeness
 # wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
