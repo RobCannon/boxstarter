@@ -104,15 +104,15 @@ echo 'Installing @angular/cli'
 sudo npm install -g @angular/cli
 echo ''
 
-echo ''
-echo '------'
-echo 'Installing aws client'
-pip install awscli --user
-# if [ -d ~/.aws ]; then
-#   sudo rm -rf ~/.aws
-# fi
-# ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.aws ~/.aws
-echo ''
+# echo ''
+# echo '------'
+# echo 'Installing aws client'
+# pip install awscli --user
+# # if [ -d ~/.aws ]; then
+# #   sudo rm -rf ~/.aws
+# # fi
+# # ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.aws ~/.aws
+# echo ''
 
 echo ''
 echo '------'
@@ -125,13 +125,13 @@ rm $TERRAFORM_FILE
 sudo mv terraform /usr/local/bin/
 echo ''
 
-echo ''
-echo '------'
-echo 'Installing ansible'
-sudo apt update
-sudo apt-get install python-dev libkrb5-dev krb5-user python-pip
-sudo pip install ansible pywinrm kerberos requests-kerberos requests-credssp --upgrade
-echo ''
+# echo ''
+# echo '------'
+# echo 'Installing ansible'
+# sudo apt update
+# sudo apt-get install python-dev libkrb5-dev krb5-user python-pip
+# sudo pip install ansible pywinrm kerberos requests-kerberos requests-credssp --upgrade
+# echo ''
 
 echo ''
 echo '------'
@@ -157,13 +157,13 @@ sudo apt-get install dotnet-sdk-2.2
 sudo dotnet tool install --global dotnet-outdated
 echo ''
 
-echo ''
-echo '------'
-echo 'Installing go'
-sudo add-apt-repository ppa:longsleep/golang-backports
-sudo apt-get update
-sudo apt-get install golang-go
-echo ''
+# echo ''
+# echo '------'
+# echo 'Installing go'
+# sudo add-apt-repository ppa:longsleep/golang-backports
+# sudo apt-get update
+# sudo apt-get install golang-go
+# echo ''
 
 
 echo ''
