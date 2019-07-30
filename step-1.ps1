@@ -49,6 +49,7 @@ Set-ItemProperty HKLM:\SOFTWARE\Policies\Microsoft\Windows\System -name AllowDom
 Write-Host 'Install SauceCodePro font'
 $fontFileName = 'Sauce Code Pro Nerd Font Complete Mono Windows Compatible.ttf'
 $fontFaceName = 'SauceCodePro NF Regular'
+$faceName = 'SauceCodePro NF'
 $fontUrl = 'https://github.com/haasosaurus/nerd-fonts/raw/2.0.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
 
 $fontUrl = 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf'
@@ -68,10 +69,10 @@ if (-not $font) {
 }
 
 Write-Host 'Set console defaults'
-Set-ItemProperty -Path 'HKCU:\Console' -Name 'FaceName' -Value $fontFaceName -Type String -Force
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'FaceName' -Value $faceName -Type String -Force
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'FontSize' -Value 0x140000 -Type DWord -Force
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'ScreenBufferSize' -Value 0x270f0078 -Type DWord -Force
-Set-ItemProperty -Path 'HKCU:\Console' -Name 'WindowSize' -Value 0x320078 -Type DWord -Force
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'WindowSize' -Value 0x240078 -Type DWord -Force
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'QuickEdit' -Value 1 -Force
 
 Write-Host 'Enable Windows Subsystems/Features'
