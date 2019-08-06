@@ -7,6 +7,7 @@ param (
 $credential = (New-Object PSCredential $env:USERNAME, $Password).GetNetworkCredential()
 
 $proxyurl = "http://$($credential.UserName):$($credential.Password)@proxy-user.wip.us.equifax.com:18717"
+$proxyurl = "http://$($credential.UserName):$($credential.Password)@proxy-user.prod.edc.equifax.com:18717"
 # $proxyurl = "http://$($credential.UserName):$($credential.Password)@ep.threatpulse.net:80"
 
 $env:HTTP_PROXY = $proxyurl
