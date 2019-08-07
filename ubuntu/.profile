@@ -7,7 +7,6 @@
 # the default umask is set in /etc/profile; for setting the umask
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
-if [ -f ~/.proxy ]; then export $(cat ~/.proxy | xargs); fi
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -107,5 +106,7 @@ export GO111MODULE=on
 
 export DOCKER_HOST=tcp://0.0.0.0:2375
 export KUBECONFIG=$HOME/.kube/config
+
+export GOOGLE_APPLICATION_CREDENTIALS=$HOME/.gcp/service-account.json
 
 complete -C aws_completer aws

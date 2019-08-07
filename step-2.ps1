@@ -8,10 +8,6 @@ scoop install 7zip
 scoop install git
 [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
 
-if ($env:HTTP_PROXY) {
-    git config --global http.proxy $env:HTTP_PROXY
-    git config --global https.proxy $env:HTTP_PROXY
-}
 git config --global credential.helper store
 
 
@@ -44,11 +40,6 @@ scoop install python
 scoop install dotnet-sdk-lts
 scoop install diffmerge
 scoop install nodejs
-
-if ($env:HTTP_PROXY) {
-    npm config set proxy $env:HTTP_PROXY
-    npm config set https-proxy $env:HTTP_PROXY
-}
 
 # cloud and infrastructure
 scoop install azure-cli
