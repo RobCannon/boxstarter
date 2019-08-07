@@ -1,7 +1,5 @@
 DEBIAN_FRONTEND=noninteractive
 
-if [ -f ~/.proxy ]; then export $(cat ~/.proxy | xargs); fi
-
 # Set up symlinks to share files across computers
 echo ''
 echo '------'
@@ -34,8 +32,7 @@ sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get autoremove -y
 sudo apt-get install -y curl unzip zip git
-if [ -z "$HTTP_PROXY" ]; then git config --global http.proxy $HTTP_PROXY; fi
-if [ -z "$HTTPS_PROXY" ]; then git config --global http.proxy $HTTPS_PROXY; fi
+git config --global credential.helper store
 echo ''
 
 echo ''
@@ -48,8 +45,6 @@ echo '------'
 echo 'Installing nodejs'
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
-if [ -z "$HTTP_PROXY" ]; then npm config set proxy $HTTP_PROXY; fi
-if [ -z "$HTTPS_PROXY" ]; then npm config set https-proxy $HTTPS_PROXY; fi
 sudo npm install -g npm npm-check-updates tldr
 echo ''
 
@@ -117,7 +112,7 @@ echo ''
 echo ''
 echo '------'
 echo 'Installing terraform'
-TERRAFORM_VERSION=0.12.5
+TERRAFORM_VERSION=0.12.6
 TERRAFORM_FILE="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
 curl -LO https://releases.hashicorp.com/terraform/$TERRAFORM_VERSION/$TERRAFORM_FILE
 unzip $TERRAFORM_FILE
