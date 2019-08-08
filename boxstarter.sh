@@ -120,6 +120,13 @@ rm $TERRAFORM_FILE
 sudo mv terraform /usr/local/bin/
 echo ''
 
+echo ''
+echo '------'
+echo 'Installing terraform-docs'
+curl -L https://github.com/segmentio/terraform-docs/releases/download/v0.6.0/terraform-docs-v0.6.0-linux-amd64 -o ~/terraform-docs
+chmod +x ~/terraform-docs
+sudo mv ~/terraform-docs /usr/local/bin/
+
 # echo ''
 # echo '------'
 # echo 'Installing ansible'
