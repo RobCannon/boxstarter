@@ -102,8 +102,8 @@ export PATH=$PATH:$HOME/$USER/bin
 export PATH=$PATH:$HOME/.dotnet/tools
 
 export PATH=$PATH:$HOME/go/bin
-export GOPATH=$HOME/go
-export GO111MODULE=on
+# export GOPATH=$HOME/go
+# export GO111MODULE=on
 
 export DOCKER_HOST=tcp://0.0.0.0:2375
 export KUBECONFIG=$HOME/.kube/config

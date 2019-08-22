@@ -116,4 +116,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
+eval $($USERPROFILE/scoop/apps/ssh-agent-wsl/2.5/ssh-agent-wsl -r)
+
 source ~/.profile

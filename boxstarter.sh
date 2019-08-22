@@ -13,16 +13,13 @@ echo 'Copy .bashrc '
 curl -L https://github.com/RobCannon/boxstarter/raw/master/ubuntu/.bashrc -o ~/.bashrc
 echo ''
 
-# echo ''
-# echo '------'
-# echo 'Copying .shh keys'
-# rm -rf ~/.ssh
-# mkdir ~/.ssh
-# cp /c/Users/$USER/OneDrive/Documents/Keep/Linux/.ssh/* ~/.ssh
-# sudo chmod 700 ~/.ssh
-# sudo chmod 600 ~/.ssh/id_rsa
-# sudo chmod 600 ~/.ssh/id_rsa.pub
-# echo ''
+echo ''
+echo '------'
+echo 'Linking .shh keys'
+if [ -d ~/.ssh ]; then
+    rm -rf ~/.ssh
+fi
+ln -s $USERPROFILE/.ssh ~/.ssh
 
 echo ''
 echo '------'
