@@ -23,11 +23,11 @@ PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
 
 # Git aliases
-alias grebase=git rebase --interactive origin/master
-alias greset=git reset --hard origin/$(current_branch)
+alias grebase='git rebase --interactive origin/master'
+alias greset='git reset --hard origin/$(current_branch)''
 
 # This command is used ALOT both below and in daily life
-alias k=kubectl
+alias k='kubectl'
 
 # Apply a YML file
 alias kaf='k apply -f'
