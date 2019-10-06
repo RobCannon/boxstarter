@@ -109,7 +109,7 @@ echo ''
 echo ''
 echo '------'
 echo 'Installing terraform'
-TERRAFORM_VERSION=0.12.6
+TERRAFORM_VERSION=0.12.9
 TERRAFORM_FILE="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
 curl -LO https://releases.hashicorp.com/terraform/$TERRAFORM_VERSION/$TERRAFORM_FILE
 unzip $TERRAFORM_FILE
@@ -117,12 +117,12 @@ rm $TERRAFORM_FILE
 sudo mv terraform /usr/local/bin/
 echo ''
 
-echo ''
-echo '------'
-echo 'Installing terraform-docs'
-curl -L https://github.com/segmentio/terraform-docs/releases/download/v0.6.0/terraform-docs-v0.6.0-linux-amd64 -o ~/terraform-docs
-chmod +x ~/terraform-docs
-sudo mv ~/terraform-docs /usr/local/bin/
+# echo ''
+# echo '------'
+# echo 'Installing terraform-docs'
+# curl -L https://github.com/segmentio/terraform-docs/releases/download/v0.6.0/terraform-docs-v0.6.0-linux-amd64 -o ~/terraform-docs
+# chmod +x ~/terraform-docs
+# sudo mv ~/terraform-docs /usr/local/bin/
 
 # echo ''
 # echo '------'
