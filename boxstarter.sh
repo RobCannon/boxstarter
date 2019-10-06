@@ -24,24 +24,24 @@ ln -s $USERPROFILE/.ssh ~/.ssh
 echo ''
 echo '------'
 echo 'Setting package source and updating apt-get'
-sudo apt-get install -y apt-transport-https
-sudo apt-get update
-sudo apt-get upgrade -y
-sudo apt-get autoremove -y
-sudo apt-get install -y curl unzip zip git
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get autoremove -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y curl unzip zip git
 git config --global credential.helper store
 echo ''
 
 echo ''
 echo '------'
 echo 'Installing python'
-sudo apt-get install -y python3 python-pip
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y python3 python-pip
 
 echo ''
 echo '------'
 echo 'Installing nodejs'
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-sudo apt-get install -y nodejs
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
 sudo npm install -g npm npm-check-updates tldr
 echo ''
 
@@ -52,8 +52,8 @@ echo 'Installing powershell'
 wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
 sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
-sudo apt-get update
-sudo apt-get install -y powershell
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y powershell
 echo ''
 
 echo ''
@@ -140,17 +140,17 @@ echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO 
     sudo tee /etc/apt/sources.list.d/azure-cli.list
 curl -L https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
 sudo curl -o /etc/apt/sources.list.d/microsoft.list https://packages.microsoft.com/config/ubuntu/16.04/prod.list
-sudo apt-get update
-sudo apt-get install azure-cli
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get install azure-cli
 echo ''
 
-echo ''
-echo '------'
-echo 'Installing google-cloud-sdk'
-echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-sudo apt-get update && sudo apt-get install google-cloud-sdk
-echo ''
+# echo ''
+# echo '------'
+# echo 'Installing google-cloud-sdk'
+# echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+# curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+# sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo apt-get install google-cloud-sdk
+# echo ''
 
 echo ''
 echo '------'
@@ -195,10 +195,10 @@ echo ''
 echo ''
 echo '------'
 echo 'Upgrading packages'
-sudo apt-get update
-sudo apt-get -y upgrade
-sudo apt-get -y autoremove
-sudo apt-get -y autoclean
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y autoremove
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y autoclean
 sudo chown -R $USER ~/.config
 echo ''
 
