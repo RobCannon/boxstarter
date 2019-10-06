@@ -24,7 +24,7 @@ alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
 
 # Git aliases
 alias grebase='git rebase --interactive origin/master'
-alias greset='git reset --hard origin/$(current_branch)''
+alias greset='git reset --hard origin/$(current_branch)'
 
 # This command is used ALOT both below and in daily life
 alias k='kubectl'
@@ -101,13 +101,8 @@ alias man='tldr'
 export PATH=$PATH:$HOME/$USER/bin
 export PATH=$PATH:$HOME/.dotnet/tools
 
-export PATH=$PATH:$HOME/go/bin
-# export GOPATH=$HOME/go
-# export GO111MODULE=on
 
 export DOCKER_HOST=tcp://0.0.0.0:2375
 export KUBECONFIG=$HOME/.kube/config
 
-export GOOGLE_APPLICATION_CREDENTIALS=$HOME/.gcp/service-account.json
-
-complete -C aws_completer aws
+eval $($USERPROFILE/scoop/apps/ssh-agent-wsl/2.5/ssh-agent-wsl -r)

@@ -9,12 +9,6 @@ echo ''
 
 echo ''
 echo '------'
-echo 'Copy .bashrc '
-curl -L https://github.com/RobCannon/boxstarter/raw/master/ubuntu/.bashrc -o ~/.bashrc
-echo ''
-
-echo ''
-echo '------'
 echo 'Linking .shh keys'
 if [ -d ~/.ssh ]; then
     rm -rf ~/.ssh
@@ -59,7 +53,7 @@ echo ''
 echo ''
 echo '------'
 echo 'Installing docker'
-sudo apt-get install -y docker.io
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y docker.io
 sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 echo ''
@@ -128,7 +122,7 @@ echo ''
 # echo '------'
 # echo 'Installing ansible'
 # sudo apt update
-# sudo apt-get install python-dev libkrb5-dev krb5-user python-pip
+# sudo DEBIAN_FRONTEND=noninteractive apt-get install python-dev libkrb5-dev krb5-user python-pip
 # sudo pip install ansible pywinrm kerberos requests-kerberos requests-credssp --upgrade
 # echo ''
 
@@ -158,9 +152,9 @@ echo 'Installing dotnet'
 # The first 4 lines are already done above, but repeated here for completeness
 # wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb
 # sudo dpkg -i packages-microsoft-prod.deb
-# sudo apt-get install apt-transport-https
-# sudo apt-get update
-sudo apt-get install -y dotnet-sdk-2.2
+# sudo DEBIAN_FRONTEND=noninteractive apt-get install apt-transport-https
+# sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y dotnet-sdk-2.2
 sudo dotnet tool install --global dotnet-outdated
 echo ''
 
@@ -168,8 +162,8 @@ echo ''
 # echo '------'
 # echo 'Installing go'
 # sudo add-apt-repository ppa:longsleep/golang-backports
-# sudo apt-get update
-# sudo apt-get install golang-go
+# sudo DEBIAN_FRONTEND=noninteractive apt-get update
+# sudo DEBIAN_FRONTEND=noninteractive apt-get install golang-go
 # echo ''
 
 
@@ -185,7 +179,7 @@ echo ''
 echo ''
 echo '------'
 echo 'Installing zsh'
-sudo apt-get install -y zsh
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y zsh
 if [ -f ~/.zshrc ]; then
   sudo rm ~/.zshrc
 fi
