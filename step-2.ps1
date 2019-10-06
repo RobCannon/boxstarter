@@ -3,6 +3,8 @@ Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -Us
 Add-AppxPackage -Path ~/Ubuntu.appx
 Remove-Item ~/Ubuntu.appx
 
+[environment]::setenvironmentvariable('WSLENV', 'USERPROFILE/l', 'USER')
+
 # utils
 scoop install 7zip
 scoop install git
