@@ -106,3 +106,11 @@ export DOCKER_HOST=tcp://0.0.0.0:2375
 export KUBECONFIG=$HOME/.kube/config
 
 eval $($USERPROFILE/scoop/apps/ssh-agent-wsl/2.5/ssh-agent-wsl -r)
+
+function _update_ps1() {
+    eval "$(/usr/local/bin/powerline-go -error $? -shell bash -eval -colorize-hostname -newline -modules-right kube)"
+}
+
+if [ "$TERM" != "linux" ] && [ -f "/usr/local/bin/powerline-go" ]; then
+    PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+fi

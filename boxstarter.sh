@@ -178,16 +178,6 @@ echo ''
 
 echo ''
 echo '------'
-echo 'Installing zsh'
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y zsh
-if [ -f ~/.zshrc ]; then
-  sudo rm ~/.zshrc
-fi
-curl -L https://github.com/RobCannon/boxstarter/raw/master/ubuntu/.zshrc -o ~/.zshrc
-echo ''
-
-echo ''
-echo '------'
 echo 'Upgrading packages'
 sudo DEBIAN_FRONTEND=noninteractive apt-get update
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
@@ -196,15 +186,10 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get -y autoclean
 sudo chown -R $USER ~/.config
 echo ''
 
+
 echo ''
 echo '------'
-echo 'Installing oh-my-zsh'
-if [ -d ~/.oh-my-zsh ]; then
-  sudo rm -rf ~/.oh-my-zsh
-fi
-umask g-w,o-w
-env git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-export ZSH=~/.oh-my-zsh
-env git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
-sudo chsh -s /usr/bin/zsh
-zsh
+echo 'Installing powerline-go for custom prompt'
+curl -LO https://github.com/justjanne/powerline-go/releases/download/v1.13.0/powerline-go-linux-amd64
+chmod +x ./powerline-go-linux-amd64
+sudo mv ./powerline-go-linux-amd64 /usr/local/bin/powerline-go
