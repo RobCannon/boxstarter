@@ -90,16 +90,6 @@ echo 'Installing @angular/cli'
 sudo npm install -g @angular/cli
 echo ''
 
-# echo ''
-# echo '------'
-# echo 'Installing aws client'
-# pip install awscli --user
-# # if [ -d ~/.aws ]; then
-# #   sudo rm -rf ~/.aws
-# # fi
-# # ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.aws ~/.aws
-# echo ''
-
 echo ''
 echo '------'
 echo 'Installing terraform'

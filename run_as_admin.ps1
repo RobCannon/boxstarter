@@ -18,13 +18,6 @@ Get-PackageProvider -Name NuGet -ForceBootstrap | Out-Null
 Write-Host "Trusting PSGallery" -ForegroundColor Yellow
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
-Write-Host "Installing PowerShell modules" -ForegroundColor Yellow
-Install-Module -Name ImportExcel -Scope CurrentUser
-Install-Module -Name SqlServer -Scope CurrentUser
-# Install-Module -Name AWSPowerShell -Scope CurrentUser
-# Install-Module -Name Azure -Scope CurrentUser
-Install-Module -Name Pester -Scope CurrentUser -Force -SkipPublisherCheck
-Install-Module -Name psake -Scope CurrentUser
 
 cmd.exe /c winrm quickconfig -force
 
@@ -76,74 +69,10 @@ Write-Host 'Enable Windows Subsystems/Features'
 #Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole, Microsoft-Hyper-V-All, Microsoft-Windows-Subsystem-Linux -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
 
-Write-Host 'Remove Windows Store Apps'
-Get-AppxPackage Microsoft.3DBuilder | Remove-AppxPackage
-Get-AppxPackage Microsoft.BingFinance | Remove-AppxPackage
-Get-AppxPackage Microsoft.BingNews | Remove-AppxPackage
-Get-AppxPackage Microsoft.BingSports | Remove-AppxPackage
-Get-AppxPackage Microsoft.CommsPhone | Remove-AppxPackage
-Get-AppxPackage Microsoft.Getstarted | Remove-AppxPackage
-Get-AppxPackage Microsoft.Messaging | Remove-AppxPackage
-Get-AppxPackage Microsoft.MicrosoftOfficeHub | Remove-AppxPackage
-Get-AppxPackage Microsoft.OneConnect | Remove-AppxPackage
-Get-AppxPackage Microsoft.WindowsPhone | Remove-AppxPackage
-Get-AppxPackage Microsoft.SkypeApp | Remove-AppxPackage
-Get-AppxPackage Microsoft.WindowsSoundRecorder | Remove-AppxPackage
-Get-AppxPackage Microsoft.MicrosoftStickyNotes | Remove-AppxPackage
-Get-AppxPackage Microsoft.Office.Sway | Remove-AppxPackage
-Get-AppxPackage Microsoft.XboxApp | Remove-AppxPackage
-Get-AppxPackage Microsoft.XboxIdentityProvider | Remove-AppxPackage
-Get-AppxPackage Microsoft.ZuneMusic | Remove-AppxPackage
-Get-AppxPackage Microsoft.ZuneVideo | Remove-AppxPackage
-Get-AppxPackage *Autodesk* | Remove-AppxPackage
-Get-AppxPackage ActiproSoftware* | Remove-AppxPackage
-Get-AppxPackage *EclipseManager | Remove-AppxPackage
-Get-AppxPackage *AdobePhotoshopExpress | Remove-AppxPackage
-Get-AppxPackage *Dualingo* | Remove-AppxPackage
-Get-AppxPackage *Dropbox* | Remove-AppxPackage
-Get-AppxPackage *BubbleWitch* | Remove-AppxPackage
-Get-AppxPackage king.com.CandyCrush* | Remove-AppxPackage
-Get-AppxPackage *Keeper* | Remove-AppxPackage
-Get-AppxPackage *Minecraft* | Remove-AppxPackage
-Get-AppxPackage *MarchofEmpires* | Remove-AppxPackage
-Get-AppxPackage *Plex* | Remove-AppxPackage
-Get-AppxPackage *Solitaire* | Remove-AppxPackage
-Get-AppxPackage *MixedReality* | Remove-AppxPackage
-Get-AppxPackage *Microsoft3D* | Remove-AppxPackage
-Get-AppxPackage *Print3D* | Remove-AppxPackage
-Get-AppxPackage Windows.CBSPreview | Remove-AppxPackage
-Get-AppxPackage *LinkedIn | Remove-AppxPackage
-Get-AppxPackage *McAfeeSecurity | Remove-AppxPackage
-Get-AppxPackage Microsoft.Office.Desktop | Remove-AppxPackage
-Get-AppxPackage Microsoft.GetHelp | Remove-AppxPackage
-Get-AppxPackage Microsoft.BingWeather | Remove-AppxPackage
-Get-AppxPackage RivetNetworks.SmartByte | Remove-AppxPackage
 
 Write-Host 'Installing docker'
 choco install docker-desktop -y
 Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Docker Desktop.lnk' } | Remove-Item
-
-# Setup synced settings folder from One Drive
-if (Test-Path "$env:APPDATA\Code\User") { Remove-Item "$env:APPDATA\Code\User" -Force -Recurse }
-if (-Not (Test-Path "$env:APPDATA\Code")) { New-Item -Path "$env:APPDATA\Code" -ItemType Directory | Out-Null }
-New-Item -Path "$env:APPDATA\Code\User" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Tools\Code\User" | Out-Null
-
-
-# Setup synced .kube settings folder from One Drive
-if (Test-Path "$env:USERPROFILE\.kube") { Remove-Item "$env:USERPROFILE\.kube" -Force -Recurse }
-New-Item -Path "$env:USERPROFILE\.kube" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.kube" | Out-Null
-[Environment]::SetEnvironmentVariable('KUBECONFIG', "$env:USERPROFILE\.kube\config;$env:USERPROFILE\.kube\configs\kube-config-sox-dev;", 'User')
-
-# Setup synced .ssh folder from One Drive
-if (Test-Path "$env:USERPROFILE\.ssh") { Remove-Item "$env:USERPROFILE\.ssh" -Force -Recurse }
-New-Item -Path "$env:USERPROFILE\.ssh" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\.ssh" | Out-Null
-
-
-
-# Synch aws config
-if (Test-Path "$env:USERPROFILE\.aws") { Remove-Item "$env:USERPROFILE\.aws" -Force -Recurse }
-New-Item -Path "$env:USERPROFILE\.aws" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.aws" | Out-Null
-
 
 Write-Host 'Install updates'
 Enable-MicrosoftUpdate
