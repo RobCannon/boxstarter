@@ -1,4 +1,5 @@
 DEBIAN_FRONTEND=noninteractive
+sudo -v
 
 # Set up symlinks to share files across computers
 echo ''
@@ -15,28 +16,41 @@ if [ -d ~/.ssh ]; then
 fi
 ln -s $USERPROFILE/.ssh ~/.ssh
 
+sudo chown -R $USER ~/.config
+
 echo ''
 echo '------'
 echo 'Setting package source and updating apt-get'
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https
+sudo -v
 sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo -v
 sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+sudo -v
 sudo DEBIAN_FRONTEND=noninteractive apt-get autoremove -y
+sudo -v
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y curl unzip zip git
+sudo -v
 git config --global credential.helper store
+git config --global user.name "Rob Cannon"
+git config --global user.email "rob@cannonsoftware.com"
+git config --global core.autocrlf false
 echo ''
 
 echo ''
 echo '------'
 echo 'Installing python'
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y python3 python-pip
+sudo -v
 
 echo ''
 echo '------'
 echo 'Installing nodejs'
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+sudo -v
 sudo npm install -g npm npm-check-updates tldr
+sudo -v
 echo ''
 
 echo ''
@@ -47,7 +61,9 @@ wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-pr
 sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
 sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo -v
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y powershell
+sudo -v
 echo ''
 
 echo ''
@@ -64,17 +80,10 @@ echo 'Installing kubectl'
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
-if [ ! -d ~/.kube ]; then
-    mkdir ~/.kube
+if [ -f ~/.kube/config ]; then
+  sudo rm ~/.kube/config
 fi
-# if [ -f ~/.kube/config ]; then
-#   sudo rm ~/.kube/config
-# fi
-# if [ -d ~/.kube/configs ]; then
-#     sudo rm -rf ~/.kube/configs
-# fi
-# ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/config ~/.kube/config
-# ln -s /c/Users/$USER/OneDrive/Documents/Keep/Linux/.kube/configs ~/.kube/configs
+ln -s $USERPROFILE/.kube/config ~/.kube/config
 echo ''
 
 echo ''
@@ -135,7 +144,9 @@ echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO 
 curl -L https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
 sudo curl -o /etc/apt/sources.list.d/microsoft.list https://packages.microsoft.com/config/ubuntu/16.04/prod.list
 sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo -v
 sudo DEBIAN_FRONTEND=noninteractive apt-get install azure-cli
+sudo -v
 echo ''
 
 # echo ''
@@ -154,7 +165,8 @@ echo 'Installing dotnet'
 # sudo dpkg -i packages-microsoft-prod.deb
 # sudo DEBIAN_FRONTEND=noninteractive apt-get install apt-transport-https
 # sudo DEBIAN_FRONTEND=noninteractive apt-get update
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y dotnet-sdk-2.2
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y dotnet-sdk-3.0
+sudo -v
 sudo dotnet tool install --global dotnet-outdated
 echo ''
 
@@ -178,18 +190,21 @@ echo ''
 
 echo ''
 echo '------'
-echo 'Upgrading packages'
-sudo DEBIAN_FRONTEND=noninteractive apt-get update
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y autoremove
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y autoclean
-sudo chown -R $USER ~/.config
-echo ''
-
+echo 'Installing powerline-go for custom prompt'
+sudo -v
+curl -L https://github.com/justjanne/powerline-go/releases/download/v1.13.0/powerline-go-linux-amd64 --output ~/powerline-go
+chmod +x ~/powerline-go
+sudo mv ~/powerline-go /usr/local/bin/powerline-go
 
 echo ''
 echo '------'
-echo 'Installing powerline-go for custom prompt'
-curl -LO https://github.com/justjanne/powerline-go/releases/download/v1.13.0/powerline-go-linux-amd64
-chmod +x ./powerline-go-linux-amd64
-sudo mv ./powerline-go-linux-amd64 /usr/local/bin/powerline-go
+echo 'Upgrading packages'
+sudo -v
+sudo DEBIAN_FRONTEND=noninteractive apt-get update
+sudo -v
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
+sudo -v
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y autoremove
+sudo -v
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y autoclean
+echo ''
