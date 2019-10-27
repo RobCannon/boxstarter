@@ -16,7 +16,6 @@ if [ -d ~/.ssh ]; then
 fi
 ln -s $USERPROFILE/.ssh ~/.ssh
 
-sudo chown -R $USER ~/.config
 
 echo ''
 echo '------'
@@ -36,6 +35,8 @@ git config --global user.name "Rob Cannon"
 git config --global user.email "rob@cannonsoftware.com"
 git config --global core.autocrlf false
 echo ''
+
+sudo chown -R $USER ~/.config
 
 echo ''
 echo '------'
