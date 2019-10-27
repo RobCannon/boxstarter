@@ -85,7 +85,7 @@ if (Test-Path "$env:USERPROFILE\.ssh") { Remove-Item "$env:USERPROFILE\.ssh" -Fo
 New-Item -Path "$env:USERPROFILE\.ssh" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\.ssh" | Out-Null
 
 choco install dotnetcore-sdk -y
-choco install powershell-core -ychoco install dotnetcore-sdk -y
+choco install powershell-core -y
 choco install vscode -y --params "/NoDesktopIcon"
 choco install microsoft-edge-insider-dev -y
 
