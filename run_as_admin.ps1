@@ -61,7 +61,6 @@ Set-ItemProperty -Path 'HKCU:\Console' -Name 'WindowSize' -Value 0x240078 -Type 
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'QuickEdit' -Value 1 -Force
 
 Write-Host 'Enable Windows Subsystems/Features'
-#Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole, Microsoft-Hyper-V-All, Microsoft-Windows-Subsystem-Linux -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRestart
 
@@ -70,6 +69,25 @@ Write-Host 'Installing docker'
 choco install docker-desktop -y
 Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Docker Desktop.lnk' } | Remove-Item
 
+# Setup synced settings folder from One Drive
+if (Test-Path "$env:APPDATA\Code\User") { Remove-Item "$env:APPDATA\Code\User" -Force -Recurse }
+if (-Not (Test-Path "$env:APPDATA\Code")) { New-Item -Path "$env:APPDATA\Code" -ItemType Directory | Out-Null }
+New-Item -Path "$env:APPDATA\Code\User" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Tools\Code\User" | Out-Null
+
+
+# Setup synced .kube settings folder from One Drive
+if (Test-Path "$env:USERPROFILE\.kube") { Remove-Item "$env:USERPROFILE\.kube" -Force -Recurse }
+New-Item -Path "$env:USERPROFILE\.kube" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.kube" | Out-Null
+[Environment]::SetEnvironmentVariable('KUBECONFIG', "$env:USERPROFILE\.kube\config", 'User')
+
+# Setup synced .ssh folder from One Drive
+if (Test-Path "$env:USERPROFILE\.ssh") { Remove-Item "$env:USERPROFILE\.ssh" -Force -Recurse }
+New-Item -Path "$env:USERPROFILE\.ssh" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\.ssh" | Out-Null
+
+choco install dotnetcore-sdk -y
+choco install powershell-core -ychoco install dotnetcore-sdk -y
+choco install vscode -y --params "/NoDesktopIcon"
+choco install microsoft-edge-insider-dev -y
 
 Write-Host 'Install updates'
 # Enable-MicrosoftUpdate

@@ -5,7 +5,7 @@ sudo -v
 echo ''
 echo '------'
 echo 'Copy .profile'
-curl -L https://github.com/RobCannon/boxstarter/raw/master/ubuntu/.profile -o ~/.profile
+curl -L https://github.com/RobCannon/boxstarter/raw/master/profiles/ubuntu/.profile -o ~/.profile
 echo ''
 
 echo ''

@@ -41,24 +41,10 @@ Get-AppxPackage Microsoft.GetHelp | Remove-AppxPackage
 Get-AppxPackage Microsoft.BingWeather | Remove-AppxPackage
 Get-AppxPackage RivetNetworks.SmartByte | Remove-AppxPackage
 
-# Setup synced settings folder from One Drive
-if (Test-Path "$env:APPDATA\Code\User") { Remove-Item "$env:APPDATA\Code\User" -Force -Recurse }
-if (-Not (Test-Path "$env:APPDATA\Code")) { New-Item -Path "$env:APPDATA\Code" -ItemType Directory | Out-Null }
-New-Item -Path "$env:APPDATA\Code\User" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Tools\Code\User" | Out-Null
-
-
-# Setup synced .kube settings folder from One Drive
-if (Test-Path "$env:USERPROFILE\.kube") { Remove-Item "$env:USERPROFILE\.kube" -Force -Recurse }
-New-Item -Path "$env:USERPROFILE\.kube" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.kube" | Out-Null
-[Environment]::SetEnvironmentVariable('KUBECONFIG', "$env:USERPROFILE\.kube\config", 'User')
-
-# Setup synced .ssh folder from One Drive
-if (Test-Path "$env:USERPROFILE\.ssh") { Remove-Item "$env:USERPROFILE\.ssh" -Force -Recurse }
-New-Item -Path "$env:USERPROFILE\.ssh" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\.ssh" | Out-Null
-
 # Copy PowerShell profile
-Invoke-WebRequest https://github.com/RobCannon/boxstarter/raw/master/profiles/PowerShell/Microsoft.PowerShell_profile.ps1 -OutFile "$env:USERPROFILE/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
-Invoke-WebRequest https://github.com/RobCannon/boxstarter/raw/master/profiles/PowerShell/Microsoft.PowerShell_profile.ps1 -OutFile "$env:USERPROFILE/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1"
+if (-not (Test-Path "$env:USERPROFILE/Documents/PowerShell")) { New-Item "$env:USERPROFILE/Documents/PowerShell" -ItemType Directory | Out-Null }
+Invoke-WebRequest https://github.com/RobCannon/boxstarter/raw/master/profiles/Powershell/Microsoft.PowerShell_profile.ps1 -OutFile "$env:USERPROFILE/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
+Invoke-WebRequest https://github.com/RobCannon/boxstarter/raw/master/profiles/Powershell/Microsoft.PowerShell_profile.ps1 -OutFile "$env:USERPROFILE/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1"
 
 
 # Install Powershell modules
@@ -73,20 +59,18 @@ Install-Module -Name posh-git -Scope CurrentUser
 Install-Module -Name oh-my-posh -Scope CurrentUser
 
 #--- Ubuntu ---
+$env:WSLENV = 'USERPROFILE/l'
+[environment]::setenvironmentvariable('WSLENV', $env:WSLENV, 'USER')
+Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
 Add-AppxPackage -Path ~/Ubuntu.appx
 Remove-Item ~/Ubuntu.appx
 ubuntu1804 install
 wsl -d Ubuntu-18.04 -u root -- printf '[automount]\nroot = /\noptions = "metadata"' ^> /etc/wsl.conf
 wsl -d Ubuntu-18.04 -- sh -c "`$(curl -fsSL https://github.com/RobCannon/boxstarter/raw/master/boxstarter.sh)"
 
-[environment]::setenvironmentvariable('WSLENV', 'USERPROFILE/l', 'USER')
-
-choco install dotnetcore-sdk -y
-choco install powershell-core -y
-choco install vscode -y --params "/NoDesktopIcon"
-choco install microsoft-edge-insider-dev -y
 
 # utils
+scoop bucket add extras
 scoop install 7zip
 scoop install git
 [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
@@ -97,10 +81,8 @@ git config --global user.email "rob@cannonsoftware.com"
 git config --global core.autocrlf false
 
 
-scoop bucket add extras
-
-
 scoop install sudo
+scoop install ssh-agent-wsl
 
 # programming languages
 scoop install python
