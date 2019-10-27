@@ -33,7 +33,7 @@ Get-AppxPackage *Solitaire* | Remove-AppxPackage
 Get-AppxPackage *MixedReality* | Remove-AppxPackage
 Get-AppxPackage *Microsoft3D* | Remove-AppxPackage
 Get-AppxPackage *Print3D* | Remove-AppxPackage
-Get-AppxPackage Windows.CBSPreview | Remove-AppxPackage
+#Get-AppxPackage Windows.CBSPreview | Remove-AppxPackage
 Get-AppxPackage *LinkedIn | Remove-AppxPackage
 Get-AppxPackage *McAfeeSecurity | Remove-AppxPackage
 Get-AppxPackage Microsoft.Office.Desktop | Remove-AppxPackage
