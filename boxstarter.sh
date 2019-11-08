@@ -47,7 +47,7 @@ sudo -v
 echo ''
 echo '------'
 echo 'Installing nodejs'
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
 sudo -v
 sudo npm install -g npm npm-check-updates tldr
