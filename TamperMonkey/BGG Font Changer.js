@@ -16,9 +16,9 @@ GM_addStyle(`
     }
 `);
 
-(function() {
-  "use strict";
+(function () {
+    "use strict";
 
-  // Your code here...
+    // Your code here...
 
 })();
