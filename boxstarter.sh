@@ -8,13 +8,15 @@ echo 'Copy .profile'
 curl -L https://github.com/RobCannon/boxstarter/raw/master/profiles/ubuntu/.profile -o ~/.profile
 echo ''
 
-echo ''
-echo '------'
-echo 'Linking .shh keys'
-if [ -d ~/.ssh ]; then
-    rm -rf ~/.ssh
+if [-d $USERPROFILE/.ssh]; then
+  echo ''
+  echo '------'
+  echo 'Linking .shh keys'
+  if [ -d ~/.ssh ]; then
+      rm -rf ~/.ssh
+  fi
+  ln -s $USERPROFILE/.ssh ~/.ssh
 fi
-ln -s $USERPROFILE/.ssh ~/.ssh
 
 
 echo ''
@@ -86,10 +88,12 @@ echo 'Installing kubectl'
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
-if [ -f ~/.kube/config ]; then
-  sudo rm ~/.kube/config
+if [-d $USERPROFILE/.kube]; then
+  if [ -f ~/.kube/config ]; then
+    sudo rm ~/.kube/config
+  fi
+  ln -s $USERPROFILE/.kube/config ~/.kube/config
 fi
-ln -s $USERPROFILE/.kube/config ~/.kube/config
 echo ''
 
 echo ''
@@ -171,7 +175,7 @@ echo 'Installing dotnet'
 # sudo dpkg -i packages-microsoft-prod.deb
 # sudo DEBIAN_FRONTEND=noninteractive apt-get install apt-transport-https
 # sudo DEBIAN_FRONTEND=noninteractive apt-get update
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y dotnet-sdk-3.0
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y dotnet-sdk-3.1
 sudo -v
 sudo dotnet tool install --global dotnet-outdated
 echo ''

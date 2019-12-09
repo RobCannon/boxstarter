@@ -105,7 +105,9 @@ export PATH=$PATH:$HOME/.dotnet/tools
 export DOCKER_HOST=tcp://0.0.0.0:2375
 export KUBECONFIG=$HOME/.kube/config
 
-eval $($USERPROFILE/scoop/apps/ssh-agent-wsl/2.5/ssh-agent-wsl -r)
+if [-d $USERPROFILE/scoop/apps/ssh-agent-wsl/2.5]; then
+  eval $($USERPROFILE/scoop/apps/ssh-agent-wsl/2.5/ssh-agent-wsl -r)
+fi
 
 function _update_ps1() {
     eval "$(/usr/local/bin/powerline-go -error $? -shell bash -eval -colorize-hostname -newline -modules-right kube)"
