@@ -33,11 +33,15 @@ sudo -v
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y curl unzip zip git
 sudo -v
 
-# Insprired by https://blog.anaisbetts.org/using-github-credentials-in-wsl2/
-echo $'#!/bin/sh\nexec $USERPROFILE/scoop/apps/git/current/mingw64/libexec/git-core/git-credential-manager.exe $@' > ~/git-credential-manager
-sudo mv ~/git-credential-manager /usr/bin/git-credential-manager
-sudo chmod +x /usr/bin/git-credential-manager
-git config --global credential.helper manager
+# Inspired by https://blog.anaisbetts.org/using-github-credentials-in-wsl2/
+if [-d $USERPROFILE/scoop/apps/git/current/mingw64/libexec/git-core]; then
+  echo $'#!/bin/sh\nexec $USERPROFILE/scoop/apps/git/current/mingw64/libexec/git-core/git-credential-manager.exe $@' > ~/git-credential-manager
+  sudo mv ~/git-credential-manager /usr/bin/git-credential-manager
+  sudo chmod +x /usr/bin/git-credential-manager
+  git config --global credential.helper manager
+else
+  git config --global credential.helper store
+fi
 git config --global user.name "Rob Cannon"
 git config --global user.email "rob@cannonsoftware.com"
 git config --global core.autocrlf false
