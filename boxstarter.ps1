@@ -81,21 +81,21 @@ git config --global user.email "rob@cannonsoftware.com"
 git config --global core.autocrlf false
 
 
-scoop install sudo
 scoop install ssh-agent-wsl
 
 # programming languages
+scoop install pwsh
 scoop install python
 scoop install diffmerge
 scoop install nodejs
 
 # cloud and infrastructure
 scoop install azure-cli
-scoop install aws
+#scoop install aws
+scoop install terraform
 scoop install kubectl
 scoop install helm
-scoop install k9s
-scoop install terraform
+#scoop install k9s
 scoop install posh-docker
 
 

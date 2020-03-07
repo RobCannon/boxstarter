@@ -206,7 +206,7 @@ echo ''
 echo '------'
 echo 'Installing powerline-go for custom prompt'
 sudo -v
-curl -L https://github.com/justjanne/powerline-go/releases/download/v1.13.0/powerline-go-linux-amd64 --output ~/powerline-go
+curl -L https://github.com/justjanne/powerline-go/releases/download/v1.15.0/powerline-go-linux-amd64 --output ~/powerline-go
 chmod +x ~/powerline-go
 sudo mv ~/powerline-go /usr/local/bin/powerline-go
 
