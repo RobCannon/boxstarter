@@ -41,6 +41,10 @@ Get-AppxPackage Microsoft.GetHelp | Remove-AppxPackage
 Get-AppxPackage Microsoft.BingWeather | Remove-AppxPackage
 Get-AppxPackage RivetNetworks.SmartByte | Remove-AppxPackage
 
+Write-Host "Trusting PSGallery" -ForegroundColor Yellow
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+
+
 # Copy PowerShell profile
 if (-not (Test-Path "$env:USERPROFILE/Documents/PowerShell")) { New-Item "$env:USERPROFILE/Documents/PowerShell" -ItemType Directory | Out-Null }
 Invoke-WebRequest https://github.com/RobCannon/boxstarter/raw/master/profiles/Powershell/Microsoft.PowerShell_profile.ps1 -OutFile "$env:USERPROFILE/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
@@ -58,28 +62,43 @@ Install-Module -Name psake -Scope CurrentUser
 Install-Module -Name posh-git -Scope CurrentUser
 Install-Module -Name oh-my-posh -Scope CurrentUser
 
-#--- Ubuntu ---
-$env:WSLENV = 'USERPROFILE/l'
-[environment]::setenvironmentvariable('WSLENV', $env:WSLENV, 'USER')
-Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
-Add-AppxPackage -Path ~/Ubuntu.appx
-Remove-Item ~/Ubuntu.appx
-ubuntu1804 install
-wsl -d Ubuntu-18.04 -u root -- printf '[automount]\nroot = /\noptions = "metadata"' ^> /etc/wsl.conf
-wsl -d Ubuntu-18.04 -- sh -c "`$(curl -fsSL https://github.com/RobCannon/boxstarter/raw/master/boxstarter.sh)"
+
+Write-Host 'File Explorer Settings'
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name Hidden -Value 1
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name HideFileExt -Value 0
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name NavPaneExpandToCurrentFolder -Value 1
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name NavPaneShowAllFolders -Value 1
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name LaunchTo -Value 1
+Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name MMTaskbarMode -Value 2
 
 
-# utils
-scoop bucket add extras
+Write-Host 'Set console defaults'
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'FontSize' -Value 0x140000 -Type DWord -Force
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'ScreenBufferSize' -Value 0x270f0078 -Type DWord -Force
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'WindowSize' -Value 0x240078 -Type DWord -Force
+Set-ItemProperty -Path 'HKCU:\Console' -Name 'QuickEdit' -Value 1 -Force
+
+
+choco install -y microsoft-windows-terminal
+choco install -y vscode.portable
+choco install -y 7zip
+
+# Install Scoop
+Invoke-Expression (New-Object Net.WebClient).DownloadString('https://get.scoop.sh')
+
+# Sccop required packages
 scoop install 7zip
 scoop install git
-[environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
 
+
+# Configure Git
+[environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
 git config --global credential.helper manager
 git config --global user.name "Rob Cannon"
 git config --global user.email "rob@cannonsoftware.com"
 git config --global core.autocrlf false
 
+scoop bucket add extras
 
 scoop install ssh-agent-wsl
 
@@ -89,14 +108,13 @@ scoop install python
 scoop install diffmerge
 scoop install nodejs
 
-# cloud and infrastructure
-scoop install azure-cli
-#scoop install aws
+# cloud and infrastructure tools
 scoop install terraform
+scoop install packer
 scoop install kubectl
-scoop install helm
-#scoop install k9s
-scoop install posh-docker
+scoop install python
+scoop install azure-cli
+scoop install diffmerge
 
 
 #--- Browsers ---
@@ -160,3 +178,129 @@ code --install-extension visualstudioexptteam.vscodeintellicode
 
 
 npm install -g npm npm-check-updates rimraf typescript gulp @angular/cli 2>$null
+
+
+function Add-Font {
+    <#
+        #requires -Version 2.0
+        .SYNOPSIS
+        This will install Windows fonts.
+
+        .DESCRIPTION
+        Requries Administrative privileges. Will copy fonts to Windows Fonts folder and register them.
+
+        .PARAMETER Path
+        May be either the path to a font file to install or the path to a folder containing font files to install.
+        Valid file types are .fon, .fnt, .ttf,.ttc, .otf, .mmm, .pbf, and .pfm
+
+        .EXAMPLE
+        Add-Font -Path Value
+        Will get all font files from provided folder and install them in Windows.
+
+        .EXAMPLE
+        Add-Font -Path Value
+        Will install provided font in Windows.
+
+
+    #>
+
+
+
+    [CmdletBinding(DefaultParameterSetName = 'Directory')]
+    Param(
+        [Parameter(Mandatory = $false,
+            ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
+        [Parameter(ParameterSetName = 'Directory')]
+        [ValidateScript( { Test-Path $_ -PathType Container })]
+        [System.String[]]
+        $Path,
+
+        [Parameter(Mandatory = $false,
+            ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True)]
+        [Parameter(ParameterSetName = 'File')]
+        [ValidateScript( { Test-Path $_ -PathType Leaf })]
+        [System.String]
+        $FontFile
+    )
+
+    begin {
+        Set-Variable Fonts -Value 0x14 -Option ReadOnly
+        $fontRegistryPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
+
+        $shell = New-Object -ComObject Shell.Application
+        $folder = $shell.NameSpace($Fonts)
+        $objfontFolder = $folder.self.Path
+        #$copyOptions = 20
+        $copyFlag = [string]::Format("{0:x}", 4 + 16)
+        $copyFlag
+    }
+
+    process {
+        switch ($PsCmdlet.ParameterSetName) {
+            "Directory" {
+                ForEach ($fontsFolder in $Path) {
+                    Write-Log -Info -Message "Processing folder {$fontsFolder}"
+                    $fontFiles = Get-ChildItem -Path $fontsFolder -File -Recurse -Include @("*.fon", "*.fnt", "*.ttf", "*.ttc", "*.otf", "*.mmm", "*.pbf", "*.pfm")
+                }
+            }
+            "File" {
+                $fontFiles = Get-ChildItem -Path $FontFile -Include @("*.fon", "*.fnt", "*.ttf", "*.ttc", "*.otf", "*.mmm", "*.pbf", "*.pfm")
+            }
+        }
+        if ($fontFiles) {
+            foreach ($item in $fontFiles) {
+                Write-Host "Processing font file {$item}"
+                if (Test-Path (Join-Path -Path $objfontFolder -ChildPath $item.Name)) {
+                    Write-Host "Font {$($item.Name)} already exists in {$objfontFolder}"
+                }
+                else {
+                    Write-Host "Font {$($item.Name)} does not exists in {$objfontFolder}"
+                    Write-Host "Reading font {$($item.Name)} full name"
+
+                    Add-Type -AssemblyName System.Drawing
+                    $objFontCollection = New-Object System.Drawing.Text.PrivateFontCollection
+                    $objFontCollection.AddFontFile($item.FullName)
+                    $FontName = $objFontCollection.Families.Name
+
+                    Write-Host "Font {$($item.Name)} full name is {$FontName}"
+                    Write-Host "Copying font file {$($item.Name)} to system Folder {$objfontFolder}"
+                    $folder.CopyHere($item.FullName, $copyFlag)
+
+                    $regTest = Get-ItemProperty -Path $fontRegistryPath -Name "*$FontName*" -ErrorAction SilentlyContinue
+                    if (-not ($regTest)) {
+                        New-ItemProperty -Name $FontName -Path $fontRegistryPath -PropertyType string -Value $item.Name
+                        Write-Host "Registering font {$($item.Name)} in registry with name {$FontName}"
+                    }
+                }
+            }
+        }
+    }
+    end {
+    }
+}
+
+Write-Host 'Install SauceCodePro font'
+$fontUrl = 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf'
+$fontFileName = 'Sauce Code Pro Nerd Font Complete Windows Compatible.ttf'
+$fontFilePath = "$env:TEMP\$fontFileName"
+Invoke-WebRequest $fontUrl -OutFile $fontFilePath -UseBasicParsing
+Add-Font -FontFile $fontFilePath
+Remove-Item $fontFilePath -Force
+
+# Ensure SSH config exists so it can be linked to WSL
+if (-Not (Test-Path $HOME\.ssh)) { New-Item $HOME\.ssh -ItemType Directory | Out-Null }
+
+# Configure Kubernetes
+$env:KUBECONFIG = "$env:USERPROFILE\.kube\config"
+[Environment]::SetEnvironmentVariable('KUBECONFIG', $env:KUBECONFIG, 'User')
+
+
+#--- Ubuntu ---
+$env:WSLENV = 'USERPROFILE/l'
+[environment]::setenvironmentvariable('WSLENV', $env:WSLENV, 'USER')
+Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
+Add-AppxPackage -Path ~/Ubuntu.appx
+ubuntu1804 install
+wsl -d Ubuntu-18.04 -u root -- printf '[automount]\nroot = /\noptions = "metadata"' ^> /etc/wsl.conf
+wsl -d Ubuntu-18.04 -- sh -c "`$(curl -fsSL https://github.com/RobCannon/boxstarter/raw/master/boxstarter.sh)"
+Remove-Item ~/Ubuntu.appx
