@@ -8,23 +8,22 @@ This is based on these projects
 - Chocolatey [chocolatey.org](http://chocolatey.org)
 - Windows Dev Box setup (https://github.com/Microsoft/windows-dev-box-setup-scripts)
 
-### Administrative setup
+## How to run the scripts
 
-From a Administrative PowerShell prompt, run these commands:
+Run the following script from a Window Powershell Admin prompt
 
 ```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force
-iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-iex (new-object net.webclient).downloadstring('https://github.com/RobCannon/boxstarter/raw/master/run_as_admin.ps1')
+Set-ExecutionPolicy Bypass -Scope Process -Force;
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')
+Invoke-Expression (New-Object Net.WebClient).DownloadString('https://github.com/RobCannon/boxstarter/raw/master/run_as_admin.ps1')
 ```
 
+### Setup using scoop
 
-### User setup
-
-From am unelvated PowerShell prompt, run these commands:
+From a powershell prompt, run these commands:
 
 ```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force
-iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
-iex (new-object net.webclient).downloadstring('https://github.com/RobCannon/boxstarter/raw/master/boxstarter.ps1')
+Set-ExecutionPolicy RemoteSigned -Scope Process -Force
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://github.com/RobCannon/boxstarter/raw/master/boxstarter.ps1')
 ```

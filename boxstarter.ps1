@@ -1,10 +1,3 @@
-Write-Host "Installing PowerShell modules" -ForegroundColor Yellow
-Install-Module -Name ImportExcel -Scope CurrentUser
-Install-Module -Name SqlServer -Scope CurrentUser
-Install-Module -Name Azure -Scope CurrentUser
-Install-Module -Name Pester -Scope CurrentUser -Force -SkipPublisherCheck
-Install-Module -Name psake -Scope CurrentUser
-
 Write-Host 'Remove Windows Store Apps'
 Get-AppxPackage Microsoft.3DBuilder | Remove-AppxPackage
 Get-AppxPackage Microsoft.BingFinance | Remove-AppxPackage
@@ -40,7 +33,7 @@ Get-AppxPackage *Solitaire* | Remove-AppxPackage
 Get-AppxPackage *MixedReality* | Remove-AppxPackage
 Get-AppxPackage *Microsoft3D* | Remove-AppxPackage
 Get-AppxPackage *Print3D* | Remove-AppxPackage
-Get-AppxPackage Windows.CBSPreview | Remove-AppxPackage
+#Get-AppxPackage Windows.CBSPreview | Remove-AppxPackage
 Get-AppxPackage *LinkedIn | Remove-AppxPackage
 Get-AppxPackage *McAfeeSecurity | Remove-AppxPackage
 Get-AppxPackage Microsoft.Office.Desktop | Remove-AppxPackage
@@ -48,31 +41,36 @@ Get-AppxPackage Microsoft.GetHelp | Remove-AppxPackage
 Get-AppxPackage Microsoft.BingWeather | Remove-AppxPackage
 Get-AppxPackage RivetNetworks.SmartByte | Remove-AppxPackage
 
+# Copy PowerShell profile
+if (-not (Test-Path "$env:USERPROFILE/Documents/PowerShell")) { New-Item "$env:USERPROFILE/Documents/PowerShell" -ItemType Directory | Out-Null }
+Invoke-WebRequest https://github.com/RobCannon/boxstarter/raw/master/profiles/Powershell/Microsoft.PowerShell_profile.ps1 -OutFile "$env:USERPROFILE/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
+Invoke-WebRequest https://github.com/RobCannon/boxstarter/raw/master/profiles/Powershell/Microsoft.PowerShell_profile.ps1 -OutFile "$env:USERPROFILE/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1"
+
+
+# Install Powershell modules
+Write-Host "Installing PowerShell modules" -ForegroundColor Yellow
+Install-Module -Name ImportExcel -Scope CurrentUser
+Install-Module -Name SqlServer -Scope CurrentUser
+# Install-Module -Name AWSPowerShell -Scope CurrentUser
+# Install-Module -Name Azure -Scope CurrentUser
+Install-Module -Name Pester -Scope CurrentUser -Force -SkipPublisherCheck
+Install-Module -Name psake -Scope CurrentUser
+Install-Module -Name posh-git -Scope CurrentUser
+Install-Module -Name oh-my-posh -Scope CurrentUser
+
 #--- Ubuntu ---
+$env:WSLENV = 'USERPROFILE/l'
+[environment]::setenvironmentvariable('WSLENV', $env:WSLENV, 'USER')
 Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
 Add-AppxPackage -Path ~/Ubuntu.appx
 Remove-Item ~/Ubuntu.appx
-
-[environment]::setenvironmentvariable('WSLENV', 'USERPROFILE/l', 'USER')
-
-
-# Setup synced settings folder from One Drive
-if (Test-Path "$env:APPDATA\Code\User") { Remove-Item "$env:APPDATA\Code\User" -Force -Recurse }
-if (-Not (Test-Path "$env:APPDATA\Code")) { New-Item -Path "$env:APPDATA\Code" -ItemType Directory | Out-Null }
-New-Item -Path "$env:APPDATA\Code\User" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Tools\Code\User" | Out-Null
-
-
-# Setup synced .kube settings folder from One Drive
-if (Test-Path "$env:USERPROFILE\.kube") { Remove-Item "$env:USERPROFILE\.kube" -Force -Recurse }
-New-Item -Path "$env:USERPROFILE\.kube" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\Documents\Keep\Linux\.kube" | Out-Null
-[Environment]::SetEnvironmentVariable('KUBECONFIG', "$env:USERPROFILE\.kube\config;$env:USERPROFILE\.kube\configs\kube-config-sox-dev;", 'User')
-
-# Setup synced .ssh folder from One Drive
-if (Test-Path "$env:USERPROFILE\.ssh") { Remove-Item "$env:USERPROFILE\.ssh" -Force -Recurse }
-New-Item -Path "$env:USERPROFILE\.ssh" -ItemType SymbolicLink -Value "$env:USERPROFILE\OneDrive\.ssh" | Out-Null
+ubuntu1804 install
+wsl -d Ubuntu-18.04 -u root -- printf '[automount]\nroot = /\noptions = "metadata"' ^> /etc/wsl.conf
+wsl -d Ubuntu-18.04 -- sh -c "`$(curl -fsSL https://github.com/RobCannon/boxstarter/raw/master/boxstarter.sh)"
 
 
 # utils
+scoop bucket add extras
 scoop install 7zip
 scoop install git
 [environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
@@ -83,25 +81,21 @@ git config --global user.email "rob@cannonsoftware.com"
 git config --global core.autocrlf false
 
 
-scoop bucket add extras
-scoop pwsh
-scoop posh-git
-
-
-scoop install sudo
+scoop install ssh-agent-wsl
 
 # programming languages
+scoop install pwsh
 scoop install python
-scoop install dotnet-sdk
 scoop install diffmerge
 scoop install nodejs
 
 # cloud and infrastructure
 scoop install azure-cli
+#scoop install aws
+scoop install terraform
 scoop install kubectl
 scoop install helm
-scoop install k9s
-scoop install terraform
+#scoop install k9s
 scoop install posh-docker
 
 
@@ -164,8 +158,5 @@ code --install-extension technosophos.vscode-helm
 code --install-extension tyriar.shell-launcher
 code --install-extension visualstudioexptteam.vscodeintellicode
 
-npm install -g npm npm-check-updates rimraf typescript gulp @angular/cli 2>$null
 
-ubuntu1804 install
-wsl -d Ubuntu-18.04 -u root -- printf '[automount]\nroot = /\noptions = "metadata"' ^> /etc/wsl.conf
-wsl -d Ubuntu-18.04 -- sh -c "`$(curl -fsSL https://github.com/RobCannon/boxstarter/raw/master/boxstarter.sh)"
+npm install -g npm npm-check-updates rimraf typescript gulp @angular/cli 2>$null
