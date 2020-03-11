@@ -181,14 +181,18 @@ npm install -g npm npm-check-updates rimraf typescript gulp @angular/cli 2>$null
 
 
 Write-Host 'Install SauceCodePro font'
-$fontUrl = 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf'
-$fontFileName = 'Sauce Code Pro Nerd Font Complete Windows Compatible.ttf'
+$fontUri = [System.Uri]'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf'
+$fontFileName = [System.Uri]::UnescapeDataString(($fontUri.Segments | Select -Last 1 ))
 $fontFilePath = "$env:TEMP\$fontFileName"
-Invoke-WebRequest $fontUrl -OutFile $fontFilePath -UseBasicParsing
-if (-Not (Test-Path "C:\Windows\Fonts\$fontFileName")) {
-    $Destination = (New-Object -ComObject Shell.Application).Namespace(0x14)
-    $Destination.CopyHere($fontFilePath, 0x10)
-}
+Invoke-WebRequest $fontUri -OutFile $fontFilePath -UseBasicParsing
+
+# Unable to figure out how to query personal fonts by file name
+# $fontFolder.items() will return a list of installed fonts, but the font name doens't match the font file name
+# Not sure how to extract the font name from the file
+#if (-Not (Test-Path "C:\Windows\Fonts\$fontFileName")) {
+    $fontFolder = (New-Object -ComObject Shell.Application).Namespace(0x14)
+    $fontFolder.CopyHere($fontFilePath, 0x10)
+#}
 Remove-Item $fontFilePath -Force
 
 # Ensure SSH config exists so it can be linked to WSL
@@ -196,6 +200,7 @@ if (-Not (Test-Path $HOME\.ssh)) { New-Item $HOME\.ssh -ItemType Directory | Out
 
 # Configure Kubernetes
 $env:KUBECONFIG = "$env:USERPROFILE\.kube\config"
+if (-Not (Test-Path $env:KUBECONFIG)) { New-Item $env:KUBECONFIG -ItemType Directory | Out-Null }
 [Environment]::SetEnvironmentVariable('KUBECONFIG', $env:KUBECONFIG, 'User')
 
 
