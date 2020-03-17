@@ -89,6 +89,7 @@ Invoke-Expression (New-Object Net.WebClient).DownloadString('https://get.scoop.s
 # Sccop required packages
 scoop install 7zip
 scoop install git
+scoop install gzip
 
 
 # Configure Git
@@ -190,8 +191,8 @@ Invoke-WebRequest $fontUri -OutFile $fontFilePath -UseBasicParsing
 # $fontFolder.items() will return a list of installed fonts, but the font name doens't match the font file name
 # Not sure how to extract the font name from the file
 #if (-Not (Test-Path "C:\Windows\Fonts\$fontFileName")) {
-    $fontFolder = (New-Object -ComObject Shell.Application).Namespace(0x14)
-    $fontFolder.CopyHere($fontFilePath, 0x10)
+$fontFolder = (New-Object -ComObject Shell.Application).Namespace(0x14)
+$fontFolder.CopyHere($fontFilePath, 0x10)
 #}
 Remove-Item $fontFilePath -Force
 
