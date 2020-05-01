@@ -204,6 +204,11 @@ $env:KUBECONFIG = "$env:USERPROFILE\.kube\config"
 if (-Not (Test-Path $env:KUBECONFIG)) { New-Item $env:KUBECONFIG -ItemType Directory | Out-Null }
 [Environment]::SetEnvironmentVariable('KUBECONFIG', $env:KUBECONFIG, 'User')
 
+# Configure Windows Terminal from OneDrive
+New-Item -Path "$ENV:Userprofile\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" `
+  -ItemType "HardLink" `
+  -Value "$ENV:Userprofile\OneDrive\Documents\Keep\WindowsTerminal\settings.json" `
+  -Force | Out-Null
 
 #--- Ubuntu ---
 $env:WSLENV = 'USERPROFILE/l'
