@@ -175,27 +175,41 @@ Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Nam
 
 #npm install -g npm npm-check-updates rimraf typescript gulp @angular/cli 2>$null
 
+function Install-UserFont {
+  [CmdletBinding(ConfirmImpact = 'High')]
+  Param (
+      [Parameter(Mandatory = $true,
+          Position = 0,
+          ValueFromPipelineByPropertyName = $true)]
+      [Uri]$Uri,
+      [Parameter(Mandatory = $true,
+          Position = 1,
+          ValueFromPipelineByPropertyName = $true)]
+      [String]$FontName
+
+  )
+
+  $fontFolder = (New-Object -ComObject Shell.Application).Namespace(0x14)
+  if ($fontFolder.Items() | Where-Object Name -eq $FontName) {
+      Write-Warning "$FontName is already installed"
+  }
+  else {
+      $fontFileName = [System.Uri]::UnescapeDataString(($Uri.Segments | Select-Object -Last 1 ))
+      $fontFilePath = "$env:TEMP\$fontFileName"
+      Invoke-WebRequest $Uri -OutFile $fontFilePath -UseBasicParsing
+
+      $fontFolder.CopyHere($fontFilePath, 0x10)
+
+      # Removed the downloaded file
+      Remove-Item $fontFilePath -Force
+  }
+}
 
 Write-Host 'Install Developer Fonts'
-Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf' \
+Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf' `
     -FontName 'SauceCodePro NF Regular'
-Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/complete/Caskaydia%20Cove%20Regular%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf' \
-    -FontName 'CaskaydiaCove NF Book'
-
-# Write-Host 'Install SauceCodePro font'
-# $fontUri = [System.Uri]'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf'
-# $fontFileName = [System.Uri]::UnescapeDataString(($fontUri.Segments | Select -Last 1 ))
-# $fontFilePath = "$env:TEMP\$fontFileName"
-# Invoke-WebRequest $fontUri -OutFile $fontFilePath -UseBasicParsing
-
-# # Unable to figure out how to query personal fonts by file name
-# # $fontFolder.items() will return a list of installed fonts, but the font name doens't match the font file name
-# # Not sure how to extract the font name from the file
-# #if (-Not (Test-Path "C:\Windows\Fonts\$fontFileName")) {
-# $fontFolder = (New-Object -ComObject Shell.Application).Namespace(0x14)
-# $fontFolder.CopyHere($fontFilePath, 0x10)
-# #}
-# Remove-Item $fontFilePath -Force
+Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/complete/Caskaydia%20Cove%20Regular%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf' `
+    -FontName 'CaskaydiaCove NF Regular'
 
 # Ensure SSH config exists so it can be linked to WSL
 if (-Not (Test-Path $HOME\.ssh)) { New-Item $HOME\.ssh -ItemType Directory | Out-Null }
