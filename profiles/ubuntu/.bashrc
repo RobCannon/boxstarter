@@ -108,9 +108,9 @@ fi
 
 
 function _update_ps1() {
-    PS1="$(oh-my-posh -config ~/oh-my-posh/my-posh.json -error $?)"
+    PS1="$(oh-my-posh -config ~/.oh-my-posh/my-posh.json -error $?)"
 }
 
-if [ "$TERM" != "linux" ] && [ -x "$(command -v oh-my-posh)" ]; then
+if [ "$(command -v oh-my-posh)" ]; then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
