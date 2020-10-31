@@ -1,0 +1,138 @@
+{
+  "final_space": true,
+  "console_title": false,
+  "blocks": [
+      {
+          "type": "prompt",
+          "alignment": "left",
+          "horizontal_offset": 0,
+          "vertical_offset": 0,
+          "segments": [
+            {
+              "type": "shell",
+              "style": "powerline",
+              "powerline_symbol": "\uE0B0",
+              "foreground": "#ffffff",
+              "background": "#0077c2",
+              "properties": {
+                "prefix": " \uFCB5 "
+              }
+            },
+              {
+                  "type": "root",
+                  "style": "powerline",
+                  "powerline_symbol": "",
+                  "invert_powerline": false,
+                  "foreground": "#100e23",
+                  "background": "#ffe9aa",
+                  "leading_diamond": "",
+                  "trailing_diamond": "",
+                  "properties": {
+                      "root_icon": "襁"
+                  }
+              },
+              {
+                  "type": "session",
+                  "style": "powerline",
+                  "powerline_symbol": "",
+                  "invert_powerline": false,
+                  "foreground": "#100e23",
+                  "background": "#ffffff",
+                  "leading_diamond": "",
+                  "trailing_diamond": "",
+                  "properties": {
+                      "user_info_separator": "@"
+                  }
+              },
+              {
+                  "type": "path",
+                  "style": "powerline",
+                  "powerline_symbol": "",
+                  "invert_powerline": false,
+                  "foreground": "#100e23",
+                  "background": "#91ddff",
+                  "leading_diamond": "",
+                  "trailing_diamond": "",
+                  "properties": {
+                      "folder_icon": "",
+                      "folder_separator_icon": "",
+                      "home_icon": "~",
+                      "style": "short",
+                      "windows_registry_icon": ""
+                  }
+              },
+              {
+                  "type": "git",
+                  "style": "powerline",
+                  "powerline_symbol": "",
+                  "invert_powerline": false,
+                  "foreground": "#193549",
+                  "background": "#95ffa4",
+                  "leading_diamond": "",
+                  "trailing_diamond": "",
+                  "properties": {
+                      "branch_ahead_icon": "↑",
+                      "branch_behind_icon": "↓",
+                      "branch_gone_icon": "≢",
+                      "branch_icon": "",
+                      "branch_identical_icon": "≡",
+                      "local_staged_icon": "",
+                      "local_working_icon": ""
+                  }
+              },
+              {
+                "type": "kubectl",
+                "style": "powerline",
+                "powerline_symbol": "\uE0B0",
+                "foreground": "#000000",
+                "background": "#ebcc34",
+                "properties": {
+                  "prefix": " \uFD31 "
+                }
+              },
+              {
+                  "type": "exit",
+                  "style": "powerline",
+                  "powerline_symbol": "",
+                  "invert_powerline": false,
+                  "foreground": "#ffffff",
+                  "background": "#ff8080",
+                  "leading_diamond": "",
+                  "trailing_diamond": "",
+                  "properties": {
+                      "prefix": ""
+                  }
+              }
+          ]
+      },
+      {
+          "type": "newline",
+          "alignment": "",
+          "horizontal_offset": 0,
+          "vertical_offset": 0,
+          "segments": null
+      },
+      {
+          "type": "prompt",
+          "alignment": "left",
+          "horizontal_offset": 0,
+          "vertical_offset": 0,
+          "segments": [
+              {
+                  "type": "text",
+                  "style": "plain",
+                  "powerline_symbol": "",
+                  "invert_powerline": false,
+                  "foreground": "#007ACC",
+                  "background": "",
+                  "leading_diamond": "",
+                  "trailing_diamond": "",
+                  "properties": {
+                      "prefix": "",
+                      "text": ""
+                  }
+              }
+          ]
+      }
+  ]
+}

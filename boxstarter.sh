@@ -5,7 +5,9 @@ sudo -v
 echo ''
 echo '------'
 echo 'Copy .profile'
-curl -L https://github.com/RobCannon/boxstarter/raw/master/profiles/ubuntu/.profile -o ~/.profile
+curl -L https://github.com/RobCannon/boxstarter/raw/master/profiles/ubuntu/.bashrc -o ~/.bashrc
+mkdir -p ~/.oh-my-posh
+curl -L https://github.com/RobCannon/boxstarter/raw/master/profiles/ubuntu/.bashrc -o ~/.oh-my-posh/my-posh.json
 echo ''
 
 if [-d $USERPROFILE/.ssh]; then
@@ -49,11 +51,11 @@ echo ''
 
 sudo chown -R $USER ~/.config
 
-echo ''
-echo '------'
-echo 'Installing python'
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y python3 python-pip
-sudo -v
+# echo ''
+# echo '------'
+# echo 'Installing python'
+# sudo DEBIAN_FRONTEND=noninteractive apt-get install -y python3 python-pip
+# sudo -v
 
 echo ''
 echo '------'
@@ -82,8 +84,8 @@ echo ''
 echo '------'
 echo 'Installing docker'
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y docker.io
-sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/bin/docker-compose
+sudo chmod +x /usr/bin/docker-compose
 echo ''
 
 echo ''
@@ -91,7 +93,7 @@ echo '------'
 echo 'Installing kubectl'
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x ./kubectl
-sudo mv ./kubectl /usr/local/bin/kubectl
+sudo mv ./kubectl /usr/bin/kubectl
 if [-d $USERPROFILE/.kube]; then
   if [ -f ~/.kube/config ]; then
     sudo rm ~/.kube/config
@@ -116,12 +118,13 @@ echo ''
 echo ''
 echo '------'
 echo 'Installing terraform'
-TERRAFORM_VERSION=0.12.9
+# https://github.com/hashicorp/terraform/releases
+TERRAFORM_VERSION=0.13.4
 TERRAFORM_FILE="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
 curl -LO https://releases.hashicorp.com/terraform/$TERRAFORM_VERSION/$TERRAFORM_FILE
 unzip $TERRAFORM_FILE
 rm $TERRAFORM_FILE
-sudo mv terraform /usr/local/bin/
+sudo mv terraform /usr/bin/
 echo ''
 
 # echo ''
@@ -129,7 +132,7 @@ echo ''
 # echo 'Installing terraform-docs'
 # curl -L https://github.com/segmentio/terraform-docs/releases/download/v0.6.0/terraform-docs-v0.6.0-linux-amd64 -o ~/terraform-docs
 # chmod +x ~/terraform-docs
-# sudo mv ~/terraform-docs /usr/local/bin/
+# sudo mv ~/terraform-docs /usr/bin/
 
 # echo ''
 # echo '------'
@@ -183,22 +186,30 @@ echo ''
 # echo ''
 
 
-echo ''
-echo '------'
-echo 'Installing pretty-ping'
-curl -O https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
-chmod +x prettyping
-sudo mv prettyping /usr/local/bin/
-echo ''
+# echo ''
+# echo '------'
+# echo 'Installing pretty-ping'
+# curl -O https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
+# chmod +x prettyping
+# sudo mv prettyping /usr/bin/
+# echo ''
 
+
+# echo ''
+# echo '------'
+# echo 'Installing powerline-go for custom prompt'
+# sudo -v
+# curl -L https://github.com/justjanne/powerline-go/releases/download/v1.15.0/powerline-go-linux-amd64 --output ~/powerline-go
+# chmod +x ~/powerline-go
+# sudo mv ~/powerline-go /usr/bin/powerline-go
 
 echo ''
 echo '------'
 echo 'Installing powerline-go for custom prompt'
 sudo -v
-curl -L https://github.com/justjanne/powerline-go/releases/download/v1.15.0/powerline-go-linux-amd64 --output ~/powerline-go
-chmod +x ~/powerline-go
-sudo mv ~/powerline-go /usr/local/bin/powerline-go
+curl -L https://github.com/JanDeDobbeleer/oh-my-posh3/releases/latest/download/posh-linux-amd64 --output ~/oh-my-posh
+chmod +x ~/oh-my-posh
+sudo mv ~/oh-my-posh /usr/bin/oh-my-posh
 
 echo ''
 echo '------'

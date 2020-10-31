@@ -8,12 +8,9 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
 fi
 
 # set PATH so it includes user's private bin directories
@@ -102,17 +99,18 @@ export PATH=$PATH:$HOME/$USER/bin
 export PATH=$PATH:$HOME/.dotnet/tools
 
 
-export DOCKER_HOST=tcp://0.0.0.0:2375
+#export DOCKER_HOST=tcp://0.0.0.0:2375
 export KUBECONFIG=$HOME/.kube/config
 
 if [-d $USERPROFILE/scoop/apps/ssh-agent-wsl/2.5]; then
   eval $($USERPROFILE/scoop/apps/ssh-agent-wsl/2.5/ssh-agent-wsl -r)
 fi
 
+
 function _update_ps1() {
-    eval "$(/usr/local/bin/powerline-go -error $? -shell bash -eval -colorize-hostname -newline -modules-right kube)"
+    PS1="$(oh-my-posh -config ~/oh-my-posh/my-posh.json -error $?)"
 }
 
-if [ "$TERM" != "linux" ] && [ -f "/usr/local/bin/powerline-go" ]; then
+if [ "$TERM" != "linux" ] && [ -x "$(command -v oh-my-posh)" ]; then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi

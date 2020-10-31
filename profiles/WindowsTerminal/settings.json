@@ -20,12 +20,14 @@
       {
         "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
         "name": "PowerShell Core",
-        "source": "Windows.Terminal.PowershellCore"
+        "source": "Windows.Terminal.PowershellCore",
+        "backgroundImage": "%USERPROFILE%/OneDrive/Pictures/Backgrounds/pwsh-core.jpg"
       },
       {
         "guid": "{c6eaf9f4-32a7-5fdc-b5cf-066e8a4b1e40}",
         "name": "Ubuntu-18.04",
-        "source": "Windows.Terminal.Wsl"
+        "source": "Windows.Terminal.Wsl",
+        "backgroundImage": "%USERPROFILE%/OneDrive/Pictures/Backgrounds/ubuntu.jpg"
       },
       {
         "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
@@ -51,7 +53,8 @@
       {
         "guid": "{fb169e42-8f0e-5b0b-94cb-88dde34f7719}",
         "name": "my-centos",
-        "source": "Windows.Terminal.Wsl"
+        "source": "Windows.Terminal.Wsl",
+        "backgroundImage": "%USERPROFILE%/OneDrive/Pictures/Backgrounds/centos.jpg"
       }
     ]
   },
