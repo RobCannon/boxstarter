@@ -1,3 +1,5 @@
+# source <(curl -s https://raw.githubusercontent.com/RobCannon/boxstarter/master/boxstarter.sh)
+
 DEBIAN_FRONTEND=noninteractive
 sudo -v
 
@@ -5,9 +7,9 @@ sudo -v
 echo ''
 echo '------'
 echo 'Copy .profile'
-curl -L https://github.com/RobCannon/boxstarter/raw/master/profiles/ubuntu/.bashrc -o ~/.bashrc
+curl -L https://raw.githubusercontent.com/RobCannon/boxstarter/master/profiles/ubuntu/.bashrc -o ~/.bashrc
 mkdir -p ~/.oh-my-posh
-curl -L https://github.com/RobCannon/boxstarter/raw/master/profiles/ubuntu/.bashrc -o ~/.oh-my-posh/my-posh.json
+curl -L https://raw.githubusercontent.com/RobCannon/boxstarter/master/profiles/oh-my-posh/my-posh.json -o ~/.oh-my-posh/my-posh.json
 echo ''
 
 if [-d $USERPROFILE/.ssh]; then
