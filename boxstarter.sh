@@ -3,6 +3,7 @@
 DEBIAN_FRONTEND=noninteractive
 sudo -v
 
+
 # Set up symlinks to share files across computers
 echo ''
 echo '------'
@@ -11,6 +12,7 @@ curl -L https://raw.githubusercontent.com/RobCannon/boxstarter/master/profiles/u
 mkdir -p ~/.oh-my-posh
 curl -L https://raw.githubusercontent.com/RobCannon/boxstarter/master/profiles/oh-my-posh/my-posh.json -o ~/.oh-my-posh/my-posh.json
 echo ''
+
 
 if [-d $USERPROFILE/.ssh]; then
   echo ''
@@ -37,6 +39,7 @@ sudo -v
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y curl unzip zip git
 sudo -v
 
+
 # Inspired by https://blog.anaisbetts.org/using-github-credentials-in-wsl2/
 if [-d $USERPROFILE/scoop/apps/git/current/mingw64/libexec/git-core]; then
   echo $'#!/bin/sh\nexec $USERPROFILE/scoop/apps/git/current/mingw64/libexec/git-core/git-credential-manager.exe $@' > ~/git-credential-manager
@@ -53,11 +56,6 @@ echo ''
 
 sudo chown -R $USER ~/.config
 
-# echo ''
-# echo '------'
-# echo 'Installing python'
-# sudo DEBIAN_FRONTEND=noninteractive apt-get install -y python3 python-pip
-# sudo -v
 
 echo ''
 echo '------'
@@ -68,6 +66,7 @@ sudo -v
 sudo npm install -g npm npm-check-updates tldr
 sudo -v
 echo ''
+
 
 echo ''
 echo '------'
@@ -82,6 +81,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y powershell
 sudo -v
 echo ''
 
+
 echo ''
 echo '------'
 echo 'Installing docker'
@@ -89,6 +89,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y docker.io
 sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/bin/docker-compose
 sudo chmod +x /usr/bin/docker-compose
 echo ''
+
 
 echo ''
 echo '------'
@@ -104,6 +105,7 @@ if [-d $USERPROFILE/.kube]; then
 fi
 echo ''
 
+
 echo ''
 echo '------'
 echo 'Installing helm'
@@ -111,17 +113,12 @@ curl -L https://git.io/get_helm.sh | bash
 helm init --client-only
 echo ''
 
-echo ''
-echo '------'
-echo 'Installing @angular/cli'
-sudo npm install -g @angular/cli
-echo ''
 
 echo ''
 echo '------'
 echo 'Installing terraform'
 # https://github.com/hashicorp/terraform/releases
-TERRAFORM_VERSION=0.13.4
+TERRAFORM_VERSION=0.13.5
 TERRAFORM_FILE="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
 curl -LO https://releases.hashicorp.com/terraform/$TERRAFORM_VERSION/$TERRAFORM_FILE
 unzip $TERRAFORM_FILE
@@ -129,20 +126,6 @@ rm $TERRAFORM_FILE
 sudo mv terraform /usr/bin/
 echo ''
 
-# echo ''
-# echo '------'
-# echo 'Installing terraform-docs'
-# curl -L https://github.com/segmentio/terraform-docs/releases/download/v0.6.0/terraform-docs-v0.6.0-linux-amd64 -o ~/terraform-docs
-# chmod +x ~/terraform-docs
-# sudo mv ~/terraform-docs /usr/bin/
-
-# echo ''
-# echo '------'
-# echo 'Installing ansible'
-# sudo apt update
-# sudo DEBIAN_FRONTEND=noninteractive apt-get install python-dev libkrb5-dev krb5-user python-pip
-# sudo pip install ansible pywinrm kerberos requests-kerberos requests-credssp --upgrade
-# echo ''
 
 echo ''
 echo '------'
@@ -158,13 +141,6 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install azure-cli
 sudo -v
 echo ''
 
-# echo ''
-# echo '------'
-# echo 'Installing google-cloud-sdk'
-# echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-# curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-# sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo apt-get install google-cloud-sdk
-# echo ''
 
 echo ''
 echo '------'
@@ -179,31 +155,6 @@ sudo -v
 sudo dotnet tool install --global dotnet-outdated
 echo ''
 
-# echo ''
-# echo '------'
-# echo 'Installing go'
-# sudo add-apt-repository ppa:longsleep/golang-backports
-# sudo DEBIAN_FRONTEND=noninteractive apt-get update
-# sudo DEBIAN_FRONTEND=noninteractive apt-get install golang-go
-# echo ''
-
-
-# echo ''
-# echo '------'
-# echo 'Installing pretty-ping'
-# curl -O https://raw.githubusercontent.com/denilsonsa/prettyping/master/prettyping
-# chmod +x prettyping
-# sudo mv prettyping /usr/bin/
-# echo ''
-
-
-# echo ''
-# echo '------'
-# echo 'Installing powerline-go for custom prompt'
-# sudo -v
-# curl -L https://github.com/justjanne/powerline-go/releases/download/v1.15.0/powerline-go-linux-amd64 --output ~/powerline-go
-# chmod +x ~/powerline-go
-# sudo mv ~/powerline-go /usr/bin/powerline-go
 
 echo ''
 echo '------'
@@ -212,6 +163,7 @@ sudo -v
 curl -L https://github.com/JanDeDobbeleer/oh-my-posh3/releases/latest/download/posh-linux-amd64 --output ~/oh-my-posh
 chmod +x ~/oh-my-posh
 sudo mv ~/oh-my-posh /usr/bin/oh-my-posh
+
 
 echo ''
 echo '------'
