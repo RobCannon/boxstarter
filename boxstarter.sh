@@ -14,7 +14,7 @@ curl -L https://raw.githubusercontent.com/RobCannon/boxstarter/master/profiles/o
 echo ''
 
 
-if [-d $USERPROFILE/.ssh]; then
+if [ -d $USERPROFILE/.ssh]; then
   echo ''
   echo '------'
   echo 'Linking .shh keys'
@@ -41,7 +41,8 @@ sudo -v
 
 
 # Inspired by https://blog.anaisbetts.org/using-github-credentials-in-wsl2/
-if [-d $USERPROFILE/scoop/apps/git/current/mingw64/libexec/git-core]; then
+if [ -d $USERPROFILE/scoop/apps/git/current/mingw64/libexec/git-core ]
+then
   echo $'#!/bin/sh\nexec $USERPROFILE/scoop/apps/git/current/mingw64/libexec/git-core/git-credential-manager.exe $@' > ~/git-credential-manager
   sudo mv ~/git-credential-manager /usr/bin/git-credential-manager
   sudo chmod +x /usr/bin/git-credential-manager
@@ -49,6 +50,7 @@ if [-d $USERPROFILE/scoop/apps/git/current/mingw64/libexec/git-core]; then
 else
   git config --global credential.helper store
 fi
+
 git config --global user.name "Rob Cannon"
 git config --global user.email "rob@cannonsoftware.com"
 git config --global core.autocrlf false
@@ -97,8 +99,10 @@ echo 'Installing kubectl'
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/bin/kubectl
-if [-d $USERPROFILE/.kube]; then
-  if [ -f ~/.kube/config ]; then
+if [ -d $USERPROFILE/.kube ]
+then
+  if [ -f ~/.kube/config ]
+  then
     sudo rm ~/.kube/config
   fi
   ln -s $USERPROFILE/.kube/config ~/.kube/config
