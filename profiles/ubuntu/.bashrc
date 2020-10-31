@@ -1,13 +1,3 @@
-# ~/.profile: executed by the command interpreter for login shells.
-# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
-# exists.
-# see /usr/share/doc/bash/examples/startup-files for examples.
-# the files are located in the bash-doc package.
-
-# the default umask is set in /etc/profile; for setting the umask
-# for ssh logins, install and configure the libpam-umask package.
-#umask 022
-
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
@@ -92,7 +82,6 @@ alias dockerclean='docker kill $(docker ps -q) || true && docker rm $(docker ps 
 alias dockercleanall='docker kill $(docker ps -q) || true && docker rm $(docker ps -a -q) || true && docker rmi $(docker images -q)'
 alias dockerkillall='docker kill $(docker ps -q) || true && docker rm $(docker ps -a -q) || true'
 
-alias ping='prettyping --nolegend'
 alias man='tldr'
 
 export PATH=$PATH:$HOME/$USER/bin
@@ -102,7 +91,8 @@ export PATH=$PATH:$HOME/.dotnet/tools
 #export DOCKER_HOST=tcp://0.0.0.0:2375
 export KUBECONFIG=$HOME/.kube/config
 
-if [-d $USERPROFILE/scoop/apps/ssh-agent-wsl/2.5]; then
+if [ -d $USERPROFILE/scoop/apps/ssh-agent-wsl/2.5 ]
+then
   eval $($USERPROFILE/scoop/apps/ssh-agent-wsl/2.5/ssh-agent-wsl -r)
 fi
 
@@ -111,6 +101,7 @@ function _update_ps1() {
     PS1="$(oh-my-posh -config ~/.oh-my-posh/my-posh.json -error $?)"
 }
 
-if [ "$(command -v oh-my-posh)" ]; then
+if [ "$(command -v oh-my-posh)" ]
+then
     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 fi
