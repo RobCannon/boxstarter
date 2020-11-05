@@ -226,7 +226,7 @@ New-Item -Path "$ENV:Userprofile\AppData\Local\Packages\Microsoft.WindowsTermina
   -Force | Out-Null
 
 #--- Ubuntu ---
-$env:WSLENV = 'USERPROFILE/l'
+$env:WSLENV = 'USERPROFILE/p'
 [environment]::setenvironmentvariable('WSLENV', $env:WSLENV, 'USER')
 Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
 Add-AppxPackage -Path ~/Ubuntu.appx

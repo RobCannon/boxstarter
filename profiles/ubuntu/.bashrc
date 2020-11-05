@@ -3,9 +3,6 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-# set PATH so it includes user's private bin directories
-PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-
 
 alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
 
@@ -84,8 +81,11 @@ alias dockerkillall='docker kill $(docker ps -q) || true && docker rm $(docker p
 
 alias man='tldr'
 
-export PATH=$PATH:$HOME/$USER/bin
-export PATH=$PATH:$HOME/.dotnet/tools
+export ASPNETCORE_Kestrel__Certificates__Default__Password="7wondersfinca" 
+export ASPNETCORE_Kestrel__Certificates__Default__Path="$USERPROFILE/.aspnet/https/aspnetapp.pfx"
+
+# set PATH so it includes user's private bin directories
+export PATH="./node_modules/.bin:$HOME/.dotnet/tools:$HOME/.local/bin:$PATH"
 
 
 #export DOCKER_HOST=tcp://0.0.0.0:2375
