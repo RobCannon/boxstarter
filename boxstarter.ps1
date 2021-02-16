@@ -216,13 +216,13 @@ Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patche
 Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Regular%20Nerd%20Font%20Complete%20Windows%20Compatible.otf' `
   -FontName 'CaskaydiaCove NF Regular'
 
-# # Ensure SSH config exists so it can be linked to WSL
-# if (-Not (Test-Path $HOME\.ssh)) { New-Item $HOME\.ssh -ItemType Directory | Out-Null }
+# Ensure SSH config exists so it can be linked to WSL
+if (-Not (Test-Path $HOME\.ssh)) { New-Item $HOME\.ssh -ItemType Directory | Out-Null }
 
-# # Configure Kubernetes
-# $env:KUBECONFIG = "$env:USERPROFILE\.kube\config"
-# if (-Not (Test-Path $env:KUBECONFIG)) { New-Item $env:KUBECONFIG -ItemType Directory | Out-Null }
-# [Environment]::SetEnvironmentVariable('KUBECONFIG', $env:KUBECONFIG, 'User')
+# Configure Kubernetes
+$env:KUBECONFIG = "$env:USERPROFILE\.kube\config"
+if (-Not (Test-Path $env:KUBECONFIG)) { New-Item $env:KUBECONFIG -ItemType Directory | Out-Null }
+[Environment]::SetEnvironmentVariable('KUBECONFIG', $env:KUBECONFIG, 'User')
 
 # Configure Windows Terminal from OneDrive
 # New-Item -Path "$ENV:Userprofile\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" `
