@@ -237,8 +237,8 @@ $env:WSLENV = 'USERPROFILE/p'
 Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
 Add-AppxPackage -Path ~/Ubuntu.appx
 ubuntu1804 install
+Remove-Item ~/Ubuntu.appx
 
 Write-Host 'Configure ubuntu on WSL' -ForegroundColor Yellow
 wsl -d Ubuntu-18.04 -u root -- printf '[automount]\nroot = /\noptions = "metadata"' ^> /etc/wsl.conf
 wsl -d Ubuntu-18.04 -- sh -c "`$(curl -fsSL https://github.com/RobCannon/boxstarter/raw/master/boxstarter.sh)"
-Remove-Item ~/Ubuntu.appx
