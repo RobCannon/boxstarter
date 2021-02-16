@@ -72,12 +72,11 @@ Set-ItemProperty -Path 'HKCU:\Console' -Name 'ScreenBufferSize' -Value 0x270f007
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'WindowSize' -Value 0x240078 -Type DWord -Force
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'QuickEdit' -Value 1 -Force
 
+winget install -e --id Microsoft.WindowsTerminalPreview
 winget install -e --id Microsoft.PowerShell
 winget install -e --id Git.Git
 winget install -e --id 7zip.7zip
-winget install -e --id Microsoft.WindowsTerminal
-winget install -e --id Microsoft.VisualStudioCode
-winget install -e --id Perforce.P4Merge
+winget install -e --id Microsoft.VisualStudioCode-User-x64
 winget install -e --id Valve.Steam
 Remove-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Run -Name 'Steam' -ErrorAction SilentlyContinue
 
@@ -178,38 +177,38 @@ Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Nam
 function Install-UserFont {
   [CmdletBinding(ConfirmImpact = 'High')]
   Param (
-      [Parameter(Mandatory = $true,
-          Position = 0,
-          ValueFromPipelineByPropertyName = $true)]
-      [Uri]$Uri,
-      [Parameter(Mandatory = $true,
-          Position = 1,
-          ValueFromPipelineByPropertyName = $true)]
-      [String]$FontName
+    [Parameter(Mandatory = $true,
+      Position = 0,
+      ValueFromPipelineByPropertyName = $true)]
+    [Uri]$Uri,
+    [Parameter(Mandatory = $true,
+      Position = 1,
+      ValueFromPipelineByPropertyName = $true)]
+    [String]$FontName
 
   )
 
   $fontFolder = (New-Object -ComObject Shell.Application).Namespace(0x14)
   if ($fontFolder.Items() | Where-Object Name -eq $FontName) {
-      Write-Warning "$FontName is already installed"
+    Write-Warning "$FontName is already installed"
   }
   else {
-      $fontFileName = [System.Uri]::UnescapeDataString(($Uri.Segments | Select-Object -Last 1 ))
-      $fontFilePath = "$env:TEMP\$fontFileName"
-      Invoke-WebRequest $Uri -OutFile $fontFilePath -UseBasicParsing
+    $fontFileName = [System.Uri]::UnescapeDataString(($Uri.Segments | Select-Object -Last 1 ))
+    $fontFilePath = "$env:TEMP\$fontFileName"
+    Invoke-WebRequest $Uri -OutFile $fontFilePath -UseBasicParsing
 
-      $fontFolder.CopyHere($fontFilePath, 0x10)
+    $fontFolder.CopyHere($fontFilePath, 0x10)
 
-      # Removed the downloaded file
-      Remove-Item $fontFilePath -Force
+    # Removed the downloaded file
+    Remove-Item $fontFilePath -Force
   }
 }
 
 Write-Host 'Install Developer Fonts'
 Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf' `
-    -FontName 'SauceCodePro NF Regular'
-Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/complete/Caskaydia%20Cove%20Regular%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf' `
-    -FontName 'CaskaydiaCove NF Regular'
+  -FontName 'SauceCodePro NF Regular'
+Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Regular%20Nerd%20Font%20Complete%20Windows%20Compatible.otf' `
+  -FontName 'CaskaydiaCove NF Regular'
 
 # Ensure SSH config exists so it can be linked to WSL
 if (-Not (Test-Path $HOME\.ssh)) { New-Item $HOME\.ssh -ItemType Directory | Out-Null }

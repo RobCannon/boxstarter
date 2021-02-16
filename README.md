@@ -14,7 +14,6 @@ Run the following script from a Window Powershell Admin prompt
 
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force;
-Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')
 Invoke-Expression (New-Object Net.WebClient).DownloadString('https://github.com/RobCannon/boxstarter/raw/master/run_as_admin.ps1')
 ```
 
