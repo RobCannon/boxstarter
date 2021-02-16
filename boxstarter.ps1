@@ -44,17 +44,18 @@ Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
 
 # Copy PowerShell profile
-if (-not (Test-Path "$env:USERPROFILE/Documents/PowerShell")) { New-Item "$env:USERPROFILE/Documents/PowerShell" -ItemType Directory | Out-Null }
-if (-not (Test-Path "$env:USERPROFILE/Documents/WindowsPowerShell")) { New-Item "$env:USERPROFILE/Documents/WindowsPowerShell" -ItemType Directory | Out-Null }
-Invoke-WebRequest https://github.com/RobCannon/boxstarter/raw/master/profiles/Powershell/Microsoft.PowerShell_profile.ps1 -OutFile "$env:USERPROFILE/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
-Invoke-WebRequest https://github.com/RobCannon/boxstarter/raw/master/profiles/Powershell/Microsoft.PowerShell_profile.ps1 -OutFile "$env:USERPROFILE/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1"
+# if (-not (Test-Path "$env:USERPROFILE/Documents/PowerShell")) { New-Item "$env:USERPROFILE/Documents/PowerShell" -ItemType Directory | Out-Null }
+# if (-not (Test-Path "$env:USERPROFILE/Documents/WindowsPowerShell")) { New-Item "$env:USERPROFILE/Documents/WindowsPowerShell" -ItemType Directory | Out-Null }
+# Invoke-WebRequest https://github.com/RobCannon/boxstarter/raw/master/profiles/Powershell/Microsoft.PowerShell_profile.ps1 -OutFile "$env:USERPROFILE/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
+# Invoke-WebRequest https://github.com/RobCannon/boxstarter/raw/master/profiles/Powershell/Microsoft.PowerShell_profile.ps1 -OutFile "$env:USERPROFILE/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1"
 
 
 # Install Powershell modules
 Write-Host "Installing PowerShell modules" -ForegroundColor Yellow
 Install-Module -Name ImportExcel -Scope CurrentUser
 Install-Module -Name posh-git -Scope CurrentUser
-Install-Module -Name oh-my-posh -Scope CurrentUser
+Install-Module -Name oh-my-posh -Scope CurrentUser -AllowPrerelease
+Install-Module -Name TerminalIcons -Scope CurrentUser
 
 
 Write-Host 'File Explorer Settings'
@@ -210,19 +211,19 @@ Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patche
 Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Regular%20Nerd%20Font%20Complete%20Windows%20Compatible.otf' `
   -FontName 'CaskaydiaCove NF Regular'
 
-# Ensure SSH config exists so it can be linked to WSL
-if (-Not (Test-Path $HOME\.ssh)) { New-Item $HOME\.ssh -ItemType Directory | Out-Null }
+# # Ensure SSH config exists so it can be linked to WSL
+# if (-Not (Test-Path $HOME\.ssh)) { New-Item $HOME\.ssh -ItemType Directory | Out-Null }
 
-# Configure Kubernetes
-$env:KUBECONFIG = "$env:USERPROFILE\.kube\config"
-if (-Not (Test-Path $env:KUBECONFIG)) { New-Item $env:KUBECONFIG -ItemType Directory | Out-Null }
-[Environment]::SetEnvironmentVariable('KUBECONFIG', $env:KUBECONFIG, 'User')
+# # Configure Kubernetes
+# $env:KUBECONFIG = "$env:USERPROFILE\.kube\config"
+# if (-Not (Test-Path $env:KUBECONFIG)) { New-Item $env:KUBECONFIG -ItemType Directory | Out-Null }
+# [Environment]::SetEnvironmentVariable('KUBECONFIG', $env:KUBECONFIG, 'User')
 
 # Configure Windows Terminal from OneDrive
-New-Item -Path "$ENV:Userprofile\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" `
-  -ItemType "HardLink" `
-  -Value "$ENV:Userprofile\OneDrive\Documents\Keep\WindowsTerminal\settings.json" `
-  -Force | Out-Null
+# New-Item -Path "$ENV:Userprofile\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json" `
+#   -ItemType "HardLink" `
+#   -Value "$ENV:Userprofile\OneDrive\Documents\Keep\WindowsTerminal\settings.json" `
+#   -Force | Out-Null
 
 #--- Ubuntu ---
 $env:WSLENV = 'USERPROFILE/p'
