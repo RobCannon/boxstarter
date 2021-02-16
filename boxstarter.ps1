@@ -1,4 +1,6 @@
 Write-Host 'Remove Windows Store Apps'
+Import-Module Appx
+
 Get-AppxPackage Microsoft.3DBuilder | Remove-AppxPackage
 Get-AppxPackage Microsoft.BingFinance | Remove-AppxPackage
 Get-AppxPackage Microsoft.BingNews | Remove-AppxPackage
@@ -50,15 +52,16 @@ Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 # Invoke-WebRequest https://github.com/RobCannon/boxstarter/raw/master/profiles/Powershell/Microsoft.PowerShell_profile.ps1 -OutFile "$env:USERPROFILE/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1"
 
 
+# Should be installed from Powershell Core
 # Install Powershell modules
-Write-Host "Installing PowerShell modules" -ForegroundColor Yellow
-Install-Module -Name ImportExcel -Scope CurrentUser
-Install-Module -Name posh-git -Scope CurrentUser
-Install-Module -Name oh-my-posh -Scope CurrentUser -AllowPrerelease
-Install-Module -Name TerminalIcons -Scope CurrentUser
+# Write-Host "Installing PowerShell modules" -ForegroundColor Yellow
+# Install-Module -Name ImportExcel -Scope CurrentUser
+# Install-Module -Name posh-git -Scope CurrentUser
+# Install-Module -Name oh-my-posh -Scope CurrentUser -AllowPrerelease
+# Install-Module -Name TerminalIcons -Scope CurrentUser
 
 
-Write-Host 'File Explorer Settings'
+Write-Host 'File Explorer Settings' -ForegroundColor Yellow
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name Hidden -Value 1
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name HideFileExt -Value 0
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name NavPaneExpandToCurrentFolder -Value 1
@@ -67,12 +70,13 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name MMTaskbarMode -Value 2
 
 
-Write-Host 'Set console defaults'
+Write-Host 'Set console defaults' -ForegroundColor Yellow
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'FontSize' -Value 0x140000 -Type DWord -Force
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'ScreenBufferSize' -Value 0x270f0078 -Type DWord -Force
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'WindowSize' -Value 0x240078 -Type DWord -Force
 Set-ItemProperty -Path 'HKCU:\Console' -Name 'QuickEdit' -Value 1 -Force
 
+Write-Host 'Install application from winget' -ForegroundColor Yellow
 winget install -e --id Microsoft.WindowsTerminalPreview
 winget install -e --id Microsoft.PowerShell
 winget install -e --id Git.Git
@@ -92,6 +96,7 @@ Remove-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Run -Name 'S
 
 # Configure Git
 #[environment]::setenvironmentvariable('GIT_SSH', (resolve-path (scoop which ssh)), 'USER')
+Write-Host 'Configure git' -ForegroundColor Yellow
 git config --global credential.helper manager
 git config --global user.name "Rob Cannon"
 git config --global user.email "rob@cannonsoftware.com"
@@ -205,7 +210,7 @@ function Install-UserFont {
   }
 }
 
-Write-Host 'Install Developer Fonts'
+Write-Host 'Install Developer Fonts' -ForegroundColor Yellow
 Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf' `
   -FontName 'SauceCodePro NF Regular'
 Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Regular%20Nerd%20Font%20Complete%20Windows%20Compatible.otf' `
@@ -226,11 +231,14 @@ Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patche
 #   -Force | Out-Null
 
 #--- Ubuntu ---
+Write-Host 'Install WSL Ubuntu' -ForegroundColor Yellow
 $env:WSLENV = 'USERPROFILE/p'
 [environment]::setenvironmentvariable('WSLENV', $env:WSLENV, 'USER')
 Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
 Add-AppxPackage -Path ~/Ubuntu.appx
 ubuntu1804 install
+
+Write-Host 'Configure ubuntu on WSL' -ForegroundColor Yellow
 wsl -d Ubuntu-18.04 -u root -- printf '[automount]\nroot = /\noptions = "metadata"' ^> /etc/wsl.conf
 wsl -d Ubuntu-18.04 -- sh -c "`$(curl -fsSL https://github.com/RobCannon/boxstarter/raw/master/boxstarter.sh)"
 Remove-Item ~/Ubuntu.appx
