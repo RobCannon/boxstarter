@@ -1,5 +1,5 @@
 [credential]
-	helper = manager
+	helper = git-credential-manager-core.exe
 [user]
 	name = Rob Cannon
 	email = rob@cannonsoftware.com
