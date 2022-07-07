@@ -1,7 +1,6 @@
 
 # Install Powershell modules
 Write-Host "Installing PowerShell modules" -ForegroundColor Yellow
-Install-Module -Name PowerShellGet -RequiredVersion 3.0.14-beta -Force -AllowPrerelease -Scope AllUsers
 Set-PSResourceRepository -Name PSGallery -Trusted
 
 Install-PSResource PSReadLine -Reinstall
@@ -21,9 +20,8 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name MMTaskbarMode -Value 2
 
 Write-Host 'Install WSL Ubuntu' -ForegroundColor Yellow
-$env:WSLENV = 'USERPROFILE/p:APPDATA/p'
+$env:WSLENV = 'USERPROFILE/p:APPDATA/p:AWS_PROFILE'
 [environment]::setenvironmentvariable('WSLENV', $env:WSLENV, 'USER')
-wsl --update
 $wsl_distributions = wsl --list
 if ($wsl_distributions -notcontains "Ubuntu" -and $wsl_distributions -notcontains "Ubuntu (Default)") {
   wsl --install -d Ubuntu

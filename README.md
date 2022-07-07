@@ -5,10 +5,11 @@ To get started, from Windows PowerShell, install pwsh, git and gh command lines
 winget install -e --id Microsoft.PowerShell
 winget install -e --id Git.Git
 winget install -e --id GitHub.cli
-
+```
+Exit powershell and start powershell core prompt as an Admin
+```
 ```
 
-Exit powershell and start powershell core prompt
 ```
 function dtf { git.exe --git-dir=$HOME\.cfg --work-tree=$HOME $args }
 git clone --bare "https://github.com/RobCannon/boxstarter.git" $HOME/.cfg
