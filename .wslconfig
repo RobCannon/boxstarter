@@ -1,0 +1,15 @@
+# Automatically mount Windows drive when the distribution is launched
+[automount]
+
+# Set to true will automount fixed drives (C:/ or D:/) with DrvFs under the root directory set above. Set to false means drives won't be mounted automatically, but need to be mounted manually or with fstab.
+enabled = true
+
+# DrvFs-specific options can be specified.  
+options = "umask=070,fmask=11"
+
+# Sets the `/etc/fstab` file to be processed when a WSL distribution is launched.
+mountFsTab = true
+
+# Set the user when launching a distribution with WSL.
+[user]
+default = rcannon
