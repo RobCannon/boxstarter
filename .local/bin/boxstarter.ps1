@@ -25,11 +25,11 @@ $env:WSLENV = 'USERPROFILE/p:APPDATA/p:AWS_PROFILE'
 $wsl_distributions = wsl --list
 if ($wsl_distributions -notcontains "Ubuntu" -and $wsl_distributions -notcontains "Ubuntu (Default)") {
   wsl --install -d Ubuntu
+  wsl --set-default Ubuntu
 }
 
 
 Write-Host 'Install application from winget' -ForegroundColor Yellow
-winget install -e --id Microsoft.WindowsTerminal
 winget install -e --id 7zip.7zip
 winget install -e --id Microsoft.VisualStudioCode
 winget install -e --id Microsoft.PowerToys
@@ -43,6 +43,7 @@ winget install -e --id Mirantis.Lens
 
 # Cleanup desktop icons
 Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Microsoft Edge.lnk' } | Remove-Item
+Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Lens.lnk' } | Remove-Item
 
 
 function Install-UserFont {
