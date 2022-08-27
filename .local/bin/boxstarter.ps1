@@ -19,14 +19,6 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name LaunchTo -Value 1
 Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name MMTaskbarMode -Value 2
 
-Write-Host 'Install WSL Ubuntu' -ForegroundColor Yellow
-$env:WSLENV = 'USERPROFILE/p:APPDATA/p:AWS_PROFILE'
-[environment]::setenvironmentvariable('WSLENV', $env:WSLENV, 'USER')
-$wsl_distributions = wsl --list
-if ($wsl_distributions -notcontains "Ubuntu" -and $wsl_distributions -notcontains "Ubuntu (Default)") {
-  wsl --install -d Ubuntu
-  wsl --set-default Ubuntu
-}
 
 
 Write-Host 'Install application from winget' -ForegroundColor Yellow
@@ -39,6 +31,8 @@ winget install -e --id Amazon.AWSCLI
 winget install -e --id OpenJS.NodeJS 
 winget install -e --id suse.RancherDesktop
 winget install -e --id Mirantis.Lens
+winget install -e --id Canonical.Ubuntu.2204
+
 
 
 # Cleanup desktop icons
@@ -92,3 +86,12 @@ $env:KUBECONFIG = "$env:USERPROFILE\.kube\config"
 [Environment]::SetEnvironmentVariable('KUBECONFIG', $env:KUBECONFIG, 'User')
 
 
+
+Write-Host 'Install WSL Ubuntu' -ForegroundColor Yellow
+$env:WSLENV = 'USERPROFILE/p:APPDATA/p:AWS_PROFILE'
+[environment]::setenvironmentvariable('WSLENV', $env:WSLENV, 'USER')
+$wsl_distributions = wsl --list
+if ($wsl_distributions -notcontains "Ubuntu" -or $wsl_distributions -notcontains "Ubuntu (Default)") {
+  wsl --install -d Ubuntu
+  wsl --set-default Ubuntu
+}
