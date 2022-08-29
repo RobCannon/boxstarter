@@ -91,7 +91,7 @@ Write-Host 'Install WSL Ubuntu' -ForegroundColor Yellow
 $env:WSLENV = 'USERPROFILE/p:APPDATA/p:AWS_PROFILE'
 [environment]::setenvironmentvariable('WSLENV', $env:WSLENV, 'USER')
 $wsl_distributions = wsl --list
-if ($wsl_distributions -notcontains "Ubuntu" -or $wsl_distributions -notcontains "Ubuntu (Default)") {
-  wsl --install -d Ubuntu
-  wsl --set-default Ubuntu
+if ($wsl_distributions -notcontains "Ubuntu-22.04" -or $wsl_distributions -notcontains "Ubuntu-22.04 (Default)") {
+  wsl --install -d Ubuntu-22.04
+  wsl --set-default Ubuntu-22.04
 }
