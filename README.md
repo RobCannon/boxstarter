@@ -11,8 +11,8 @@ exit
 
 Start powershell core prompt as an Admin
 ```
-Install-Module -Name PowerShellGet -RequiredVersion 3.0.14-beta14 -Force -AllowPrerelease -Scope AllUsers
-wsl -update
+Install-Module -Name PowerShellGet -RequiredVersion 3.0.17-beta17 -Force -AllowPrerelease -Scope AllUsers
+wsl --update
 exit
 ```
 
@@ -30,6 +30,6 @@ dtf config --local status.showUntrackedFiles no
 dtf checkout -f main
 dtf push --set-upstream origin main
 
-$HOME/.local/bin/boxstarter.ps1
+. "$HOME\.local\bin\boxstarter.ps1"
 exit
 ```
