@@ -29,7 +29,7 @@ winget install -e --id Microsoft.dotnet
 winget install -e --id Python.Python.3
 winget install -e --id Amazon.AWSCLI
 winget install -e --id OpenJS.NodeJS 
-winget install -e --id suse.RancherDesktop
+winget install -e --id Docker.DockerDesktop
 winget install -e --id Mirantis.Lens
 winget install -e --id Canonical.Ubuntu.2204
 
