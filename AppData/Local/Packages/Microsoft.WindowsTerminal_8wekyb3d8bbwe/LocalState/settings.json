@@ -31,7 +31,7 @@
     ],
     "copyFormatting": "none",
     "copyOnSelect": false,
-    "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
     "initialCols": 180,
     "initialRows": 50,
     "multiLinePasteWarning": false,
@@ -47,15 +47,17 @@
         "list": 
         [
             {
-                "backgroundImage": "C:\\Users\\rob\\AppData\\Local\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\Media\\ubuntu.jpg",
+                "backgroundImage": "ms-appdata:///Local/ubuntu.jpg",
                 "backgroundImageOpacity": 0.80000000000000004,
                 "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
                 "hidden": false,
-                "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
+                "icon": "ms-appdata:///Local/ubuntu-icon.png",
+                "name": "Ubuntu 22.04",
+                "commandline": "wsl.exe",
+                "startingDirectory": "~/"
             },
             {
-                "backgroundImage": "C:\\Users\\rob\\AppData\\Local\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\Media\\pwsh-core.jpg",
+                "backgroundImage": "ms-appdata:///Local/pwsh-core.jpg",
                 "backgroundImageOpacity": 0.5,
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
@@ -91,23 +93,11 @@
                 "source": "Windows.Terminal.Wsl"
             },
             {
-                "guid": "{6119b595-76a7-521c-af61-ad4bd71ee564}",
-                "hidden": true,
-                "name": "Developer Command Prompt for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{7aa3067a-7548-53c1-88c6-121521bbd4c9}",
-                "hidden": true,
-                "name": "Developer PowerShell for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
                 "closeOnExit": "always",
                 "commandline": "wsl.exe -u root -- hwclock -s && date && sleep 5",
                 "guid": "{363d0a27-fb98-4e1d-a535-e99e64a98802}",
                 "hidden": false,
-                "icon": "C:\\Users\\rob\\AppData\\Local\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\Media\\clock.png",
+                "icon": "ms-appdata:///Local/clock.png",
                 "name": "Update WSL System Clock"
             },
             {
@@ -115,7 +105,7 @@
                 "commandline": "pwsh.exe -File c:\\users\\rob\\.local\\bin\\select-awsprofile.ps1",
                 "guid": "{5f09d45f-8759-42f3-8dad-974e620404e1}",
                 "hidden": false,
-                "icon": "C:\\Users\\rob\\AppData\\Local\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\Media\\AWS-icon.png",
+                "icon": "ms-appdata:///Local/AWS-icon.png",
                 "name": "Select AWS Profile"
             }
         ]
