@@ -4,4 +4,4 @@
 	name = Rob Cannon
 	email = rob@cannonsoftware.com
 [core]
-	autocrlf = false
+	autocrlf = true
