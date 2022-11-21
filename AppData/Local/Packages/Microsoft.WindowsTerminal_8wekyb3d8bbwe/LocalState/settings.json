@@ -54,7 +54,6 @@
                 "hidden": false,
                 "icon": "ms-appdata:///Local/ubuntu-icon.png",
                 "name": "Ubuntu 22.04",
-                "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc",
                 "startingDirectory": "~/"
             },
             {
