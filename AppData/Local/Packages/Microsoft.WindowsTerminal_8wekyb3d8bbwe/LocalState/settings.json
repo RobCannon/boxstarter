@@ -47,7 +47,7 @@
         "list": 
         [
             {
-                "backgroundImage": "ms-appdata:///Local/ubuntu.jpg",
+                "backgroundImage": "ms-appdata:///Local/ubuntu-background.jpg",
                 "backgroundImageOpacity": 0.80000000000000004,
                 "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
                 "hidden": false,
