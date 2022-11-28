@@ -22,6 +22,8 @@ Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\
 
 
 Write-Host 'Install application from winget' -ForegroundColor Yellow
+winget install -e --id Microsoft.Office
+winget install -e --id Microsoft.Teams
 winget install -e --id 7zip.7zip
 winget install -e --id Microsoft.VisualStudioCode
 winget install -e --id Microsoft.PowerToys
