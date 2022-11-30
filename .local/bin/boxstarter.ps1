@@ -35,7 +35,12 @@ winget install -e --id Docker.DockerDesktop
 winget install -e --id Mirantis.Lens
 winget install -e --id Canonical.Ubuntu.2204
 
-
+code --install-extension ms-vscode-remote.vscode-remote-extensionpack
+code --install-extension alefragnani.project-manager
+code --install-extension cschleiden.vscode-github-actions
+code --install-extension GitHub.vscode-pull-request-github
+code --install-extension ms-kubernetes-tools.vscode-kubernetes-tools
+code --install-extension moshfeu.compare-folders
 
 # Cleanup desktop icons
 Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Microsoft Edge.lnk' } | Remove-Item
