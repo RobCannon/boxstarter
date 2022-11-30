@@ -3,7 +3,7 @@ if ([Environment]::GetCommandLineArgs().Length -gt 1) {
   return
 }
 
-function dtf { git.exe --git-dir=$HOME\.cfg --work-tree=$HOME $args }
+function dotfiles { git.exe --git-dir=$HOME\.cfg --work-tree=$HOME $args }
 function Select-AWSProfile { & "$HOME\.local\bin\select-awsprofile.ps1" }
 
 oh-my-posh init pwsh --config $HOME/.config/oh-my-posh/my-posh.json -s | Invoke-Expression
