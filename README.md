@@ -24,8 +24,9 @@ gh auth login
 
 Then run these commands
 ```
+$GitHubProfile = Get-Content "$($env:APPDATA)/GitHub CLI/hosts.yml" | ?{ $_ -match 'user:' } | %{ $_ -replace '\s+user:\s+','' }
 function dotfiles { git.exe --git-dir=$HOME\.cfg --work-tree=$HOME $args }
-git clone --bare "https://github.com/RobCannon/boxstarter.git" $HOME/.cfg
+git clone --bare "https://github.com/$GitHubProfile/boxstarter.git" $HOME/.cfg
 dotfiles config --local status.showUntrackedFiles no
 dotfiles checkout -f main
 dotfiles push --set-upstream origin main
