@@ -99,6 +99,6 @@ $env:WSLENV = 'USERPROFILE/p:APPDATA/p:AWS_PROFILE'
 [environment]::setenvironmentvariable('WSLENV', $env:WSLENV, 'USER')
 $wsl_distributions = wsl --list
 if ($wsl_distributions -notcontains "Ubuntu-22.04" -or $wsl_distributions -notcontains "Ubuntu-22.04 (Default)") {
-  wsl --install Ubuntu-22.04
+  ubuntu2204.exe --ui=tui
 }
 wsl --set-default Ubuntu-22.04
