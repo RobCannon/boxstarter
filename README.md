@@ -11,7 +11,7 @@ exit
 
 Start powershell core prompt as an Admin
 ```
-Install-Module -Name PowerShellGet -RequiredVersion 3.0.17-beta17 -Force -AllowPrerelease -Scope AllUsers
+Install-Module -Name PowerShellGet -RequiredVersion 3.0.18-beta18 -Force -AllowPrerelease -Scope AllUsers
 wsl --update
 exit
 ```
