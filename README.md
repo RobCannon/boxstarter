@@ -1,13 +1,13 @@
 # Windows and WSL BoxStarter
 
-To get started, from Windows PowerShell (WindowsKey-X and select Terminal), install pwsh, wsl, git and gh command lines
+To get started, from Windows PowerShell (WindowsKey-X and select Terminal), install pwsh, wsl, git and gh command lines.  Your computer will restart when this is complete.
 ```
-winget install -e --id Microsoft.PowerShell
-winget install -e --id Microsoft.WindowsTerminal
-winget install -e --id MicrosoftCorporationII.WindowsSubsystemForLinux
-winget install -e --id Git.Git
-winget install -e --id GitHub.cli
-exit
+winget install -e --id Microsoft.PowerShell --accept-package-agreements
+winget install -e --id Microsoft.WindowsTerminal --accept-package-agreements
+winget install -e --id MicrosoftCorporationII.WindowsSubsystemForLinux --accept-package-agreements
+winget install -e --id Git.Git --accept-package-agreements
+winget install -e --id GitHub.cli --accept-package-agreements
+restart-computer -Force
 ```
 
 Reboot
