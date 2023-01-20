@@ -1,17 +1,19 @@
 # Windows and WSL BoxStarter
 
-To get started, from Windows PowerShell, install pwsh, git and gh command lines
+To get started, from Windows PowerShell (WindowsKey-X and select Terminal), install pwsh, wsl, git and gh command lines
 ```
 winget install -e --id Microsoft.PowerShell
 winget install -e --id Microsoft.WindowsTerminal
+winget install -e --id MicrosoftCorporationII.WindowsSubsystemForLinux
 winget install -e --id Git.Git
 winget install -e --id GitHub.cli
 exit
 ```
 
+Reboot
+
 Start powershell core prompt as an Admin
 ```
-Install-Module -Name PowerShellGet -RequiredVersion 3.0.18-beta18 -Force -AllowPrerelease -Scope AllUsers
 wsl --update
 exit
 ```
