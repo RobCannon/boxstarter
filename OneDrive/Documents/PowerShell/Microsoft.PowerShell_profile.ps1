@@ -1,7 +1,7 @@
 # Jump out if run from a script
-if ([Environment]::GetCommandLineArgs().Length -gt 1) {
-  return
-}
+# if ($PSScriptRoot) {
+#   return
+# }
 
 function dotfiles { git.exe --git-dir=$HOME\.cfg --work-tree=$HOME $args }
 function Select-AWSProfile { & "$HOME\.local\bin\select-awsprofile.ps1" }
