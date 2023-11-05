@@ -7,7 +7,7 @@ properties:
         description: Set Dark Mode for System
       settings:
         Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize
-        ValueName: AppsUseLiSystemUsesLightThemeghtTheme
+        ValueName: SystemUsesLightTheme
         ValueType: DWord
         ValueData: 0
         Force: true
