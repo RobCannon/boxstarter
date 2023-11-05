@@ -4,6 +4,14 @@ properties:
   resources:
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       directives:
+        description: Install WinGet UI
+        allowPrerelease: true
+      settings:
+        id: SomePythonThings.WingetUIStore
+        source: winget
+  
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
         description: Install PowerShell 7
         allowPrerelease: true
       settings:
@@ -96,13 +104,7 @@ properties:
         id: JanDeDobbeleer.OhMyPosh
         source: winget
 
-    # - resource: Microsoft.WinGet.DSC/WinGetPackage
-    #   directives:
-    #     description: Install Windows Terminal
-    #     allowPrerelease: true
-    #   settings:
-    #     id: Microsoft.Windows.Terminal
-    #     source: winget
+
 
     # - resource: Microsoft.WinGet.DSC/WinGetPackage
     #   directives:
@@ -131,3 +133,147 @@ properties:
         ValueType: DWord
         ValueData: 0
         Force: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Mail and Calendar
+      settings:
+        Ensure: Absent
+        id: microsoft.windowscommunicationsapps_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove MSN Weather
+      settings:
+        Ensure: Absent
+        id: Microsoft.BingWeather_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove MSN News
+      settings:
+        Ensure: Absent
+        id: Microsoft.BingNews_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Cortana
+      settings:
+        Ensure: Absent
+        id: Microsoft.549981C3F5F10_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove XBox
+      settings:
+        Ensure: Absent
+        id: Microsoft.GamingApp_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Get Help
+      settings:
+        Ensure: Absent
+        id: Microsoft.GetHelp_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Microsoft Tips
+      settings:
+        Ensure: Absent
+        id: Microsoft.Getstarted_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Microsoft Sticky Notes
+      settings:
+        Ensure: Absent
+        id: Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Microsoft People
+      settings:
+        Ensure: Absent
+        id: Microsoft.People_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Feedback Hub
+      settings:
+        Ensure: Absent
+        id: Microsoft.WindowsFeedbackHub_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Windows Maps
+      settings:
+        Ensure: Absent
+        id: Microsoft.WindowsMaps_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Phone Link
+      settings:
+        Ensure: Absent
+        id: Microsoft.YourPhone_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Movies & TV
+      settings:
+        Ensure: Absent
+        id: Microsoft.ZuneVideo_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Windows Maps
+      settings:
+        Ensure: Absent
+        id: Microsoft.WindowsMaps_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Xbox TCUI
+      settings:
+        Ensure: Absent
+        id: Microsoft.Xbox.TCUI_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Xbox Game Bar Plugin
+      settings:
+        Ensure: Absent
+        id: Microsoft.XboxGameOverlay_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Xbox Identity Provider
+      settings:
+        Ensure: Absent
+        id: Microsoft.XboxIdentityProvider_8wekyb3d8bbwe
+        source: store
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Remove Xbox Game Speech Window
+      settings:
+        Ensure: Absent
+        id: Microsoft.XboxSpeechToTextOverlay_8wekyb3d8bbwe
+        source: store

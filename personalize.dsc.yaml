@@ -24,6 +24,16 @@ properties:
 
     - resource: PSDscResources/Registry
       directives:
+        description: Hide TaskView button on TaskBar
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+        ValueName: ShowTaskViewButton
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
         description: Navigation Pane Expand to Current Folder
       settings:
         Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced

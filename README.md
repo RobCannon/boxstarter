@@ -48,5 +48,5 @@ Run these command from a Terminal.  Use WinKey-X.  This will install several pac
 prompts do not seem to pop-up over the Terminal windows, so be on the lookout for them. Progress will pause until they Admin escalation is approved.
 ```
 Invoke-WebRequest -Uri https://github.com/RobCannon/boxstarter/raw/main/configuration.dsc.yaml -OutFile ~\configuration.dsc.yaml
-winget configure --file ~\personalize.dsc.yaml --accept-configuration-agreements 
+winget configure --file ~\configuration.dsc.yaml --accept-configuration-agreements 
 ```
