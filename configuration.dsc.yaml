@@ -76,7 +76,7 @@ properties:
 
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       directives:
-        description: Install Ubuntu 20.04 (WSL)
+        description: Install Ubuntu 22.04 (WSL)
         allowPrerelease: true
       settings:
         id: Canonical.Ubuntu.2204
@@ -93,15 +93,6 @@ properties:
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       directives:
         description: Install PowerToys
-        allowPrerelease: true
-      settings:
-        id: Microsoft.PowerToys
-        source: winget
-
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install PowerToys
-        allowPrerelease: true
       settings:
         id: Microsoft.PowerToys
         source: winget
