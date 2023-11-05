@@ -21,3 +21,24 @@ properties:
         ValueType: DWord
         ValueData: 0
         Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Navigation Pane Expand to Current Folder
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+        ValueName: NavPaneExpandToCurrentFolder
+        ValueType: DWord
+        ValueData: 1
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Turn off Search box on Taskbar
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\Search
+        ValueName: SearchboxTaskbarMode
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+

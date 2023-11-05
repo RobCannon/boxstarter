@@ -38,6 +38,15 @@ exit
 ```
 
 
+Run these command from a Terminal (Admin).  Use WinKey-X
 ```
-Invoke-WebRequest -Uri https://github.com/RobCannon/boxstarter/raw/main/configuration.dsc.yaml -OutFile ~/configuration.dsc.yaml
+Invoke-WebRequest -Uri https://github.com/RobCannon/boxstarter/raw/main/admin.dsc.yaml -OutFile ~\admin.dsc.yaml
+winget configure --file ~\admin.dsc.yaml --accept-configuration-agreements 
+```
+
+Run these command from a Terminal.  Use WinKey-X.  This will install several packages that will trigger an Admin prompt.  Those
+prompts do not seem to pop-up over the Terminal windows, so be on the lookout for them. Progress will pause until they Admin escalation is approved.
+```
+Invoke-WebRequest -Uri https://github.com/RobCannon/boxstarter/raw/main/configuration.dsc.yaml -OutFile ~\configuration.dsc.yaml
+winget configure --file ~\personalize.dsc.yaml --accept-configuration-agreements 
 ```

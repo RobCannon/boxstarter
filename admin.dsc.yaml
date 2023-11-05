@@ -10,6 +10,13 @@ properties:
       settings:
         Ensure: Present
 
+    - resource: PSDscResources/Environment
+      directives:
+        description: Set WSL environment variables
+      settings:
+        Name: WSLENV
+        Value: USERPROFILE/p:APPDATA/p:AWS_PROFILE
+
     - resource: DSCR_Font/cFont
       directives:
         description: Install SauceCodePro Font
