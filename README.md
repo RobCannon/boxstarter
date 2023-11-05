@@ -36,3 +36,8 @@ dotfiles push --set-upstream origin main
 . "$HOME\.local\bin\boxstarter.ps1"
 exit
 ```
+
+
+```
+Invoke-WebRequest -Uri https://github.com/RobCannon/boxstarter/raw/main/configuration.dsc.yaml -OutFile ~/configuration.dsc.yaml
+```
