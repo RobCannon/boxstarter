@@ -2,14 +2,6 @@
 properties:
   configurationVersion: 0.2.0
   resources:
-    - resource: DeveloperMode
-      directives:
-        description: Enable Developer Mode
-        module: Microsoft.Windows.Developer
-        allowPrerelease: true
-      settings:
-        Ensure: Present
-
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       directives:
         description: Install PowerShell 7
@@ -97,6 +89,13 @@ properties:
         id: Microsoft.PowerToys
         source: winget
 
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install oh-my-posh
+      settings:
+        id: JanDeDobbeleer.OhMyPosh
+        source: winget
+
     # - resource: Microsoft.WinGet.DSC/WinGetPackage
     #   directives:
     #     description: Install Windows Terminal
@@ -121,6 +120,7 @@ properties:
         ValueName: Hidden
         ValueType: DWord
         ValueData: 1
+        Force: true
 
     - resource: PSDscResources/Registry
       directives:
@@ -130,6 +130,7 @@ properties:
         ValueName: HideFileExt
         ValueType: DWord
         ValueData: 0
+        Force: true
 
     - resource: PSDscResources/Registry
       directives:
@@ -139,6 +140,7 @@ properties:
         ValueName: NavPaneExpandToCurrentFolder
         ValueType: DWord
         ValueData: 1
+        Force: true
 
     - resource: PSDscResources/Registry
       directives:
@@ -148,17 +150,5 @@ properties:
         ValueName: SearchboxTaskbarMode
         ValueType: DWord
         ValueData: 0
+        Force: true
 
-    - resource: DSCR_Font/cFont
-      directives:
-        description: Install SauceCodePro Font
-      settings:
-        FontName: SauceCodePro NF Regular
-        FontFile: https://github.com/ryanoasis/nerd-fonts/raw/2.1.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf
-
-    - resource: DSCR_Font/cFont
-      directives:
-        description: Install CaskaydiaCove Font
-      settings:
-        FontName: CaskaydiaCove NF Regular
-        FontFile: https://github.com/ryanoasis/nerd-fonts/raw/2.1.0/patched-fonts/CascadiaCode/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf

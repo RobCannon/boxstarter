@@ -1,0 +1,23 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+properties:
+  configurationVersion: 0.2.0
+  resources:
+    - resource: PSDscResources/Registry
+      directives:
+        description: Set Dark Mode for System
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize
+        ValueName: AppsUseLiSystemUsesLightThemeghtTheme
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Set Dark Mode for Apps
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize
+        ValueName: AppsUseLightTheme
+        ValueType: DWord
+        ValueData: 0
+        Force: true

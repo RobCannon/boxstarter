@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+properties:
+  configurationVersion: 0.2.0
+  resources:
+    - resource: DeveloperMode
+      directives:
+        description: Enable Developer Mode
+        module: Microsoft.Windows.Developer
+        allowPrerelease: true
+      settings:
+        Ensure: Present
+
+    - resource: DSCR_Font/cFont
+      directives:
+        description: Install SauceCodePro Font
+      settings:
+        FontName: SauceCodePro NF Regular
+        FontFile: https://github.com/ryanoasis/nerd-fonts/raw/2.1.0/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf
+
+    - resource: DSCR_Font/cFont
+      directives:
+        description: Install CaskaydiaCove Font
+      settings:
+        FontName: CaskaydiaCove NF Regular
+        FontFile: https://github.com/ryanoasis/nerd-fonts/raw/2.1.0/patched-fonts/CascadiaCode/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Mono%20Windows%20Compatible.ttf
