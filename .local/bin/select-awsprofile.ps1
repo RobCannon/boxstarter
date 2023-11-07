@@ -30,7 +30,6 @@ function Show-SimpleMenu ([array]$Options, [string]$Title = 'Choose an option', 
 }
 
 $profiles = Get-Content "~/.aws/config" | Where-Object { $_ -match '^\[profile\s+(\S+)\]' } | ForEach-Object { $matches[1] } | Sort-Object { $_ }
-wsl.exe -u root -- hwclock -s
 
 $selected_profile = Show-SimpleMenu $profiles 'Select AWS Profile'
 
