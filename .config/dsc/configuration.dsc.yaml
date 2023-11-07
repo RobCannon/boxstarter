@@ -55,6 +55,14 @@ properties:
         description: Install AWS CLI
         allowPrerelease: true
       settings:
+        id: Amazon.AWSCLI
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install AWS VPN Client
+        allowPrerelease: true
+      settings:
         id: Amazon.AWSVPNClient
         source: winget
 
