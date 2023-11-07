@@ -15,7 +15,7 @@ properties:
         description: Set WSL environment variables
       settings:
         Name: WSLENV
-        Value: USERPROFILE/p:APPDATA/p:AWS_PROFILE
+        Value: USERPROFILE/p:APPDATA
 
     - resource: DSCR_Font/cFont
       directives:

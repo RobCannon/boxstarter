@@ -1,25 +1,25 @@
 # Windows and WSL BoxStarter
 
-To get started, from Windows PowerShell (WindowsKey-X and select Terminal), install pwsh, wsl, git and gh command lines.  Your computer will restart when this is complete.
-```
-winget install -e --id Microsoft.PowerShell --accept-package-agreements
-winget install -e --id Microsoft.WindowsTerminal --accept-package-agreements
-winget install -e --id MicrosoftCorporationII.WindowsSubsystemForLinux --accept-package-agreements
-winget install -e --id Git.Git --accept-package-agreements
-winget install -e --id GitHub.cli --accept-package-agreements
-restart-computer -Force
-```
+To get started, open Microsoft Store and ensure that all packages are updates.  This is needed to get the latest version of winget.
 
-Reboot
-
-Start powershell core prompt as an Admin
+Run these command from a Terminal (Admin).  Use WinKey-X
 ```
-wsl --update
+Invoke-WebRequest -Uri https://github.com/RobCannon/boxstarter/raw/main/.config/dsc/admin.dsc.yaml -OutFile .\admin.dsc.yaml
+winget configure --file .\admin.dsc.yaml --accept-configuration-agreements 
+Remove-Item .\admin.dsc.yaml
 exit
 ```
 
+Run these command from a Terminal.  Use WinKey-X.  This will install several packages that will trigger an Admin prompt.  Those
+prompts do not seem to pop-up over the Terminal windows, so be on the lookout for them. Progress will pause until they Admin escalation is approved.
+```
+Invoke-WebRequest -Uri https://github.com/RobCannon/boxstarter/raw/main/.config/dsc/configuration.dsc.yaml -OutFile .\configuration.dsc.yaml
+winget configure --file .\configuration.dsc.yaml --accept-configuration-agreements 
+Remove-Item .\configuration.dsc.yaml
+exit
+```
 
-Start powershell core normally and run these commands
+Start another Terminal session
 ```
 gh auth login
 ```
@@ -38,15 +38,3 @@ exit
 ```
 
 
-Run these command from a Terminal (Admin).  Use WinKey-X
-```
-Invoke-WebRequest -Uri https://github.com/RobCannon/boxstarter/raw/main/admin.dsc.yaml -OutFile ~\admin.dsc.yaml
-winget configure --file ~\admin.dsc.yaml --accept-configuration-agreements 
-```
-
-Run these command from a Terminal.  Use WinKey-X.  This will install several packages that will trigger an Admin prompt.  Those
-prompts do not seem to pop-up over the Terminal windows, so be on the lookout for them. Progress will pause until they Admin escalation is approved.
-```
-Invoke-WebRequest -Uri https://github.com/RobCannon/boxstarter/raw/main/configuration.dsc.yaml -OutFile ~\configuration.dsc.yaml
-winget configure --file ~\configuration.dsc.yaml --accept-configuration-agreements 
-```

@@ -1,43 +1,8 @@
-Write-Host 'Install Developer Fonts' -ForegroundColor Yellow
-function Install-UserFont {
-  [CmdletBinding(ConfirmImpact = 'High')]
-  Param (
-    [Parameter(Mandatory = $true,
-      Position = 0,
-      ValueFromPipelineByPropertyName = $true)]
-    [Uri]$Uri,
-    [Parameter(Mandatory = $true,
-      Position = 1,
-      ValueFromPipelineByPropertyName = $true)]
-    [String]$FontName
-
-  )
-
-  $fontFolder = (New-Object -ComObject Shell.Application).Namespace(0x14)
-  if ($fontFolder.Items() | Where-Object Name -eq $FontName) {
-    Write-Warning "$FontName is already installed"
-  }
-  else {
-    $fontFileName = [System.Uri]::UnescapeDataString(($Uri.Segments | Select-Object -Last 1 ))
-    $fontFilePath = "$env:TEMP\$fontFileName"
-    Invoke-WebRequest $Uri -OutFile $fontFilePath -UseBasicParsing
-
-    $fontFolder.CopyHere($fontFilePath, 0x10)
-
-    # Removed the downloaded file
-    Remove-Item $fontFilePath -Force
-  }
-}
-
-Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Windows%20Compatible.ttf' `
-  -FontName 'SauceCodePro NF Regular'
-Install-UserFont -Uri 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/CascadiaCode/Regular/complete/Caskaydia%20Cove%20Nerd%20Font%20Complete%20Windows%20Compatible%20Regular.otf' `
-  -FontName 'CaskaydiaCove NF Regular'
+winget configure --file $HOME\.config\dsc\personalize.dsc.yaml --accept-configuration-agreements 
 
 
 # Install Powershell modules
 Write-Host "Installing PowerShell modules" -ForegroundColor Yellow
-Install-Module -Name PowerShellGet -RequiredVersion 3.0.18-beta18 -Force -AllowPrerelease
 Set-PSResourceRepository -Name PSGallery -Trusted
 
 Install-PSResource PSReadLine -Reinstall
@@ -46,33 +11,6 @@ Install-PSResource posh-git -Reinstall
 Install-PSResource PowerShellForGitHub -Reinstall
 Install-PSResource ImportExcel -Reinstall
 Install-PSResource Terminal-Icons -Reinstall
-
-
-Write-Host 'File Explorer Settings' -ForegroundColor Yellow
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name Hidden -Value 1
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name HideFileExt -Value 0
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name NavPaneExpandToCurrentFolder -Value 1
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name NavPaneShowAllFolders -Value 1
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name LaunchTo -Value 1
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name MMTaskbarMode -Value 2
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced -Name ShowTaskViewButton -Value 0
-Set-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\Search -Name SearchboxTaskbarMode -Value 0
-
-
-
-Write-Host 'Install application from winget' -ForegroundColor Yellow
-winget install -e --id Canonical.Ubuntu.2204
-winget install -e --id 7zip.7zip
-winget install -e --id Microsoft.VisualStudioCode
-winget install -e --id Microsoft.PowerToys
-winget install -e --id Microsoft.dotnet
-winget install -e --id Python.Python.3
-winget install -e --id Amazon.AWSCLI
-winget install -e --id OpenJS.NodeJS 
-winget install -e --id Docker.DockerDesktop
-winget install -e --id Mirantis.Lens
-winget install -e --id Microsoft.Teams
-winget install -e --id Microsoft.Office
 
 
 # Cleanup desktop icons
@@ -90,12 +28,11 @@ $env:KUBECONFIG = "$env:USERPROFILE\.kube\config"
 [Environment]::SetEnvironmentVariable('KUBECONFIG', $env:KUBECONFIG, 'User')
 
 
-
 Write-Host 'Install WSL Ubuntu' -ForegroundColor Yellow
-$env:WSLENV = 'USERPROFILE/p:APPDATA/p:AWS_PROFILE'
+$env:WSLENV = 'USERPROFILE/p:APPDATA'
 [environment]::setenvironmentvariable('WSLENV', $env:WSLENV, 'USER')
 $wsl_distributions = wsl --list
-if ($wsl_distributions -notcontains "Ubuntu-22.04" -or $wsl_distributions -notcontains "Ubuntu-22.04 (Default)") {
-  ubuntu2204.exe --ui=tui
+if ($wsl_distributions -notcontains "Ubuntu" -or $wsl_distributions -notcontains "Ubuntu (Default)") {
+  ubuntu.exe --ui=tui
 }
-wsl --set-default Ubuntu-22.04
+wsl --set-default Ubuntu
