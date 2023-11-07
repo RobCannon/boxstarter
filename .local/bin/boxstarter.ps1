@@ -5,7 +5,6 @@ winget configure --file $HOME\.config\dsc\personalize.dsc.yaml --accept-configur
 Write-Host "Installing PowerShell modules" -ForegroundColor Yellow
 Set-PSResourceRepository -Name PSGallery -Trusted
 
-Install-PSResource PSReadLine -Reinstall
 Install-PSResource Powershell-yaml -Reinstall
 Install-PSResource posh-git -Reinstall
 Install-PSResource PowerShellForGitHub -Reinstall
@@ -18,8 +17,13 @@ Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Nam
 Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Lens.lnk' } | Remove-Item
 
 
-# Ensure SSH config exists so it can be linked to WSL
-if (-Not (Test-Path $HOME\.ssh)) { New-Item $HOME\.ssh -ItemType Directory | Out-Null }
+# Sync .ssh to 
+if ((Test-Path $HOME\OneDrive\.ssh) -and -Not (Test-Path $HOME\.ssh)) { 
+  New-Item -Path $HOME\.ssh -ItemType SymbolicLink -Value $HOME\OneDrive\.ssh | Out-Null 
+}
+if ((Test-Path $HOME\OneDrive\.aws) -and -Not (Test-Path $HOME\.aws)) { 
+  New-Item -Path $HOME\.aws -ItemType SymbolicLink -Value $HOME\OneDrive\.aws | Out-Null 
+}
 
 # Ensure .kube\config exists so it can be linked to WSL
 if (-Not (Test-Path "$env:USERPROFILE\.kube")) { New-Item "$env:USERPROFILE\.kube" -ItemType Directory | Out-Null }
@@ -29,10 +33,8 @@ $env:KUBECONFIG = "$env:USERPROFILE\.kube\config"
 
 
 Write-Host 'Install WSL Ubuntu' -ForegroundColor Yellow
-$env:WSLENV = 'USERPROFILE/p:APPDATA'
-[environment]::setenvironmentvariable('WSLENV', $env:WSLENV, 'USER')
 $wsl_distributions = wsl --list
 if ($wsl_distributions -notcontains "Ubuntu" -or $wsl_distributions -notcontains "Ubuntu (Default)") {
-  ubuntu.exe --ui=tui
+  ubuntu.exe
 }
 wsl --set-default Ubuntu
