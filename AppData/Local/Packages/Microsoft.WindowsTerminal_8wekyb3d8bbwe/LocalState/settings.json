@@ -31,10 +31,16 @@
     ],
     "copyFormatting": "none",
     "copyOnSelect": false,
-    "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+    "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
     "initialCols": 180,
     "initialRows": 50,
     "multiLinePasteWarning": false,
+    "newTabMenu": 
+    [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
     "profiles": 
     {
         "defaults": 
@@ -47,22 +53,23 @@
         "list": 
         [
             {
-                "backgroundImage": "ms-appdata:///Local/ubuntu-background.jpg",
-                "backgroundImageOpacity": 0.80000000000000004,
-                "commandline": "wsl.exe",
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": false,
-                "icon": "ms-appdata:///Local/ubuntu-icon.png",
-                "name": "Ubuntu 22.04",
-                "startingDirectory": "~/"
-            },
-            {
                 "backgroundImage": "ms-appdata:///Local/pwsh-core.jpg",
                 "backgroundImageOpacity": 0.5,
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
                 "name": "PowerShell",
                 "source": "Windows.Terminal.PowershellCore"
+            },
+            {
+                "backgroundImage": "ms-appdata:///Local/ubuntu-background.jpg",
+                "backgroundImageOpacity": 0.8,
+                "commandline": "wsl.exe",
+                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+                "hidden": false,
+                "icon": "ms-appdata:///Local/ubuntu-icon.png",
+                "name": "Ubuntu 22.04",
+                "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc",
+                "startingDirectory": "~/"
             },
             {
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
@@ -79,14 +86,6 @@
                 "hidden": true,
                 "name": "Azure Cloud Shell",
                 "source": "Windows.Terminal.Azure"
-            },
-            {
-                "closeOnExit": "always",
-                "commandline": "wsl.exe -u root -- hwclock -s && date && sleep 5",
-                "guid": "{363d0a27-fb98-4e1d-a535-e99e64a98802}",
-                "hidden": false,
-                "icon": "ms-appdata:///Local/clock-icon.png",
-                "name": "Update WSL System Clock"
             },
             {
                 "closeOnExit": "always",
@@ -300,29 +299,6 @@
             "cyan": "#3A96DD",
             "foreground": "#FFFFFF",
             "green": "#26A269",
-            "name": "Ubuntu-22.04-ColorScheme",
-            "purple": "#881798",
-            "red": "#C21A23",
-            "selectionBackground": "#FFFFFF",
-            "white": "#CCCCCC",
-            "yellow": "#A2734C"
-        },
-        {
-            "background": "#300A24",
-            "black": "#171421",
-            "blue": "#0037DA",
-            "brightBlack": "#767676",
-            "brightBlue": "#08458F",
-            "brightCyan": "#2C9FB3",
-            "brightGreen": "#26A269",
-            "brightPurple": "#A347BA",
-            "brightRed": "#C01C28",
-            "brightWhite": "#F2F2F2",
-            "brightYellow": "#A2734C",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#3A96DD",
-            "foreground": "#FFFFFF",
-            "green": "#26A269",
             "name": "Ubuntu-ColorScheme",
             "purple": "#881798",
             "red": "#C21A23",
@@ -355,5 +331,6 @@
         }
     ],
     "startOnUserLogin": false,
+    "themes": [],
     "windowingBehavior": "useAnyExisting"
 }
