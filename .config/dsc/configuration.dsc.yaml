@@ -9,7 +9,7 @@ properties:
       settings:
         id: SomePythonThings.WingetUIStore
         source: winget
-  
+
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       directives:
         description: Install PowerShell 7
@@ -49,6 +49,8 @@ properties:
       settings:
         id: Docker.DockerDesktop
         source: winget
+        # Need to specify
+        # winget install Docker.DockerDesktop --override "install --quiet --installation-dir=C:\Docker\"
 
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       directives:
