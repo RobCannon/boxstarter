@@ -137,6 +137,16 @@ properties:
 
     - resource: PSDscResources/Registry
       directives:
+        description: Disable Start Menu Internet Search
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\Search
+        ValueName: BingSearchEnabled
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
         description: Do not Hide File Extensions
       settings:
         Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
