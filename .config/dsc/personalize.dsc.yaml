@@ -52,3 +52,132 @@ properties:
         ValueData: 0
         Force: true
 
+    - resource: PSDscResources/Registry
+      directives:
+        description: Sync provider notifications in File Explorer
+      settings:
+        Key: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+        ValueName: ShowSyncProviderNotifications
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Get fun facts, tips, tricks, and more on your lock screen
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+        ValueName: RotatingLockScreenOverlayEnabled
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Get fun facts, tips, tricks, and more on your lock screen
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+        ValueName: SubscribedContent-338387Enabled
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Show suggested content in Settings app
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+        ValueName: SubscribedContent-338393Enabled
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Show suggested content in Settings app
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+        ValueName: SubscribedContent-353694Enabled
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Show suggested content in Settings app
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+        ValueName: SubscribedContent-353696Enabled
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Get tips and suggestions when using Windows
+      settings:
+        Key: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+        ValueName: SubscribedContent-338389Enabled
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Suggest ways to get the most out of Windows and finish setting up this device
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\UserProfileEngagement
+        ValueName: ScoobeSystemSettingEnabled
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Show me the Windows welcome experience after updates and occasionally when I sign in to highlight what's new and suggested
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager
+        ValueName: SubscribedContent-310093Enabled
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Let apps show me personalized ads by using my advertising ID
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo
+        ValueName: Enabled
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Tailored experiences
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy
+        ValueName: TailoredExperiencesWithDiagnosticDataEnabled
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Show recommendations for tips, shortcuts, new apps, and more" on Start Menu
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+        ValueName: Start_IrisRecommendations
+        ValueType: DWord
+        ValueData: 0
+        Force: true
+
+    - resource: PSDscResources/Registry
+      directives:
+        description: Show Microsoft account-related notifications on Start Menu
+      settings:
+        Key: HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+        ValueName: Start_AccountNotifications
+        ValueType: DWord
+        ValueData: 0
+        Force: true
