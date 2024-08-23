@@ -4,4 +4,4 @@
 [core]
 	autocrlf = true
 [credential]
-	helper = c:\\Program Files\\Git\\mingw64\\bin\\git-credential-manager.exe
+	helper = C:/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
