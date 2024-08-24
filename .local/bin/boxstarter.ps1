@@ -1,4 +1,4 @@
-winget configure --file $HOME\.config\dsc\personalize.dsc.yaml --accept-configuration-agreements 
+winget configure --file $HOME\.config\dsc\configuration.dsc.yaml --accept-configuration-agreements
 
 
 # Install Powershell modules
@@ -17,12 +17,12 @@ Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Nam
 Get-ChildItem "$([Environment]::GetFolderPath('DesktopDirectory'))" | ? { $_.Name -eq 'Lens.lnk' } | Remove-Item
 
 
-# Sync .ssh to 
-if ((Test-Path $HOME\OneDrive\.ssh) -and -Not (Test-Path $HOME\.ssh)) { 
-  New-Item -Path $HOME\.ssh -ItemType SymbolicLink -Value $HOME\OneDrive\.ssh | Out-Null 
+# Sync .ssh to
+if ((Test-Path $HOME\OneDrive\.ssh) -and -Not (Test-Path $HOME\.ssh)) {
+  New-Item -Path $HOME\.ssh -ItemType SymbolicLink -Value $HOME\OneDrive\.ssh | Out-Null
 }
-if ((Test-Path $HOME\OneDrive\.aws) -and -Not (Test-Path $HOME\.aws)) { 
-  New-Item -Path $HOME\.aws -ItemType SymbolicLink -Value $HOME\OneDrive\.aws | Out-Null 
+if ((Test-Path $HOME\OneDrive\.aws) -and -Not (Test-Path $HOME\.aws)) {
+  New-Item -Path $HOME\.aws -ItemType SymbolicLink -Value $HOME\OneDrive\.aws | Out-Null
 }
 
 # Ensure .kube\config exists so it can be linked to WSL
@@ -34,7 +34,7 @@ $env:KUBECONFIG = "$env:USERPROFILE\.kube\config"
 
 Write-Host 'Install WSL Ubuntu' -ForegroundColor Yellow
 $wsl_distributions = wsl --list
-if ($wsl_distributions -notcontains "Ubuntu" -or $wsl_distributions -notcontains "Ubuntu (Default)") {
-  ubuntu.exe
-}
+# if ($wsl_distributions -notcontains "Ubuntu" -or $wsl_distributions -notcontains "Ubuntu (Default)") {
+#   ubuntu.exe
+# }
 wsl --set-default Ubuntu

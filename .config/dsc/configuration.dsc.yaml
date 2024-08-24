@@ -2,45 +2,45 @@
 properties:
   configurationVersion: 0.2.0
   resources:
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install WinGet UI
-        allowPrerelease: true
-      settings:
-        id: SomePythonThings.WingetUIStore
-        source: winget
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   directives:
+    #     description: Install WinGet UI
+    #     allowPrerelease: true
+    #   settings:
+    #     id: SomePythonThings.WingetUIStore
+    #     source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install PowerShell 7
-        allowPrerelease: true
-      settings:
-        id: Microsoft.PowerShell
-        source: winget
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   directives:
+    #     description: Install PowerShell 7
+    #     allowPrerelease: true
+    #   settings:
+    #     id: Microsoft.PowerShell
+    #     source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install Git
-        allowPrerelease: true
-      settings:
-        id: Git.Git
-        source: winget
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   directives:
+    #     description: Install Git
+    #     allowPrerelease: true
+    #   settings:
+    #     id: Git.Git
+    #     source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install GitHub CLI
-        allowPrerelease: true
-      settings:
-        id: GitHub.cli
-        source: winget
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   directives:
+    #     description: Install GitHub CLI
+    #     allowPrerelease: true
+    #   settings:
+    #     id: GitHub.cli
+    #     source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install Visual Studio Code
-        allowPrerelease: true
-      settings:
-        id: Microsoft.VisualStudioCode
-        source: winget
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   directives:
+    #     description: Install Visual Studio Code
+    #     allowPrerelease: true
+    #   settings:
+    #     id: Microsoft.VisualStudioCode
+    #     source: winget
 
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       directives:
@@ -53,67 +53,67 @@ properties:
         # winget install Docker.DockerDesktop --override "install --quiet --installation-dir=C:\Docker\"
         # https://github.com/docker/for-win/issues/13318
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install AWS CLI
-        allowPrerelease: true
-      settings:
-        id: Amazon.AWSCLI
-        source: winget
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   directives:
+    #     description: Install AWS CLI
+    #     allowPrerelease: true
+    #   settings:
+    #     id: Amazon.AWSCLI
+    #     source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install AWS VPN Client
-        allowPrerelease: true
-      settings:
-        id: Amazon.AWSVPNClient
-        source: winget
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   directives:
+    #     description: Install AWS VPN Client
+    #     allowPrerelease: true
+    #   settings:
+    #     id: Amazon.AWSVPNClient
+    #     source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install Microsoft Office
-        allowPrerelease: true
-      settings:
-        id: Microsoft.Office
-        source: winget
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   directives:
+    #     description: Install Microsoft Office
+    #     allowPrerelease: true
+    #   settings:
+    #     id: Microsoft.Office
+    #     source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install Microsoft Teams
-        allowPrerelease: true
-      settings:
-        id: Microsoft.Teams
-        source: winget
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   directives:
+    #     description: Install Microsoft Teams
+    #     allowPrerelease: true
+    #   settings:
+    #     id: Microsoft.Teams
+    #     source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install Ubuntu 22.04 (WSL)
-        allowPrerelease: true
-      settings:
-        id: Canonical.Ubuntu.2204
-        source: winget
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   directives:
+    #     description: Install Ubuntu 22.04 (WSL)
+    #     allowPrerelease: true
+    #   settings:
+    #     id: Canonical.Ubuntu.2204
+    #     source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install Mirantis Lens
-        allowPrerelease: true
-      settings:
-        id: Mirantis.Lens
-        source: winget
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   directives:
+    #     description: Install Mirantis Lens
+    #     allowPrerelease: true
+    #   settings:
+    #     id: Mirantis.Lens
+    #     source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install PowerToys
-      settings:
-        id: Microsoft.PowerToys
-        source: winget
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   directives:
+    #     description: Install PowerToys
+    #   settings:
+    #     id: Microsoft.PowerToys
+    #     source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install oh-my-posh
-      settings:
-        id: JanDeDobbeleer.OhMyPosh
-        source: winget
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   directives:
+    #     description: Install oh-my-posh
+    #   settings:
+    #     id: JanDeDobbeleer.OhMyPosh
+    #     source: winget
 
 
 
