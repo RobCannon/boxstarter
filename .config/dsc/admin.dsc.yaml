@@ -15,7 +15,7 @@ properties:
         description: Set WSL environment variables
       settings:
         Name: WSLENV
-        Value: USERPROFILE/p:APPDATA
+        Value: USERPROFILE/p:APPDATA/p
 
     - resource: DSCR_Font/cFont
       directives:
