@@ -10,6 +10,10 @@ Install-PSResource posh-git -Reinstall
 Install-PSResource PowerShellForGitHub -Reinstall
 Install-PSResource ImportExcel -Reinstall
 Install-PSResource Terminal-Icons -Reinstall
+Install-PSResource Microsoft.Graph -Reinstall
+Install-PSResource Microsoft.WinGet.Client -Reinstall
+Install-PSResource ExchangeOnlineManagement -Reinstall
+Install-PSResource PnP.PowerShel -Reinstall
 
 
 # Cleanup desktop icons
