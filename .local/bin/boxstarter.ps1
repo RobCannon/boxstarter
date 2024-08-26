@@ -13,7 +13,7 @@ Install-PSResource Terminal-Icons -Reinstall
 Install-PSResource Microsoft.Graph -Reinstall
 Install-PSResource Microsoft.WinGet.Client -Reinstall
 Install-PSResource ExchangeOnlineManagement -Reinstall
-Install-PSResource PnP.PowerShel -Reinstall
+Install-PSResource PnP.PowerShell -Reinstall
 
 
 # Cleanup desktop icons
