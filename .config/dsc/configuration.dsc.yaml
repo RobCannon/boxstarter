@@ -42,16 +42,16 @@ properties:
     #     id: Microsoft.VisualStudioCode
     #     source: winget
 
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
-        description: Install Docker Desktop
-        allowPrerelease: true
-      settings:
-        id: Docker.DockerDesktop
-        source: winget
-        # Need to specify
-        # winget install Docker.DockerDesktop --override "install --quiet --installation-dir=C:\Docker\"
-        # https://github.com/docker/for-win/issues/13318
+    # - resource: Microsoft.WinGet.DSC/WinGetPackage
+    #   directives:
+    #     description: Install Docker Desktop
+    #     allowPrerelease: true
+    #   settings:
+    #     id: Docker.DockerDesktop
+    #     source: winget
+    #     # Need to specify
+    #     # winget install Docker.DockerDesktop --override "install --quiet --installation-dir=C:\Docker\"
+    #     # https://github.com/docker/for-win/issues/13318
 
     # - resource: Microsoft.WinGet.DSC/WinGetPackage
     #   directives:

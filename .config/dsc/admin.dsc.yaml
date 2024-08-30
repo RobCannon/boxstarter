@@ -15,7 +15,7 @@ properties:
         description: Set WSL environment variables
       settings:
         Name: WSLENV
-        Value: USERPROFILE/p:APPDATA/p
+        Value: USERPROFILE/p:APPDATA/p:K6_TOKEN:JIRA_USERNAME:JIRA_TOKEN
 
     - resource: DSCR_Font/cFont
       directives:

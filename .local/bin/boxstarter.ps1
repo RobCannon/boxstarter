@@ -37,9 +37,9 @@ $env:KUBECONFIG = "$env:USERPROFILE\.kube\config"
 [Environment]::SetEnvironmentVariable('KUBECONFIG', $env:KUBECONFIG, 'User')
 
 
-Write-Host 'Install WSL Ubuntu' -ForegroundColor Yellow
-$wsl_distributions = wsl --list
-# if ($wsl_distributions -notcontains "Ubuntu" -or $wsl_distributions -notcontains "Ubuntu (Default)") {
-#   ubuntu.exe
-# }
-wsl --set-default Ubuntu
+# Write-Host 'Install WSL Ubuntu' -ForegroundColor Yellow
+# $wsl_distributions = wsl --list
+# # if ($wsl_distributions -notcontains "Ubuntu" -or $wsl_distributions -notcontains "Ubuntu (Default)") {
+# #   ubuntu.exe
+# # }
+# wsl --set-default Ubuntu
