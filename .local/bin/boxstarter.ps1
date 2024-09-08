@@ -5,16 +5,17 @@ winget configure --file $HOME\.config\dsc\configuration.dsc.yaml --accept-config
 Write-Host "Installing PowerShell modules" -ForegroundColor Yellow
 Set-PSResourceRepository -Name PSGallery -Trusted
 
-Install-PSResource Powershell-yaml -Reinstall
-Install-PSResource posh-git -Reinstall
-Install-PSResource PowerShellForGitHub -Reinstall
-Install-PSResource ImportExcel -Reinstall
-Install-PSResource Terminal-Icons -Reinstall
-Install-PSResource Microsoft.Graph -Reinstall
-Install-PSResource Microsoft.WinGet.Client -Reinstall
-Install-PSResource ExchangeOnlineManagement -Reinstall
-Install-PSResource PnP.PowerShell -Reinstall
-Install-PSResource PSWriteHTML -Reinstall
+Install-PSResource -Name Powershell-yaml -Reinstall
+Install-PSResource -Name posh-git -Reinstall
+Install-PSResource -Name PowerShellForGitHub -Reinstall
+Install-PSResource -Name ImportExcel -Reinstall
+Install-PSResource -Name Terminal-Icons -Reinstall
+Install-PSResource -Name Microsoft.Graph -Reinstall
+Install-PSResource -Name Microsoft.WinGet.Client -Reinstall
+Install-PSResource -Name ExchangeOnlineManagement -Reinstall
+Install-PSResource -Name PnP.PowerShell -Reinstall
+Install-PSResource -Name PSWriteHTML -Reinstall
+Install-PSResource -Name Microsoft.WinGet.DSC -Prerelease
 
 
 # Cleanup desktop icons
